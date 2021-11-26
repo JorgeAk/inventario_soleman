@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\DB;
 use Auth;
 
 class HomeController extends Controller
@@ -30,17 +31,21 @@ class HomeController extends Controller
 
     public function index1(){
 
+        $mensaje ="";
+
         if(Auth::user()->tipo_usuario == 1){ 
-            return view('admin_panel/index'); 
+            return view('admin_panel/index', compact('mensaje')); 
         }else{
             return view('home');
         }
     }
 
     public function generar_diagrama(){
+        $periodo = DB::table('periodo')->get();
+        $mensaje = "";
 
         if(Auth::user()->tipo_usuario == 1){ 
-            return view('admin_panel/diagrama'); 
+            return view('admin_panel/diagrama',compact('periodo','mensaje')); 
         }else{
             return view('home');
         }

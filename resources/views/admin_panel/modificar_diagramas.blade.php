@@ -177,124 +177,95 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h4 class="text-themecolor">Home</h4>
+                        <h4 class="text-themecolor">Diagrama de Gantt</h4>
                     </div>
                     <div class="col-md-7 align-self-center text-right">
                         <div class="d-flex justify-content-end align-items-center">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                                <li class="breadcrumb-item active">Inicio</li>
+                                <li class="breadcrumb-item"><a href="javascript:void(0)">Diagramas</a></li>
+                                <li class="breadcrumb-item active">Generar</li>
                             </ol>
                         </div>
                     </div>
                 </div>
                 <!-- ============================================================== -->
+                <!-- Formulario -->
+                <!-- ============================================================== -->
+
+                <!-- Row -->
+                <!-- ============================================================== -->
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
                 <!-- ============================================================== -->
-                <!-- Info box -->
+                <!-- Start Page Content -->
                 <!-- ============================================================== -->
-                <div class="card-group">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="d-flex no-block align-items-center">
-                                        <div>
-                                            <h3><i class="icon-screen-desktop"></i></h3>
-                                            <p class="text-muted">NUEVOS PRODUCTOS</p>
-                                        </div>
-                                        <div class="ml-auto">
-                                            <h2 class="counter text-primary">23</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="progress">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 85%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                        <div class="card-header bg-danger">
+                                <h4 class="m-b-0 text-white">Mis diagramas</h4>
                             </div>
-                        </div>
-                    </div>
-                    <!-- Column -->
-                    <!-- Column -->
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="d-flex no-block align-items-center">
-                                        <div>
-                                            <h3><i class="icon-note"></i></h3>
-                                            <p class="text-muted">SUCURSALES</p>
-                                        </div>
-                                        <div class="ml-auto">
-                                            <h2 class="counter text-cyan">169</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="progress">
-                                        <div class="progress-bar bg-cyan" role="progressbar" style="width: 85%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Column -->
-                    <!-- Column -->
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="d-flex no-block align-items-center">
-                                        <div>
-                                            <h3><i class="icon-doc"></i></h3>
-                                            <p class="text-muted">TRASLADOS</p>
-                                        </div>
-                                        <div class="ml-auto">
-                                            <h2 class="counter text-purple">157</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="progress">
-                                        <div class="progress-bar bg-purple" role="progressbar" style="width: 85%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Column -->
-                    <!-- Column -->
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="d-flex no-block align-items-center">
-                                        <div>
-                                            <h3><i class="icon-bag"></i></h3>
-                                            <p class="text-muted">DIAGRAMAS</p>
-                                        </div>
-                                        <div class="ml-auto">
-                                            <h2 class="counter text-success">431</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 85%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
+                            <div class="card-body">
+                                
+                                <h6 class="card-subtitle">Exportar tabla : Copiar, CSV, Excel, PDF & Imprimir</h6>
+                                <div class="table-responsive m-t-40">
+                                    <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Descripción</th>
+                                                <th>Duración</th>
+                                                <th>Periodo</th>
+                                                <th>creacion</th>
+                                                <th>Modificacion</th>
+                                                <th>Acciónes</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Descripción</th>
+                                                <th>Duración</th>
+                                                <th>Periodo</th>
+                                                <th>creacion</th>
+                                                <th>Modificacion</th>
+                                                <th>Acciónes</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            @foreach($diagramas as $diag)
+                                            <tr>
+                                                <td>{{$diag->nombre}}</td>
+                                                <td>{{$diag->descripcion}}</td>
+                                                <td>{{$diag->duracion}}</td>
+                                                <td>@foreach($periodo as $per)@if($diag->id_periodo == $per->id){{$per->nombre}} @endif @endforeach</td>
+                                                <td>{{$diag->created_at}}</td>
+                                                <td>{{$diag->updated_at}}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-success btn-circle waves-light"><i class="fa fa-eye" title="Ver" data-toggle="tooltip"></i></button>
+                                                    <button type="button" class="btn btn-warning btn-circle waves-light"><i class="fa fa-pencil-square-o" title="Modificar" data-toggle="tooltip"></i></button>
+                                                    <button type="button" class="btn btn-danger btn-circle  waves-light"><i class="fa fa-trash-o" title="Eliminar" data-toggle="tooltip"></i></button>
+                                                </td>
+                                            </tr>
+
+                                            @endforeach
+
+
+
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- ============================================================== -->
-                <!-- End Info box -->
+                <!-- End PAge Content -->
                 <!-- ============================================================== -->
+                <!-- Row -->
+
                 <!-- ============================================================== -->
-                <!-- Over Visitor, Our income , slaes different and  sales prediction -->
+                <!-- End Formulario -->
                 <!-- ============================================================== -->
 
             </div>
