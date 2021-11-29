@@ -20,6 +20,7 @@ class CreateTareasTable extends Migration
             $table->integer('id_diagrama');
             $table->integer('f_inicio');
             $table->integer('f_fin');
+            $table->string('color');
             $table->timestamps();
         });
     }

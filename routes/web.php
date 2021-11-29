@@ -35,3 +35,11 @@ Route::post('/admin/diagramas/agregar',[App\Http\Controllers\DiagramaController:
 Route::get('/admin/diagramas/mis/diagramas',[App\Http\Controllers\DiagramaController::class,'mis_diagramas'],function(){
     
 })->middleware('auth')->name('mis_diagramas');
+
+Route::get('/admin/diagramas/mis/diagramas/{id}',[App\Http\Controllers\DiagramaController::class,'diagrama'],function(){
+    
+})->middleware('auth')->name('mis_diagramas/diagrama');
+
+Route::post('/admin/diagramas/mis/diagramas/tarea/nueva',[App\Http\Controllers\DiagramaController::class,'tarea_nueva'],function(){
+    
+})->middleware('auth')->name('tarea/nueva');

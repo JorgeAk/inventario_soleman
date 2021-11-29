@@ -185,6 +185,7 @@
                                 <li class="breadcrumb-item"><a href="javascript:void(0)">Diagramas</a></li>
                                 <li class="breadcrumb-item active">Generar</li>
                             </ol>
+
                         </div>
                     </div>
                 </div>
@@ -194,69 +195,100 @@
 
                 <!-- Row -->
                 <!-- ============================================================== -->
-                <!-- End Bread crumb and right sidebar toggle -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                        <div class="card-header bg-danger">
-                                <h4 class="m-b-0 text-white">Mis diagramas</h4>
+                            <div class="card-header bg-danger">
+                                <h4 class="m-b-0 text-white">Mi diagrama</h4>
                             </div>
                             <div class="card-body">
-                                
-                                <h6 class="card-subtitle">Exportar tabla : Copiar, CSV, Excel, PDF & Imprimir</h6>
-                                <div class="table-responsive m-t-40">
-                                    <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
-                                        <thead>
-                                            <tr>
-                                                <th>Nombre</th>
-                                                <th>Descripción</th>
-                                                <th>Duración</th>
-                                                <th>Periodo</th>
-                                                <th>creacion</th>
-                                                <th>Modificacion</th>
-                                                <th>Acciónes</th>
-                                            </tr>
-                                        </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Nombre</th>
-                                                <th>Descripción</th>
-                                                <th>Duración</th>
-                                                <th>Periodo</th>
-                                                <th>creacion</th>
-                                                <th>Modificacion</th>
-                                                <th>Acciónes</th>
-                                            </tr>
-                                        </tfoot>
-                                        <tbody>
-                                            @foreach($diagramas as $diag)
-                                            <tr>
-                                                <td>{{$diag->nombre}}</td>
-                                                <td>{{$diag->descripcion}}</td>
-                                                <td>{{$diag->duracion}}</td>
-                                                <td>@foreach($periodo as $per)@if($diag->id_periodo == $per->id){{$per->nombre}} @endif @endforeach</td>
-                                                <td>{{$diag->created_at}}</td>
-                                                <td>{{$diag->updated_at}}</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-success btn-circle waves-light"><i class="fa fa-eye" title="Ver" data-toggle="tooltip"></i></button>
-                                                    <button type="button" class="btn btn-warning btn-circle waves-light"><i class="fa fa-pencil-square-o" title="Modificar" data-toggle="tooltip"></i></button>
-                                                    <button type="button" class="btn btn-danger btn-circle  waves-light"><i class="fa fa-trash-o" title="Eliminar" data-toggle="tooltip"></i></button>
-                                                </td>
-                                            </tr>
-
-                                            @endforeach
-
-
-
-                                        </tbody>
-                                    </table>
+                                <h4 class="card-title">Bootstrap Simple Table</h4>
+                                <h6 class="card-subtitle">Simple table example</h6>
+                                <div class="row show-grid">
+                                    <div class="col-xs-6 col-sm-4"></div>
+                                    <div class="col-xs-6 col-sm-4">
+                                        <button type="button" type="button" data-toggle="modal" data-target="#exampleModal" data-whatever="@fat" class="btn btn-danger d-none d-lg-block m-l-15  m-t-30  m-b-10">
+                                            <i class="fa fa-plus-circle"></i> Agregar nueva tarea</button></div>
+                                    <!-- Optional: clear the XS cols if their content doesn't match in height -->
+                                    <div class="clearfix visible-xs"></div>
+                                    <div class="col-xs-6 col-sm-4"></div>
                                 </div>
+
+                                <table id="example23" class="table table-bordered table-striped compact">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Tarea x @if($periodo== 1) {{"Dia"}} @endif @if($periodo== 2) {{"Mes"}} @endif @if($periodo== 3) {{"Años"}} @endif</th>
+                                            @for ($i = 1; $i <= $maximo ; $i++) <th>{{$i}}</th>@endfor
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($tareas as $tarea)
+                                        <tr>
+                                            <td>{{$tarea->nombre}}<br>{{$tarea->descripcion}}</td>
+                                            @for ($i = 1; $i <= $maximo ; $i++) 
+                                          
+                                            @if(($i>= $tarea->f_inicio) && ($i<= $tarea->f_fin))
+                                                    <td style="background: {{$tarea->color}};"> </td>
+                                                    @else
+                                                    <td></td>
+                                                    @endif
+                                                    @endfor
+                                        </tr>
+                                        @endforeach
+
+                                    </tbody>
+                                </table>
+                                <!-- Modal ---------->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                                    <div class="modal-dialog  " role="document">
+                                        <div class="modal-content ">
+                                            <div class="modal-header bc-colored bg-danger">
+                                                <h4 class="modal-title" id="exampleModalLabel1">Nueva tarea</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="{{route('tarea/nueva')}}" method="POST">
+                                                    @csrf
+                                                    <input hidden type="text" name="dg" value="{{$dg}}" class="form-control">
+
+                                                    <div class="form-group">
+                                                        <label for="recipient-name" class="control-label">Nombre de la tarea:</label>
+                                                        <input type="text" name="nombre" class="form-control">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="message-text" class="control-label">Descripción:</label>
+                                                        <textarea class="form-control" name="descripcion" id="message-text1"></textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="recipient-name" class="control-label">Inicio:</label>
+                                                        <input type="number" name="f_inicio" min="1" max="{{$maximo}}" class="form-control">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="recipient-name" class="control-label">Fin:</label>
+                                                        <input type="number" name="f_fin" min="1" max="{{$maximo}}" class="form-control">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="recipient-name" class="control-label">Color:</label>
+                                                        <input type="color" name="color" class="form-control">
+                                                    </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                <button type="submit" class="btn btn-danger">Guardar</button>
+                                            </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Modal ---------->
+
                             </div>
                         </div>
+                        <!-- Table -->
                     </div>
                 </div>
                 <!-- ============================================================== -->

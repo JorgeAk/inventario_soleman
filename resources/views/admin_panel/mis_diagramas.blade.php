@@ -242,7 +242,7 @@
                                                 <td>{{$diag->created_at}}</td>
                                                 <td>{{$diag->updated_at}}</td>
                                                 <td>
-                                                    <button type="button" class="btn btn-success btn-circle waves-light"><i class="fa fa-eye" title="Ver" data-toggle="tooltip"></i></button>
+                                                    <button type="button" class="btn btn-success btn-circle waves-light"><a class=""  href="{{route('mis_diagramas/diagrama',$diag->id)}}" style="color: #f9f9f9;" ><i class="fa fa-eye" title="Ver" data-toggle="tooltip"></i></a></button>
                                                     <button type="button" class="btn btn-warning btn-circle waves-light"><i class="fa fa-pencil-square-o" title="Modificar" data-toggle="tooltip"></i></button>
                                                     <button type="button" class="btn btn-danger btn-circle  waves-light"><i class="fa fa-trash-o" title="Eliminar" data-toggle="tooltip"></i></button>
                                                 </td>
