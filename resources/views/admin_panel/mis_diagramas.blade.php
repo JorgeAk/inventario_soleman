@@ -27,7 +27,7 @@
                 <!-- Logo -->
                 <!-- ============================================================== -->
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="{{route('admin')}}">
                         <!-- Logo icon --><b>
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
@@ -80,7 +80,7 @@
                             <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{asset('res/assets/images/users/1.jpg')}}" alt="user" class=""> <span class="hidden-md-down">{{ Auth::user()->name }} &nbsp;<i class="fa fa-angle-down"></i></span> </a>
                             <div class="dropdown-menu dropdown-menu-right animated flipInY">
                                 <!-- text-->
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="ti-user"></i> Mi Perfil</a>
+                                <a href="{{route('admin/perfil')}}" class="dropdown-item"><i class="ti-user"></i> Mi Perfil</a>
                                 <!-- text-->
                                 <div class="dropdown-divider"></div>
                                 <!-- text-->
@@ -114,7 +114,7 @@
                     <ul id="sidebarnav">
                         <li class="user-pro"> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><img src="{{asset('res/assets/images/users/1.jpg')}}" alt="user-img" class="img-circle"><span class="hide-menu">{{ Auth::user()->name }}</span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="javascript:void(0)"><i class="ti-user"></i> Mi Perfil</a></li>
+                                <li><a href="{{route('admin/perfil')}}"><i class="ti-user"></i> Mi Perfil</a></li>
                                 <li><a href="javascript:void(0)"><i class="ti-settings"></i> Configuración</a></li>
                                 <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i> Salir</a></li>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -151,7 +151,7 @@
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-settings"></i><span class="hide-menu">Configuración <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="app-email.html">Usuarios</a></li>
-                                <li><a href="app-email-detail.html">Mi perfil</a></li>
+                                <li><a href="{{route('admin/perfil')}}">Mi perfil</a></li>
                             </ul>
                         </li>
 
@@ -202,11 +202,11 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                        <div class="card-header bg-danger">
+                            <div class="card-header bg-danger">
                                 <h4 class="m-b-0 text-white">Mis diagramas</h4>
                             </div>
                             <div class="card-body">
-                                
+
                                 <h6 class="card-subtitle">Exportar tabla : Copiar, CSV, Excel, PDF & Imprimir</h6>
                                 <div class="table-responsive m-t-40">
                                     <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
@@ -242,19 +242,117 @@
                                                 <td>{{$diag->created_at}}</td>
                                                 <td>{{$diag->updated_at}}</td>
                                                 <td>
-                                                    <button type="button" class="btn btn-success btn-circle waves-light"><a class=""  href="{{route('mis_diagramas/diagrama',$diag->id)}}" style="color: #f9f9f9;" ><i class="fa fa-eye" title="Ver" data-toggle="tooltip"></i></a></button>
-                                                    <button type="button" class="btn btn-warning btn-circle waves-light"><i class="fa fa-pencil-square-o" title="Modificar" data-toggle="tooltip"></i></button>
-                                                    <button type="button" class="btn btn-danger btn-circle  waves-light"><i class="fa fa-trash-o" title="Eliminar" data-toggle="tooltip"></i></button>
+                                                    <button type="button" class="btn btn-success btn-circle waves-light"><a class="" href="{{route('mis_diagramas/diagrama',$diag->id)}}" style="color: #f9f9f9;"><i class="fa fa-eye" title="Ver" data-toggle="tooltip"></i></a></button>
+                                                    <button type="button" class="btn btn-warning btn-circle waves-light" data-toggle="modal" data-target="#exampleModal-{{$diag->id}}"><i class="fa fa-pencil-square-o" title="Modificar" data-toggle="tooltip"></i></button>
+                                                    <button type="button" class="btn btn-danger btn-circle  waves-light" data-toggle="modal" data-target="#exampleModal-del{{$diag->id}}"><i class="fa fa-trash-o" title="Eliminar" data-toggle="tooltip"></i></button>
                                                 </td>
                                             </tr>
-
                                             @endforeach
-
-
-
                                         </tbody>
                                     </table>
                                 </div>
+                                @foreach($diagramas as $diag)
+                                <!-- Modal ---------->
+                                <div class="modal fade" id="exampleModal-{{$diag->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header bc-colored bg-danger">
+                                                <h4 class="modal-title" id="exampleModalLabel1">Diagrama: {{$diag->nombre}}</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="{{route('mis_diagramas/actualizar')}}" method="POST">
+                                                    @csrf
+                                                    <input hidden type="text" name="dg" value="{{$diag->id}}" class="form-control">
+                                                    <div class="form-body">                                                       
+                                                        <div class="row p-t-20">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Nombre del diagrama</label>
+                                                                    <input type="text" id="firstName" name="n_diagrama" value="{{$diag->nombre}}" class="form-control" placeholder="Nombre del diagrama">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Descripción</label>
+                                                                    <textarea class="form-control" name="d_diagrama" rows="2">{{$diag->descripcion}}</textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--/row-->
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Duracion total</label>
+                                                                    <input type="text" id="firstName" name="duracion_diagrama" value="{{$diag->duracion}}" class="form-control" placeholder="Numero de (dias,meses,años)">
+                                                                </div>
+                                                            </div>
+                                                            <!--/span-->
+                                                            <div class="col-md-6">
+                                                                <label class="control-label text-right ">Dividir Duracion total en:</label>
+                                                                <div class="col-md-9">
+                                                                    @foreach($periodo as $pr)
+                                                                    <div class="custom-control custom-radio">
+                                                                        @if($pr->id== $diag->id_periodo)
+                                                                        <input type="radio" id="customRadio{{$pr->id}}{{$diag->id}}" name="duracion_dividir" value="{{$pr->id}}" class="custom-control-input" checked>
+                                                                        <label class="custom-control-label" for="customRadio{{$pr->id}}{{$diag->id}}">{{$pr->nombre}}</label>
+                                                                        @else
+                                                                        <input type="radio" id="customRadio{{$pr->id}}{{$diag->id}}" name="duracion_dividir" value="{{$pr->id}}" class="custom-control-input">
+                                                                        <label class="custom-control-label" for="customRadio{{$pr->id}}{{$diag->id}}">{{$pr->nombre}}</label>
+                                                                        @endif
+                                                                        
+                                                                        
+                                                                    </div>
+                                                                    @endforeach
+                                                                </div>
+                                                            </div>
+                                                            <!--/span-->
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                <button type="submit" class="btn btn-danger">Guardar</button>
+                                            </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Modal ---------->
+                                @endforeach
+
+                                 <!-- Modal DEL---------->
+                                 @foreach($diagramas as $diag)
+                                <div class="modal fade" id="exampleModal-del{{$diag->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                                    <div class="modal-dialog  " role="document">
+                                        <div class="modal-content ">
+                                            <div class="modal-header bc-colored bg-danger">
+                                                <h4 class="modal-title" id="exampleModalLabel1">Eliminar diagrama: {{$diag->nombre}}</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="{{route('diagrama/eliminar')}}" method="POST">
+                                                    @csrf
+                                                    <input hidden type="text" name="dg" value="{{$diag->id}}" class="form-control">
+                                                    <div class="alert alert-warning">
+                                                        <h3 class="text-warning"><i class="fa fa-exclamation-triangle"></i> Deseas eliminar el Diagrama:</h3>
+                                                        Nombre: {{$diag->nombre}} <br>
+                                                        Descripción: {{$diag->descripcion}}<br>
+                                                        Esta acción no se podrá revertir
+                                                    </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endforeach
+                                <!-- End Modal DEL ---------->
+
                             </div>
                         </div>
                     </div>

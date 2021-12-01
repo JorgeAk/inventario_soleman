@@ -17,12 +17,11 @@ class DiagramaController extends Controller
     }
 
 
-    public function mis_diagramas()
+    public function mis_diagramas($mensaje="")
     {
 
         $mi_id = Auth::id();
         //dd($mi_id);
-        $mensaje = "";
         $diagramas = DB::table('diagramas')->where('id_usuario', $mi_id)->get();
         $periodo = DB::table('periodo')->get();
 
@@ -85,6 +84,51 @@ class DiagramaController extends Controller
         }
     }
 
+    public function diagramas_actualizar(Request $request)
+    {
+        //dd($_POST);
+        
+        $mi_id = Auth::id();
+        $nombre = $request->input('n_diagrama');
+        $descripcion = $request->input('d_diagrama');
+        $duracion = $request->input('duracion_diagrama');
+        $id_periodo = $request->input('duracion_dividir');
+        $usuario = Auth::user()->id;
+        $dia = Carbon::now();
+        $periodo = DB::table('periodo')->get();
+        $id_diagrama = $request->input('dg');
+        //dd($_POST);
+        $mensaje = "";
+        $post = (isset($nombre) && !empty($nombre)) && (isset($descripcion) && !empty($descripcion)) && (isset($duracion) && !empty($duracion)) && (isset($id_periodo) && !empty($id_periodo)) && (isset($usuario) && !empty($usuario)) && (isset($id_diagrama) && !empty($id_diagrama));
+        
+        if($post){
+            $mensaje = "Diagrama Actualizado con exito";
+            $insert = DB::table('diagramas')->where('id',$id_diagrama)->update([
+                'nombre' => $nombre, 'descripcion' => $descripcion,
+                'id_usuario' => $usuario, 'id_periodo' => $id_periodo, 'duracion' => $duracion, 'updated_at' => "$dia"
+            ]);
+
+        }else{
+            $mensaje = "Diagrama no Actualizado verfica los datos";
+        }
+
+        return $this->mis_diagramas();       
+    }
+
+    public function diagramas_eliminar(Request $request)
+    {
+        $mi_id = Auth::id();       
+        $id_diagrama = $request->input('dg');
+        $delete = DB::table('diagramas')->where('id', $id_diagrama)->delete();
+        $delete_tarea =  $delete = DB::table('tareas')->where('id_diagrama', $id_diagrama)->delete();
+        if ($delete) {
+            $mensaje = "Diagrama eliminado";
+        } else {
+            $mensaje = "ERROR Diagrama no eliminado verifica datos";
+        }
+        return $this->mis_diagramas($mensaje); 
+    }
+
     public function tarea_nueva(Request $request)
     {
 
@@ -102,7 +146,8 @@ class DiagramaController extends Controller
         ]);
 
         $mensaje = "Tarea generada con exito";
-        return $this->diagrama($mi_id, $mensaje);
+        
+        return $this->diagrama($id_diagrama, $mensaje);
     }
 
     public function tarea_actualizar(Request $request)
@@ -128,7 +173,7 @@ class DiagramaController extends Controller
         } else {
             $mensaje = "Tarea no Actualizada verfica los datos";
         }
-        return $this->diagrama($mi_id, $mensaje);
+        return $this->diagrama($id_diagrama, $mensaje);
     }
 
     public function tarea_eliminar(Request $request)
@@ -143,6 +188,6 @@ class DiagramaController extends Controller
         } else {
             $mensaje = "ERROR Tarea no eliminada verifica datos";
         }
-        return $this->diagrama($mi_id, $mensaje);
+        return $this->diagrama($id_diagrama, $mensaje);
     }
 }

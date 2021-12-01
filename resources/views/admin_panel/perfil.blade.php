@@ -177,13 +177,13 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h4 class="text-themecolor">Home</h4>
+                        <h4 class="text-themecolor">Perfil</h4>
                     </div>
                     <div class="col-md-7 align-self-center text-right">
                         <div class="d-flex justify-content-end align-items-center">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{route('admin')}}">Home</a></li>
-                                <li class="breadcrumb-item active">Inicio</li>
+                                <li class="breadcrumb-item active">Perfil</li>
                             </ol>
                         </div>
                     </div>
@@ -194,102 +194,107 @@
                 <!-- ============================================================== -->
                 <!-- Info box -->
                 <!-- ============================================================== -->
-                <div class="card-group">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="d-flex no-block align-items-center">
-                                        <div>
-                                            <h3><i class="icon-screen-desktop"></i></h3>
-                                            <p class="text-muted">NUEVOS PRODUCTOS</p>
-                                        </div>
-                                        <div class="ml-auto">
-                                            <h2 class="counter text-primary">23</h2>
-                                        </div>
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <!-- Row -->
+                <div class="row">
+                    <!-- Column -->
+                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <center class="m-t-30"> <img src="{{asset('res/assets/images/users/1.jpg')}}" class="img-circle" width="150" />
+                                    <h4 class="card-title m-t-10">{{ Auth::user()->name }}</h4>
+                                    <h6 class="card-subtitle">Tipo de usuario: @if(Auth::user()->tipo_usuario == 1) {{"Administrador"}} @endif @if(Auth::user()->tipo_usuario == 2) {{"Usuario 2"}} @endif</h6>
+                                    <div class="row text-center justify-content-md-center">
+                                        <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-people"></i> <font class="font-medium">254</font></a></div>
+                                        <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-picture"></i> <font class="font-medium">54</font></a></div>
                                     </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="progress">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 85%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                </center>
+                            </div>
+                            <div>
+                                <hr> </div>
+                            <div class="card-body"> <small class="text-muted">Dirección de correo </small>
+                                <h6>{{Auth::user()->email}}</h6> <small class="text-muted p-t-30 db">Teléfono</small>
+                                <h6>+91 654 784 547</h6> 
+                                <small class="text-muted p-t-30 db">Social Profile</small>
+                                <br/>
+                                <button class="btn btn-circle btn-secondary"><i class="fa fa-facebook"></i></button>
+                                <button class="btn btn-circle btn-secondary"><i class="fa fa-twitter"></i></button>
+                                <button class="btn btn-circle btn-secondary"><i class="fa fa-youtube"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <!-- Column -->
+                    <div class="col-lg-8 col-xlg-9 col-md-7">
+                        <div class="card">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs profile-tab" role="tablist">
+                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab">Configuración</a> </li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="home" role="tabpanel">
+                                <div class="card-body">
+                                        <form class="form-horizontal form-material">
+                                            <div class="form-group">
+                                                <label class="col-md-12">Nombre</label>
+                                                <div class="col-md-12">
+                                                    <input type="text" name="nombre" value="{{Auth::user()->name}}" placeholder="Nombre" class="form-control form-control-line">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="example-email" class="col-md-12">Correo</label>
+                                                <div class="col-md-12">
+                                                    <input type="email" name="correo" value="{{Auth::user()->email}}" placeholder="Correo" class="form-control form-control-line" name="example-email" id="example-email">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-12">Contraseña</label>
+                                                <div class="col-md-12">
+                                                    <input type="password" name="password" value="password" class="form-control form-control-line">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-12">Selecciona tipo de usuario</label>
+                                                <div class="col-sm-12">
+                                                    <select name="tipo_usuario" class="form-control form-control-line">
+                                                        <option value="1">Administrador</option>
+                                                        <option value="2">Usuario</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-12">Selecciona Sucursal</label>
+                                                <div class="col-sm-12">
+                                                    <select class="form-control form-control-line">
+                                                        <option>Morelia</option>
+                                                        <option>Queretaro</option>
+                                                        <option>Usa</option>
+                                                        <option>Canada</option>
+                                                        <option>Thailand</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group text-center">
+                                                <div class="col-sm-12">
+                                                    <button class="btn btn-success">Actualizar Perfil</button>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- Column -->
-                    <!-- Column -->
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="d-flex no-block align-items-center">
-                                        <div>
-                                            <h3><i class="icon-note"></i></h3>
-                                            <p class="text-muted">SUCURSALES</p>
-                                        </div>
-                                        <div class="ml-auto">
-                                            <h2 class="counter text-cyan">169</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="progress">
-                                        <div class="progress-bar bg-cyan" role="progressbar" style="width: 85%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Column -->
-                    <!-- Column -->
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="d-flex no-block align-items-center">
-                                        <div>
-                                            <h3><i class="icon-doc"></i></h3>
-                                            <p class="text-muted">TRASLADOS</p>
-                                        </div>
-                                        <div class="ml-auto">
-                                            <h2 class="counter text-purple">157</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="progress">
-                                        <div class="progress-bar bg-purple" role="progressbar" style="width: 85%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Column -->
-                    <!-- Column -->
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="d-flex no-block align-items-center">
-                                        <div>
-                                            <h3><i class="icon-bag"></i></h3>
-                                            <p class="text-muted">DIAGRAMAS</p>
-                                        </div>
-                                        <div class="ml-auto">
-                                            <h2 class="counter text-success">431</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 85%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
+                <!-- Row -->
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                
                 <!-- ============================================================== -->
                 <!-- End Info box -->
                 <!-- ============================================================== -->

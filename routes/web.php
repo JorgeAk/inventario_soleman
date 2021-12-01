@@ -25,6 +25,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/admin',[App\Http\Controllers\HomeController::class, 'index1'],function(){ 
 })->middleware('auth')->name('admin');
 
+Route::get('/admin/perfil',[App\Http\Controllers\HomeController::class, 'perfil'],function(){ 
+})->middleware('auth')->name('admin/perfil');
+
 Route::get('/admin/diagramas',[App\Http\Controllers\HomeController::class, 'generar_diagrama'],function(){ 
 })->middleware('auth')->name('diagramas');
 
@@ -35,6 +38,14 @@ Route::post('/admin/diagramas/agregar',[App\Http\Controllers\DiagramaController:
 Route::get('/admin/diagramas/mis/diagramas',[App\Http\Controllers\DiagramaController::class,'mis_diagramas'],function(){
     
 })->middleware('auth')->name('mis_diagramas');
+
+Route::post('/admin/diagramas/mis/diagramas/actualizar',[App\Http\Controllers\DiagramaController::class,'diagramas_actualizar'],function(){
+    
+})->middleware('auth')->name('mis_diagramas/actualizar');
+
+Route::post('/admin/diagramas/mis/diagramas/eliminar',[App\Http\Controllers\DiagramaController::class,'diagramas_eliminar'],function(){
+    
+})->middleware('auth')->name('diagrama/eliminar');
 
 Route::get('/admin/diagramas/mis/diagramas/{id}',[App\Http\Controllers\DiagramaController::class,'diagrama'],function(){
     

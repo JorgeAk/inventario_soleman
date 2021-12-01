@@ -40,6 +40,17 @@ class HomeController extends Controller
         }
     }
 
+    public function perfil(){
+
+        $mensaje ="";
+
+        if(Auth::user()){ 
+            return view('admin_panel/perfil', compact('mensaje')); 
+        }else{
+            return view('home');
+        }
+    }
+
     public function generar_diagrama(){
         $periodo = DB::table('periodo')->get();
         $mensaje = "";

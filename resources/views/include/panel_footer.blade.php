@@ -234,9 +234,10 @@
         "paging": false,
         "ordering": false,
         "info": false,
+        "sScrollY": "500px",
         "scrollX": true,
         buttons: [
-            'copy', 'csv', 'excel',
+            'copy', 'excel',
             {
                 extend: 'pdfHtml5',
                 orientation: 'landscape',
