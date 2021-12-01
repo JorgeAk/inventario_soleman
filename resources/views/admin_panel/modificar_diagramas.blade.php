@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 @include('include.panel_head')
 
@@ -182,8 +182,9 @@
                     <div class="col-md-7 align-self-center text-right">
                         <div class="d-flex justify-content-end align-items-center">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="javascript:void(0)">Diagramas</a></li>
-                                <li class="breadcrumb-item active">Generar</li>
+                                <li class="breadcrumb-item"><a href="{{route('mis_diagramas')}}">Diagramas</a></li>
+                                <li class="breadcrumb-item">Generar</li>
+                                <li class="breadcrumb-item active">Tareas</li>
                             </ol>
 
                         </div>
@@ -202,10 +203,11 @@
                         <div class="card">
                             <div class="card-header bg-danger">
                                 <h4 class="m-b-0 text-white">Mi diagrama</h4>
+                                
                             </div>
-                            <div class="card-body">
-                                <h4 class="card-title">Bootstrap Simple Table</h4>
-                                <h6 class="card-subtitle">Simple table example</h6>
+                            <div class="card-body printableArea">
+                                <h4 class="card-title">Diagrama</h4>
+                                <h6 class="card-subtitle">Fecha de creacion: {{$creacion}}</h6>
                                 <div class="row show-grid">
                                     <div class="col-xs-6 col-sm-4"></div>
                                     <div class="col-xs-6 col-sm-4">
@@ -215,32 +217,44 @@
                                     <div class="clearfix visible-xs"></div>
                                     <div class="col-xs-6 col-sm-4"></div>
                                 </div>
-
-                                <table id="example23" class="table table-bordered table-striped compact">
+                                <!--<button id="print" class="btn btn-default btn-outline" type="button"> <span><i class="fa fa-print"></i> Print</span> </button>-->
+                                <table id="example23" class="table-bordered" >
 
                                     <thead>
                                         <tr>
-                                            <th>Tarea x @if($periodo== 1) {{"Dia"}} @endif @if($periodo== 2) {{"Mes"}} @endif @if($periodo== 3) {{"Años"}} @endif</th>
-                                            @for ($i = 1; $i <= $maximo ; $i++) <th>{{$i}}</th>@endfor
+                                            <th style="text-align: center;">Tarea x @if($periodo== 1) {{"Dia"}} @endif @if($periodo== 2) {{"Mes"}} @endif @if($periodo== 3) {{"Años"}} @endif</th>
+                                            <th style="text-align: center;">Descripcion</th>
+                                            <th style="text-align: center;">Acción</th>
+                                            @for ($i = 1; $i <= $maximo ; $i++) <th style="text-align: center;">{{$i}}</th>@endfor
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach($tareas as $tarea)
                                         <tr>
-                                            <td>{{$tarea->nombre}}<br>{{$tarea->descripcion}}</td>
-                                            @for ($i = 1; $i <= $maximo ; $i++) 
-                                          
-                                            @if(($i>= $tarea->f_inicio) && ($i<= $tarea->f_fin))
-                                                    <td style="background: {{$tarea->color}};"> </td>
+                                            <td style="white-space: pre-wrap;">{{$tarea->nombre}}&nbsp;&nbsp;</td>
+                                            <td style="white-space: pre-wrap;">{{$tarea->descripcion}}</td>
+                                            <td style="text-align: center;">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-success dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fa fa-check"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu animated bounce" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                                        <a class="dropdown-item" data-toggle="modal" data-target="#exampleModal-{{$tarea->id}}" href="javascript:void(0)">Editar</a>
+                                                        <a class="dropdown-item" data-toggle="modal" data-target="#exampleModal-del{{$tarea->id}}" href="javascript:void(0)">Eliminar</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            @for ($i = 1; $i <= $maximo ; $i++) @if(($i>= $tarea->f_inicio) && ($i<= $tarea->f_fin))
+                                                    <td whith="5px" style="background: {{$tarea->color}}; text-align: center;">X</td>
                                                     @else
-                                                    <td></td>
+                                                    <td whith="5px"></td>
                                                     @endif
                                                     @endfor
                                         </tr>
                                         @endforeach
-
                                     </tbody>
                                 </table>
+
                                 <!-- Modal ---------->
                                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
                                     <div class="modal-dialog  " role="document">
@@ -286,6 +300,84 @@
                                 </div>
                                 <!-- End Modal ---------->
 
+                                <!-- Modal Edit---------->
+                                @foreach($tareas as $tarea)
+                                <div class="modal fade" id="exampleModal-{{$tarea->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                                    <div class="modal-dialog  " role="document">
+                                        <div class="modal-content ">
+                                            <div class="modal-header bc-colored bg-danger">
+                                                <h4 class="modal-title" id="exampleModalLabel1">Editar tarea: {{$tarea->nombre}}</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="{{route('tarea/actualizar')}}" method="POST">
+                                                    @csrf
+                                                    <input hidden type="text" name="tarea" value="{{$tarea->id}}" class="form-control">
+                                                    <input hidden type="text" name="dg" value="{{$dg}}" class="form-control">
+
+                                                    <div class="form-group">
+                                                        <label for="recipient-name" class="control-label">Nombre de la tarea:</label>
+                                                        <input type="text" name="nombre" value="{{$tarea->nombre}}" class="form-control">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="message-text" class="control-label">Descripción:</label>
+                                                        <textarea class="form-control" name="descripcion" id="message-text1">{{$tarea->descripcion}}</textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="recipient-name" class="control-label">Inicio:</label>
+                                                        <input type="number" name="f_inicio" value="{{$tarea->f_inicio}}" min="1" max="{{$maximo}}" class="form-control">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="recipient-name" class="control-label">Fin:</label>
+                                                        <input type="number" name="f_fin" min="1" value="{{$tarea->f_fin}}" max="{{$maximo}}" class="form-control">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="recipient-name" class="control-label">Color:</label>
+                                                        <input type="color" value="{{$tarea->color}}" name="color" class="form-control">
+                                                    </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                <button type="submit" class="btn btn-danger">Guardar</button>
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endforeach
+                                <!-- End Modal ---------->
+
+                                <!-- Modal DEL---------->
+                                @foreach($tareas as $tarea)
+                                <div class="modal fade" id="exampleModal-del{{$tarea->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                                    <div class="modal-dialog  " role="document">
+                                        <div class="modal-content ">
+                                            <div class="modal-header bc-colored bg-danger">
+                                                <h4 class="modal-title" id="exampleModalLabel1">Eliminar tarea: {{$tarea->nombre}}</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="{{route('tarea/eliminar')}}" method="POST">
+                                                    @csrf
+                                                    <input hidden type="text" name="tarea" value="{{$tarea->id}}" class="form-control">
+                                                    <input hidden type="text" name="dg" value="{{$dg}}" class="form-control">
+                                                    <div class="alert alert-warning">
+                                                        <h3 class="text-warning"><i class="fa fa-exclamation-triangle"></i> Deseas eliminar la tarea:</h3>
+                                                        Nombre:{{$tarea->nombre}} <br>
+                                                        Descripción: {{$tarea->descripcion}}<br>
+                                                        Esta acción no se podrá revertir
+                                                    </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endforeach
+                                <!-- End Modal DEL ---------->
                             </div>
                         </div>
                         <!-- Table -->
@@ -295,11 +387,9 @@
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
                 <!-- Row -->
-
                 <!-- ============================================================== -->
                 <!-- End Formulario -->
                 <!-- ============================================================== -->
-
             </div>
             <!-- ============================================================== -->
             <!-- End Container fluid  -->

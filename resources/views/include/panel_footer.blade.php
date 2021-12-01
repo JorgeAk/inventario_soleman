@@ -16,6 +16,7 @@
 <script src="{{asset('res/dist/js/sidebarmenu.js')}}"></script>
 <!--Custom JavaScript -->
 <script src="{{asset('res/dist/js/custom.min.js')}}"></script>
+<script src="{{asset('res/dist/js/pages/jquery.PrintArea.js')}}" type="text/JavaScript"></script>
 <!-- ============================================================== -->
 <!-- This page plugins -->
 <!-- ============================================================== -->
@@ -27,6 +28,8 @@
 <script src="{{asset('res/assets/node_modules/toast-master/js/jquery.toast.js')}}"></script>
 <!-- This is data table -->
 <script src="{{asset('res/assets/node_modules/datatables/jquery.dataTables.min.js')}}"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/fixedcolumns/3.2.1/js/dataTables.fixedColumns.min.js"></script>
+
 <!-- start - This is for export functionality only -->
 <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
@@ -37,6 +40,10 @@
 <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
 <script src="{{asset('res/assets/node_modules/bootstrap-table/dist/bootstrap-table.min.js')}}"></script>
 <script src="{{asset('res/assets/node_modules/bootstrap-table/dist/bootstrap-table.ints.js')}}"></script>
+<!-- Sweet-Alert  -->
+<script src="{{asset('res/assets/node_modules/sweetalert/sweetalert.min.js')}}"></script>
+<script src="{{asset('res/assets/node_modules/sweetalert/jquery.sweet-alert.custom.js')}}"></script>
+
 <!-- Chart JS -->
 <!--<script src="{{asset('res/dist/js/dashboard1.js')}}"></script>-->
 <script>
@@ -229,8 +236,30 @@
         "info": false,
         "scrollX": true,
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            'copy', 'csv', 'excel',
+            {
+                extend: 'pdfHtml5',
+                orientation: 'landscape',
+                pageSize: 'LEGAL'
+            },
+            {
+                extend: "print",
+                className: "btn-sm",
+                orientation: 'landscape',
+                pageSize: 'LEGAL'
+            }
+
         ],
+        "columnDefs": [{
+                "width": "10%",
+                "targets": 0
+            },
+            {
+                "width": "10%",
+                "targets": 1
+            }
+        ],
+
 
     });
     /*$(document).ready(function() {
@@ -238,6 +267,20 @@
         $('#example23').find('tbody').append("<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>");
       
     });*/
+</script>
+<script>
+    $(document).ready(function() {
+        $("#print").click(function() {
+            var mode = 'iframe'; //popup
+            var close = mode == "popup";
+            var options = {
+                mode: mode,
+                popClose: close,
+                overrideElementCSS: ['<%=Url.Content("~/Content/print.css")%>']
+            };
+            $("div.printableArea").printArea(options);
+        });
+    });
 </script>
 
 <script src="{{asset('res/assets/node_modules/toast-master/js/jquery.toast.js')}}"></script>

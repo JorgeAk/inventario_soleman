@@ -72,10 +72,13 @@ class DiagramaController extends Controller
         $maximo = $maximo->duracion;
         $periodo = DB::table('diagramas')->select('id_periodo')->where('id_usuario', $mi_id)->where('id', $id)->get()->first();
         $periodo = $periodo->id_periodo;
-        //dd($periodo);
+        $creacion = DB::table('diagramas')->select('created_at')->where('id_usuario', $mi_id)->where('id', $id)->get()->first();
+        $creacion = date_create($creacion->created_at);
+        $creacion = date_format($creacion, "d/m/Y");
+        //dd($creacion);
         $dg = $id;
         if (Auth::user()->tipo_usuario == 1 and count($diagramas) > 0) {
-            return view('admin_panel/modificar_diagramas', compact('dg', 'diagramas', 'periodo', 'tareas', 'maximo', 'mensaje'));
+            return view('admin_panel/modificar_diagramas', compact('dg', 'creacion', 'diagramas', 'periodo', 'tareas', 'maximo', 'mensaje'));
         } else {
             $mensaje = "Error no existe ese diagrama";
             return view('admin_panel/index', compact('mensaje'));
@@ -99,6 +102,47 @@ class DiagramaController extends Controller
         ]);
 
         $mensaje = "Tarea generada con exito";
+        return $this->diagrama($mi_id, $mensaje);
+    }
+
+    public function tarea_actualizar(Request $request)
+    {
+        //dd($_POST);
+        $mi_id = Auth::id();
+        $id_tarea = $request->input('tarea');
+        $id_diagrama = $request->input('dg');
+        $nombre = $request->input('nombre');
+        $descripcion = $request->input('descripcion');
+        $f_inicio = $request->input('f_inicio');
+        $f_fin = $request->input('f_fin');
+        $color = $request->input('color');
+        $dia = Carbon::now();
+        $post = (isset($mi_id) && !empty($mi_id)) && (isset($id_tarea) && !empty($id_tarea)) && (isset($id_diagrama) && !empty($id_diagrama)) && (isset($nombre) && !empty($nombre)) && (isset($descripcion) && !empty($descripcion)) && (isset($f_inicio) && !empty($f_fin)) && (isset($color) && !empty($color));
+        //dd($post);
+        if ($post) {
+            $mensaje = "Tarea Actualizada con exito";
+            $insert = DB::table('tareas')->where('id', $id_tarea)->update([
+                'nombre' => $nombre, 'descripcion' => $descripcion,
+                'id_diagrama' => $id_diagrama, 'f_inicio' => $f_inicio, 'f_fin' => $f_fin, 'color' => $color, 'updated_at' => "$dia"
+            ]);
+        } else {
+            $mensaje = "Tarea no Actualizada verfica los datos";
+        }
+        return $this->diagrama($mi_id, $mensaje);
+    }
+
+    public function tarea_eliminar(Request $request)
+    {
+
+        $mi_id = Auth::id();
+        $id_tarea = $request->input('tarea');
+        $id_diagrama = $request->input('dg');
+        $delete = DB::table('tareas')->where('id', $id_tarea)->where('id_diagrama', $id_diagrama)->delete();
+        if ($delete) {
+            $mensaje = "Tarea eliminada";
+        } else {
+            $mensaje = "ERROR Tarea no eliminada verifica datos";
+        }
         return $this->diagrama($mi_id, $mensaje);
     }
 }
