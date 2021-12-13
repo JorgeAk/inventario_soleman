@@ -43,6 +43,10 @@
 <!-- Sweet-Alert  -->
 <script src="{{asset('res/assets/node_modules/sweetalert/sweetalert.min.js')}}"></script>
 <script src="{{asset('res/assets/node_modules/sweetalert/jquery.sweet-alert.custom.js')}}"></script>
+<!-- Footable -->
+<script src="{{asset('res/assets/node_modules/footable/js/footable.all.min.js')}}"></script>
+<!--FooTable init-->
+<script src="{{asset('res/dist/js/pages/footable-init.js')}}"></script>
 
 <!-- Chart JS -->
 <!--<script src="{{asset('res/dist/js/dashboard1.js')}}"></script>-->
@@ -260,6 +264,51 @@
                 "targets": 1
             }
         ],
+
+
+    });
+    /*$(document).ready(function() {
+        $('#example23').DataTable().destroy();
+        $('#example23').find('tbody').append("<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>");
+      
+    });*/
+</script>
+<script>
+    $('#example24').DataTable({
+        dom: 'Bfrtip',
+        "paging": false,
+        "ordering": false,
+        "info": false,
+        "sScrollY": "500px",
+        "scrollX": true,
+        buttons: [
+            'copy', 'excel',
+            {
+                extend: 'pdfHtml5',
+                orientation: 'landscape',
+                pageSize: 'LEGAL'
+            },
+            {
+                extend: "print",
+                className: "btn-sm",
+                orientation: 'landscape',
+                pageSize: 'LEGAL'
+            }
+
+        ],
+        "aoColumnDefs": [{
+                "sWidth": "100px",
+                "aTargets": [0]
+            },
+            {
+                "sWidth": "200px",
+                "aTargets": [1]
+            },
+            {
+                "sWidth": "70px",
+                "aTargets": [2]
+            }
+        ]
 
 
     });

@@ -150,7 +150,7 @@
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-settings"></i><span class="hide-menu">Configuración <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="app-email.html">Usuarios</a></li>
+                                <li><a href="{{route('admin/usuarios/control')}}">Usuarios</a></li>
                                 <li><a href="{{route('admin/perfil')}}">Mi perfil</a></li>
                             </ul>
                         </li>
@@ -207,18 +207,23 @@
                                     <h4 class="card-title m-t-10">{{ Auth::user()->name }}</h4>
                                     <h6 class="card-subtitle">Tipo de usuario: @if(Auth::user()->tipo_usuario == 1) {{"Administrador"}} @endif @if(Auth::user()->tipo_usuario == 2) {{"Usuario 2"}} @endif</h6>
                                     <div class="row text-center justify-content-md-center">
-                                        <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-people"></i> <font class="font-medium">254</font></a></div>
-                                        <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-picture"></i> <font class="font-medium">54</font></a></div>
+                                        <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-people"></i>
+                                                <font class="font-medium">254</font>
+                                            </a></div>
+                                        <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-picture"></i>
+                                                <font class="font-medium">54</font>
+                                            </a></div>
                                     </div>
                                 </center>
                             </div>
                             <div>
-                                <hr> </div>
+                                <hr>
+                            </div>
                             <div class="card-body"> <small class="text-muted">Dirección de correo </small>
                                 <h6>{{Auth::user()->email}}</h6> <small class="text-muted p-t-30 db">Teléfono</small>
-                                <h6>+91 654 784 547</h6> 
+                                <h6>+91 654 784 547</h6>
                                 <small class="text-muted p-t-30 db">Social Profile</small>
-                                <br/>
+                                <br />
                                 <button class="btn btn-circle btn-secondary"><i class="fa fa-facebook"></i></button>
                                 <button class="btn btn-circle btn-secondary"><i class="fa fa-twitter"></i></button>
                                 <button class="btn btn-circle btn-secondary"><i class="fa fa-youtube"></i></button>
@@ -236,8 +241,9 @@
                             <!-- Tab panes -->
                             <div class="tab-content">
                                 <div class="tab-pane active" id="home" role="tabpanel">
-                                <div class="card-body">
-                                        <form class="form-horizontal form-material">
+                                    <div class="card-body">
+                                        <form action="{{route('admin/usuarios/control/actualizar')}}" method="POST">
+                                            @csrf
                                             <div class="form-group">
                                                 <label class="col-md-12">Nombre</label>
                                                 <div class="col-md-12">
@@ -262,18 +268,21 @@
                                                     <select name="tipo_usuario" class="form-control form-control-line">
                                                         <option value="1">Administrador</option>
                                                         <option value="2">Usuario</option>
+                                                        <option value="3">Usuario Estandar</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-12">Selecciona Sucursal</label>
+                                                <label class="col-sm-12">Sucursal a la que pertenece</label>
                                                 <div class="col-sm-12">
                                                     <select class="form-control form-control-line">
-                                                        <option>Morelia</option>
-                                                        <option>Queretaro</option>
-                                                        <option>Usa</option>
-                                                        <option>Canada</option>
-                                                        <option>Thailand</option>
+                                                        <option>Morelia,Mich.</option>
+                                                        <option>Uruapán,Mich.</option>
+                                                        <option>Querétaro</option>
+                                                        <option>Toluca, Edo. México</option>
+                                                        <option>Ezequiel Montes</option>
+                                                        <option>Guanajuato</option>
+                                                        <option>San Juan del Río</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -294,7 +303,7 @@
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
-                
+
                 <!-- ============================================================== -->
                 <!-- End Info box -->
                 <!-- ============================================================== -->

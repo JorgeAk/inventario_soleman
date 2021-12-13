@@ -136,12 +136,16 @@ class DiagramaController extends Controller
         $id_diagrama = $request->input('dg');
         $nombre = $request->input('nombre');
         $descripcion = $request->input('descripcion');
+        $lider = $request->input('lider_proyecto');
+        $materiales = $request->input('materiales');
+        $estatus = $request->input('estatus');
+        $avance = $request->input('avance');
         $f_inicio = $request->input('f_inicio');
         $f_fin = $request->input('f_fin');
         $color = $request->input('color');
         $dia = Carbon::now();
         $insert = DB::table('tareas')->insert([
-            'nombre' => $nombre, 'descripcion' => $descripcion,
+            'nombre' => $nombre, 'descripcion' => $descripcion,'lider_proyecto'=> $lider,'materiales'=>$materiales,'estatus'=>$estatus,'avance'=>$avance,
             'id_diagrama' => $id_diagrama, 'f_inicio' => $f_inicio, 'f_fin' => $f_fin, 'color' => $color, 'created_at' => "$dia", 'updated_at' => "$dia"
         ]);
 
@@ -158,18 +162,21 @@ class DiagramaController extends Controller
         $id_diagrama = $request->input('dg');
         $nombre = $request->input('nombre');
         $descripcion = $request->input('descripcion');
+        $lider = $request->input('lider_proyecto');
+        $materiales = $request->input('materiales');
+        $estatus = $request->input('estatus');
+        $avance = $request->input('avance');
         $f_inicio = $request->input('f_inicio');
         $f_fin = $request->input('f_fin');
         $color = $request->input('color');
         $dia = Carbon::now();
-        $post = (isset($mi_id) && !empty($mi_id)) && (isset($id_tarea) && !empty($id_tarea)) && (isset($id_diagrama) && !empty($id_diagrama)) && (isset($nombre) && !empty($nombre)) && (isset($descripcion) && !empty($descripcion)) && (isset($f_inicio) && !empty($f_fin)) && (isset($color) && !empty($color));
+        $post = (isset($mi_id) && !empty($mi_id)) && (isset($id_tarea) && !empty($id_tarea)) && (isset($id_diagrama) && !empty($id_diagrama)) && (isset($nombre) && !empty($nombre)) && (isset($descripcion) && !empty($descripcion))  && (isset($lider) && !empty($lider))  && (isset($materiales) && !empty($materiales))  && (isset($estatus) && !empty($estatus))  && (isset($avance) && !empty($avance))  && (isset($f_inicio) && !empty($f_fin)) && (isset($color) && !empty($color));
         //dd($post);
         if ($post) {
             $mensaje = "Tarea Actualizada con exito";
-            $insert = DB::table('tareas')->where('id', $id_tarea)->update([
-                'nombre' => $nombre, 'descripcion' => $descripcion,
-                'id_diagrama' => $id_diagrama, 'f_inicio' => $f_inicio, 'f_fin' => $f_fin, 'color' => $color, 'updated_at' => "$dia"
-            ]);
+            $insert = DB::table('tareas')->where('id', $id_tarea)->update(['nombre' => $nombre, 'descripcion' => $descripcion,'lider_proyecto'=> $lider,
+            'materiales'=>$materiales,'estatus'=>$estatus,'avance'=>$avance,'id_diagrama' => $id_diagrama,
+             'f_inicio' => $f_inicio, 'f_fin' => $f_fin, 'color' => $color, 'updated_at' => "$dia"]);
         } else {
             $mensaje = "Tarea no Actualizada verfica los datos";
         }

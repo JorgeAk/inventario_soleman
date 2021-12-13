@@ -51,6 +51,33 @@ class HomeController extends Controller
         }
     }
 
+    public function usuarios_control(){
+
+        $mensaje ="";
+        $usuarios = DB::table('users')->get();
+
+        if(Auth::user()){ 
+            return view('admin_panel/control_usuarios', compact('mensaje','usuarios')); 
+        }else{
+            return view('home');
+        }
+    }
+
+    public function usuarios_actualizar(Request $request){
+
+        dd($_POST);
+        
+
+        $mensaje ="";
+        $usuarios = DB::table('users')->get();
+
+        if(Auth::user()){ 
+            return view('admin_panel/control_usuarios', compact('mensaje','usuarios')); 
+        }else{
+            return view('home');
+        }
+    }
+
     public function generar_diagrama(){
         $periodo = DB::table('periodo')->get();
         $mensaje = "";

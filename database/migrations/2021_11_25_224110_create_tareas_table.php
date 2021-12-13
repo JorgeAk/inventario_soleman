@@ -17,6 +17,10 @@ class CreateTareasTable extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('descripcion');
+            $table->string('lider_proyecto');
+            $table->string('materiales');
+            $table->string('estatus');
+            $table->string('avance');
             $table->integer('id_diagrama');
             $table->integer('f_inicio');
             $table->integer('f_fin');

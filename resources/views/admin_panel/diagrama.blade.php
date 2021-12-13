@@ -150,7 +150,7 @@
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-settings"></i><span class="hide-menu">Configuración <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="app-email.html">Usuarios</a></li>
+                                <li><a href="{{route('admin/usuarios/control')}}">Usuarios</a></li>
                                 <li><a href="{{route('admin/perfil')}}">Mi perfil</a></li>
                             </ul>
                         </li>

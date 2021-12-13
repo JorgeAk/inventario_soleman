@@ -28,6 +28,12 @@ Route::get('/admin',[App\Http\Controllers\HomeController::class, 'index1'],funct
 Route::get('/admin/perfil',[App\Http\Controllers\HomeController::class, 'perfil'],function(){ 
 })->middleware('auth')->name('admin/perfil');
 
+Route::get('/admin/usuarios/control',[App\Http\Controllers\HomeController::class, 'usuarios_control'],function(){ 
+})->middleware('auth')->name('admin/usuarios/control');
+
+Route::post('/admin/usuarios/control/actualizar',[App\Http\Controllers\HomeController::class, 'usuarios_actualizar'],function(){ 
+})->middleware('auth')->name('admin/usuarios/control/actualizar');
+
 Route::get('/admin/diagramas',[App\Http\Controllers\HomeController::class, 'generar_diagrama'],function(){ 
 })->middleware('auth')->name('diagramas');
 

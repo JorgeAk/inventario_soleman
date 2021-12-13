@@ -150,7 +150,7 @@
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-settings"></i><span class="hide-menu">Configuración <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="app-email.html">Usuarios</a></li>
+                                <li><a href="{{route('admin/usuarios/control')}}">Usuarios</a></li>
                                 <li><a href="{{route('admin/perfil')}}">Mi perfil</a></li>
                             </ul>
                         </li>
@@ -203,7 +203,7 @@
                         <div class="card">
                             <div class="card-header bg-danger">
                                 <h4 class="m-b-0 text-white">Mi diagrama</h4>
-                                
+
                             </div>
                             <div class="card-body printableArea">
                                 <h4 class="card-title">Diagrama</h4>
@@ -218,7 +218,7 @@
                                     <div class="col-xs-6 col-sm-4"></div>
                                 </div>
                                 <!--<button id="print" class="btn btn-default btn-outline" type="button"> <span><i class="fa fa-print"></i> Print</span> </button>-->
-                                <table id="example23" class="table-bordered" >
+                                <table id="example24" class="table-bordered">
 
                                     <thead>
                                         <tr>
@@ -232,7 +232,15 @@
                                         @foreach($tareas as $tarea)
                                         <tr>
                                             <td style="white-space: pre-wrap;">{{$tarea->nombre}}&nbsp;&nbsp;</td>
-                                            <td style="white-space: pre-wrap;">{{$tarea->descripcion}}</td>
+                                            <td style="white-space: pre-line;"><b>Descripción:</b> {{$tarea->descripcion}}
+                                                <b>Lider de proyecto:</b> {{$tarea->lider_proyecto}}
+                                                <b>Materiales:</b> {{$tarea->materiales}}
+                                                <b>Estatus:</b> @if($tarea->estatus == 1) <span class='text-success'><b>Activo</b></span> @endif
+                                                @if($tarea->estatus == 2) <span class='text-warning'><b>Pendiente</b></span> @endif
+                                                @if($tarea->estatus == 3) <span class='text-danger'><b>Terminado</b></span> @endif
+                                                
+                                                <b>Avance: </b><span class='text-info'><b>{{$tarea->avance}} %</b></span>
+                                            </td>
                                             <td style="text-align: center;">
                                                 <div class="btn-group">
                                                     <button type="button" class="btn btn-success dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -245,9 +253,9 @@
                                                 </div>
                                             </td>
                                             @for ($i = 1; $i <= $maximo ; $i++) @if(($i>= $tarea->f_inicio) && ($i<= $tarea->f_fin))
-                                                    <td whith="5px" style="background: {{$tarea->color}}; text-align: center;">X</td>
+                                                    <td whith="5px" style="text-align: center;"> <span class="label" style="background: {{$tarea->color}};">X</span></td>
                                                     @else
-                                                    <td whith="5px"></td>
+                                                    <td whith="5px"><span class="label" style="background: #ffffff;"></span></td>
                                                     @endif
                                                     @endfor
                                         </tr>
@@ -257,7 +265,7 @@
 
                                 <!-- Modal ---------->
                                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
-                                    <div class="modal-dialog  " role="document">
+                                    <div class="modal-dialog modal-lg " role="document">
                                         <div class="modal-content ">
                                             <div class="modal-header bc-colored bg-danger">
                                                 <h4 class="modal-title" id="exampleModalLabel1">Nueva tarea</h4>
@@ -268,25 +276,58 @@
                                                     @csrf
                                                     <input hidden type="text" name="dg" value="{{$dg}}" class="form-control">
 
-                                                    <div class="form-group">
-                                                        <label for="recipient-name" class="control-label">Nombre de la tarea:</label>
-                                                        <input type="text" name="nombre" class="form-control">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="message-text" class="control-label">Descripción:</label>
-                                                        <textarea class="form-control" name="descripcion" id="message-text1"></textarea>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="recipient-name" class="control-label">Inicio:</label>
-                                                        <input type="number" name="f_inicio" min="1" max="{{$maximo}}" class="form-control">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="recipient-name" class="control-label">Fin:</label>
-                                                        <input type="number" name="f_fin" min="1" max="{{$maximo}}" class="form-control">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="recipient-name" class="control-label">Color:</label>
-                                                        <input type="color" name="color" class="form-control">
+                                                    <div class="form-body">
+                                                        <div class="row p-t-20">
+                                                            <div class="col-md-6">
+
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="control-label">Nombre de la tarea:</label>
+                                                                    <input type="text" name="nombre" class="form-control">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="message-text" class="control-label">Descripción:</label>
+                                                                    <textarea class="form-control" name="descripcion" id="message-text1"></textarea>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="control-label">Lider del proyecto:</label>
+                                                                    <input type="text" name="lider_proyecto" class="form-control">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="control-label">Materiales:</label>
+                                                                    <textarea class="form-control" name="materiales" id="message-text1"></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-12">Estatus</label>
+                                                                    <div class="col-sm-12">
+                                                                        <select class="form-control form-control-line" name="estatus">
+                                                                            <option value="1">Activo</option>
+                                                                            <option value="2">Pendiente</option>
+                                                                            <option value="3">Terminado</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="control-label">Avance (%):</label>
+                                                                    <input type="text" name="avance" class="form-control">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="control-label">Inicio:</label>
+                                                                    <input type="number" name="f_inicio" min="1" max="{{$maximo}}" class="form-control">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="control-label">Fin:</label>
+                                                                    <input type="number" name="f_fin" min="1" max="{{$maximo}}" class="form-control">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="control-label">Color:</label>
+                                                                    <input type="color" name="color" class="form-control">
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <!--/row-->
                                                     </div>
                                             </div>
                                             <div class="modal-footer">
@@ -303,7 +344,7 @@
                                 <!-- Modal Edit---------->
                                 @foreach($tareas as $tarea)
                                 <div class="modal fade" id="exampleModal-{{$tarea->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
-                                    <div class="modal-dialog  " role="document">
+                                    <div class="modal-dialog modal-lg " role="document">
                                         <div class="modal-content ">
                                             <div class="modal-header bc-colored bg-danger">
                                                 <h4 class="modal-title" id="exampleModalLabel1">Editar tarea: {{$tarea->nombre}}</h4>
@@ -314,26 +355,57 @@
                                                     @csrf
                                                     <input hidden type="text" name="tarea" value="{{$tarea->id}}" class="form-control">
                                                     <input hidden type="text" name="dg" value="{{$dg}}" class="form-control">
+                                                    <div class="form-body">
+                                                        <div class="row p-t-20">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="control-label">Nombre de la tarea:</label>
+                                                                    <input type="text" name="nombre" value="{{$tarea->nombre}}" class="form-control">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="message-text" class="control-label">Descripción:</label>
+                                                                    <textarea class="form-control" name="descripcion" id="message-text1">{{$tarea->descripcion}}</textarea>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="control-label">Lider del proyecto:</label>
+                                                                    <input type="text" name="lider_proyecto" value="{{$tarea->lider_proyecto}}" class="form-control">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="control-label">Materiales:</label>
+                                                                    <textarea class="form-control" name="materiales" id="message-text1">{{$tarea->materiales}}</textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-12">Estatus</label>
+                                                                    <div class="col-sm-12">
+                                                                        <select class="form-control form-control-line" name="estatus">
+                                                                            <option value="1" @if($tarea->estatus == 1) {{"selected"}}@endif>Activo</option>
+                                                                            <option value="2" @if($tarea->estatus == 2) {{"selected"}}@endif>Pendiente</option>
+                                                                            <option value="3" @if($tarea->estatus == 3) {{"selected"}}@endif>Terminado</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="control-label">Avance (%):</label>
+                                                                    <input type="text" name="avance" class="form-control" value="{{$tarea->avance}}">
+                                                                </div>
 
-                                                    <div class="form-group">
-                                                        <label for="recipient-name" class="control-label">Nombre de la tarea:</label>
-                                                        <input type="text" name="nombre" value="{{$tarea->nombre}}" class="form-control">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="message-text" class="control-label">Descripción:</label>
-                                                        <textarea class="form-control" name="descripcion" id="message-text1">{{$tarea->descripcion}}</textarea>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="recipient-name" class="control-label">Inicio:</label>
-                                                        <input type="number" name="f_inicio" value="{{$tarea->f_inicio}}" min="1" max="{{$maximo}}" class="form-control">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="recipient-name" class="control-label">Fin:</label>
-                                                        <input type="number" name="f_fin" min="1" value="{{$tarea->f_fin}}" max="{{$maximo}}" class="form-control">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="recipient-name" class="control-label">Color:</label>
-                                                        <input type="color" value="{{$tarea->color}}" name="color" class="form-control">
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="control-label">Inicio:</label>
+                                                                    <input type="number" name="f_inicio" value="{{$tarea->f_inicio}}" min="1" max="{{$maximo}}" class="form-control">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="control-label">Fin:</label>
+                                                                    <input type="number" name="f_fin" min="1" value="{{$tarea->f_fin}}" max="{{$maximo}}" class="form-control">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="control-label">Color:</label>
+                                                                    <input type="color" value="{{$tarea->color}}" name="color" class="form-control">
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
                                                     </div>
                                             </div>
                                             <div class="modal-footer">

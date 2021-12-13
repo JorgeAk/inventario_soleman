@@ -20,6 +20,11 @@
     <link href="{{asset('res/dist/css/pages/dashboard1.css')}}" rel="stylesheet">
     <link href="{{asset('res/dist/css/pages/stylish-tooltip.css')}}" rel="stylesheet">
     <link href="{{asset('res/assets/node_modules/bootstrap-table/dist/bootstrap-table.min.css')}}" rel="stylesheet" type="text/css" />
+    <!-- Footable CSS -->
+    <link href="{{asset('res/assets/node_modules/footable/css/footable.core.css')}}" rel="stylesheet">
+    <link href="{{asset('res/assets/node_modules/bootstrap-select/bootstrap-select.min.css')}}" rel="stylesheet" />
+    <!-- page css -->
+    <link href="{{asset('res/dist/css/pages/footable-page.css')}}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
