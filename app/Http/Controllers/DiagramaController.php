@@ -170,7 +170,7 @@ class DiagramaController extends Controller
         $f_fin = $request->input('f_fin');
         $color = $request->input('color');
         $dia = Carbon::now();
-        $post = (isset($mi_id) && !empty($mi_id)) && (isset($id_tarea) && !empty($id_tarea)) && (isset($id_diagrama) && !empty($id_diagrama)) && (isset($nombre) && !empty($nombre)) && (isset($descripcion) && !empty($descripcion))  && (isset($lider) && !empty($lider))  && (isset($materiales) && !empty($materiales))  && (isset($estatus) && !empty($estatus))  && (isset($avance) && !empty($avance))  && (isset($f_inicio) && !empty($f_fin)) && (isset($color) && !empty($color));
+        $post = (isset($mi_id) && !empty($mi_id)) && (isset($id_tarea) && !empty($id_tarea)) && (isset($id_diagrama) && !empty($id_diagrama)) && (isset($nombre) && !empty($nombre)) && (isset($descripcion) && !empty($descripcion))  && (isset($lider) && !empty($lider))  && (isset($materiales) && !empty($materiales))  && (isset($estatus) && !empty($estatus)) && (isset($f_inicio) && !empty($f_inicio)) && (isset($f_fin) && !empty($f_fin)) && (isset($color) && !empty($color));
         //dd($post);
         if ($post) {
             $mensaje = "Tarea Actualizada con exito";

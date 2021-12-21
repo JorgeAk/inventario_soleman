@@ -138,13 +138,13 @@
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-map-alt"></i><span class="hide-menu">Sucursales <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="app-email.html">Todas las sucursales</a></li>
+                                <li><a href="{{route('admin/usuarios/ubicaciones')}}">Todas las sucursales</a></li>
                                 <li><a href="app-chat.html">Generar Reportes</a></li>
                             </ul>
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-bar-chart"></i><span class="hide-menu">Diagramas <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
                             <ul aria-expanded="false" class="collapse">
-                            <li><a href="{{ route('diagramas') }}">Generar</a></li>
+                                <li><a href="{{ route('diagramas') }}">Generar</a></li>
                                 <li><a href="{{route('mis_diagramas')}}">Mis diagramas</a></li>
                             </ul>
                         </li>
@@ -177,86 +177,71 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h4 class="text-themecolor">Diagrama de Gantt</h4>
+                        <h4 class="text-themecolor">Home</h4>
                     </div>
                     <div class="col-md-7 align-self-center text-right">
                         <div class="d-flex justify-content-end align-items-center">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="javascript:void(0)">Diagramas</a></li>
-                                <li class="breadcrumb-item active">Generar</li>
+                                <li class="breadcrumb-item"><a href="{{route('admin')}}">Home</a></li>
+                                <li class="breadcrumb-item active">Inicio</li>
                             </ol>
                         </div>
                     </div>
                 </div>
                 <!-- ============================================================== -->
-                <!-- Formulario -->
+                <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
-
-                <!-- Row -->
+                <!-- ============================================================== -->
+                <!-- Info box -->
+                <!-- ============================================================== -->
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-12">
                         <div class="card">
-                            <div class="card-header bg-danger">
-                                <h4 class="m-b-0 text-white">Generar Diagrama</h4>
-                            </div>
                             <div class="card-body">
-                                <form action="{{route('diagrama_nuevo')}}" method="POST">
-                                @csrf
-                                    <div class="form-body">
-                                        <h3 class="card-title">Ingresa los siguientes datos</h3>
-                                        <hr>
-                                        <div class="row p-t-20">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">Nombre del diagrama</label>
-                                                    <input type="text" id="firstName" name="n_diagrama" class="form-control" placeholder="Nombre del diagrama">
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">Descripción</label>
-                                                    <textarea class="form-control" name="d_diagrama" rows="2"></textarea>
-                                                    
-                                                </div>
-                                            </div>
-                                        
-                                        </div>
-                                        <!--/row-->
-                                        <div class="row">
-                                        <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">Duracion total</label>
-                                                    <input type="text" id="firstName" name="duracion_diagrama" class="form-control" placeholder="Numero de (dias,meses,años)">
-                                                </div>
-                                            </div>
-                                            <!--/span-->
-                                            <div class="col-md-6">
-                                                    <label class="control-label text-right ">Dividir Duracion total en:</label>
-                                                    <div class="col-md-9">
-                                                        @foreach($periodo as $pr)
-                                                        <div class="custom-control custom-radio">
-                                                            <input type="radio" id="customRadio{{$pr->id}}" name="duracion_dividir" value="{{$pr->id}}" class="custom-control-input">
-                                                            <label class="custom-control-label" for="customRadio{{$pr->id}}">{{$pr->nombre}}</label>
-                                                        </div>
-                                                        @endforeach
-                                                    </div>
-                                            </div>
-                                            <!--/span-->
-                                        </div>
-                                    </div>
-                                    <div class="form-actions text-center">
-                                        <button type="submit" class="btn btn-success m-t-30"> <i class="fa fa-check"></i> Generar</button>
-                                    </div>
-                                </form>
+                                <h4 class="card-title">Data Export</h4>
+                                <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
+                                <div class="table-responsive m-t-40">
+                                    <table id="example30" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Position</th>
+                                                <th>Office</th>
+                                                <th>Age</th>
+                                                <th>Start date</th>
+                                                <th>Salary</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Position</th>
+                                                <th>Office</th>
+                                                <th>Age</th>
+                                                <th>Start date</th>
+                                                <th>Salary</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            <tr>
+                                                <td>Tiger Nixon</td>
+                                                <td>System Architect</td>
+                                                <td>Edinburgh</td>
+                                                <td>61</td>
+                                                <td>2011/04/25</td>
+                                                <td>$320,800</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <!-- Row -->
 
                 <!-- ============================================================== -->
-                <!-- End Formulario -->
+                <!-- End Info box -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Over Visitor, Our income , slaes different and  sales prediction -->
                 <!-- ============================================================== -->
 
             </div>

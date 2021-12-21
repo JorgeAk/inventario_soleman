@@ -292,7 +292,7 @@
                 extend: "print",
                 className: "btn-sm",
                 orientation: 'landscape',
-                pageSize: 'LEGAL'
+                pageSize: 'TABLOID',
             }
 
         ],
@@ -330,6 +330,20 @@
             };
             $("div.printableArea").printArea(options);
         });
+    });
+
+    $('#example29').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
+
+    $('#example30').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
     });
 </script>
 

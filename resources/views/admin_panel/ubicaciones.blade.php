@@ -177,227 +177,229 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h4 class="text-themecolor">Usuarios</h4>
+                        <h4 class="text-themecolor">Ubicaciones</h4>
                     </div>
                     <div class="col-md-7 align-self-center text-right">
                         <div class="d-flex justify-content-end align-items-center">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{route('admin')}}">Home</a></li>
-                                <li class="breadcrumb-item active">Configuración</li>
-                                <li class="breadcrumb-item active">Usuarios</li>
+                                <li class="breadcrumb-item"><a href="javascript:void(0)">Ubicaciones</a></li>
+                                <li class="breadcrumb-item active">Generar</li>
                             </ol>
                         </div>
                     </div>
                 </div>
                 <!-- ============================================================== -->
+                <!-- Formulario -->
+                <!-- ============================================================== -->
+
+                <!-- Row -->
+                <!-- ============================================================== -->
                 <!-- End Bread crumb and right sidebar toggle -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Info box -->
                 <!-- ============================================================== -->
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
-                <!-- Row -->
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
+                            <div class="card-header bg-danger">
+                                <h4 class="m-b-0 text-white">Mis Ubicaciones</h4>
+                            </div>
                             <div class="card-body">
-                                <h4 class="card-title">Lista de usuarios registrados</h4>
-                                <h6 class="card-subtitle"></h6>
-                                <div class="table-responsive">
-                                    <table id="demo-foo-addrow" class="table m-t-30 table-hover contact-list" data-page-size="10">
+
+                                <h6 class="card-subtitle">Creacion de Ubicaciones</h6>
+                                <div class="table-responsive m-t-40">
+
+                                    <div class="row show-grid">
+                                        <div class="col-xs-6 col-sm-4"></div>
+                                        <div class="col-xs-6 col-sm-4">
+                                            <button type="button" type="button" data-toggle="modal" data-target="#exampleModal" data-whatever="@fat" class="btn btn-danger d-none d-lg-block m-l-15  m-t-30  m-b-10">
+                                                <i class="fa fa-plus-circle"></i> Agregar nueva Ubicacion</button></div>
+                                        <!-- Optional: clear the XS cols if their content doesn't match in height -->
+                                        <div class="clearfix visible-xs"></div>
+                                        <div class="col-xs-6 col-sm-4"></div>
+                                    </div>
+
+                                    <table id="example29" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
-                                                <th>No</th>
                                                 <th>Nombre</th>
-                                                <th>Correo</th>
-                                                <th>Rol</th>
-                                                <th>F.Creacion</th>
-                                                <th>F.Modificación</th>
-                                                <th>Action</th>
+                                                <th>Dirección</th>
+                                                <th>Teléfono</th>
+                                                <th>Ciudad</th>
+                                                <th>Tipo</th>
+                                                <th>Descripción</th>
+                                                <th>Creado</th>
+                                                <th>Se modifico</th>
+                                                <th>Acciónes</th>
                                             </tr>
                                         </thead>
+
                                         <tbody>
-                                            @foreach($usuarios as $key => $user)
+                                            @foreach($ubicaciones as $ubic)
                                             <tr>
-                                                <td>{{++$key}}</td>
+                                                <td>{{$ubic->nombre}}</td>
+                                                <td>{{$ubic->direccion}}</td>
+                                                <td>{{$ubic->telefono}}</td>
+                                                <td>{{$ubic->ciudad}}</td>
+                                                <td>@if($ubic->id_tipo == 1) {{"Almacén"}}@endif @if($ubic->id_tipo == 2) {{"Oficina"}}@endif @if($ubic->id_tipo == 3) {{"Planta"}}@endif @if($ubic->id_tipo == 4) {{"Sucursal"}}@endif</td>
+                                                <td>{{$ubic->descripcion}}</td>
+                                                <td>{{$ubic->created_at}}</td>
+                                                <td>{{$ubic->updated_at}}</td>
                                                 <td>
-                                                    <a href="javascript:void(0)"><img src="{{asset('res/assets/images/users/1.jpg')}}" alt="user" width="40" class="img-circle" /> {{$user->name}}</a>
-                                                </td>
-                                                <td>{{$user->email}}</td>
-                                                <td><span class="label label-danger">@if($user->tipo_usuario==1) {{'Administrador'}}@endif @if($user->tipo_usuario==2) {{'Supervisor'}}@endif @if($user->tipo_usuario==3) {{'Us.Estandar'}}@endif</span> </td>
-                                                <td>{{date('d/m/Y H:i:s', strtotime($user->created_at))}}</td>
-                                                <td>{{date('d/m/Y H:i:s', strtotime($user->updated_at))}}</td>
-                                                <td style="display: inline-flex;">
-                                                    <button type="button" class="btn btn-warning btn-circle waves-light" data-toggle="modal" data-target="#exampleModal-{{$user->id}}"><i class="fa fa-pencil-square-o" title="Modificar" data-toggle="tooltip"></i></button>&nbsp;
-                                                    <button type="button" class="btn btn-danger btn-circle  waves-light" data-toggle="modal" data-target="#exampleModal-del{{$user->id}}"><i class="fa fa-trash-o" title="Eliminar" data-toggle="tooltip"></i></button>
+                                                    <button type="button" class="btn btn-warning btn-circle waves-light" data-toggle="modal" data-target="#exampleModal-{{$ubic->id}}"><i class="fa fa-pencil-square-o" title="Modificar" data-toggle="tooltip"></i></button>
+                                                    <button type="button" class="btn btn-danger btn-circle  waves-light" data-toggle="modal" data-target="#exampleModal-del{{$ubic->id}}"><i class="fa fa-trash-o" title="Eliminar" data-toggle="tooltip"></i></button>
                                                 </td>
                                             </tr>
                                             @endforeach
                                         </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <td colspan="2">
-                                                    <button type="button" class="btn btn-info btn-rounded" data-toggle="modal" data-target="#add-contact">Añadir nuevo Contacto</button>
-                                                </td>
-                                                <div id="add-contact" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header bc-colored bg-danger">
-                                                                <h4 class="modal-title" id="myModalLabel">Añadir nuevo contacto</h4>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <from class="form-horizontal form-material">
-                                                                    <div class="form-group">
-                                                                        <div class="col-md-12 m-b-20">
-                                                                            <input type="text" class="form-control" placeholder="Nombre"> </div>
-                                                                        <div class="col-md-12 m-b-20">
-                                                                            <input type="text" class="form-control" placeholder="Correo"> </div>
-                                                                        <div class="col-md-12 m-b-20">
-                                                                            <input type="text" class="form-control" placeholder="Teléfono"> </div>
-                                                                        <div class="col-md-12 m-b-20">
-                                                                            <input type="password" class="form-control" placeholder="Contraseña"> </div>
-                                                                        <div class="form-group">
-                                                                            <label class="col-sm-12">Sucursal a la que pertenece</label>
-                                                                            <div class="col-sm-12">
-                                                                                <select class="form-control form-control-line">
-                                                                                    <option>Morelia,Mich.</option>
-                                                                                    <option>Uruapán,Mich.</option>
-                                                                                    <option>Querétaro</option>
-                                                                                    <option>Toluca, Edo. México</option>
-                                                                                    <option>Ezequiel Montes</option>
-                                                                                    <option>Guanajuato</option>
-                                                                                    <option>San Juan del Río</option>
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label class="col-sm-12">Selecciona tipo de usuario</label>
-                                                                            <div class="col-sm-12">
-                                                                                <select name="tipo_usuario" class="form-control form-control-line">
-                                                                                    <option value="1">Administrador</option>
-                                                                                    <option value="2">Supervisor</option>
-                                                                                    <option value="3">Usuario Estandar</option>
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>
-                                                                        <!-- <div class="col-md-12 m-b-20">
-                                                                            <div class="fileupload btn btn-danger btn-rounded waves-effect waves-light"><span><i class="ion-upload m-r-5"></i>Upload Contact Image</span>
-                                                                                <input type="file" class="upload"> </div>
-                                                                        </div>-->
-                                                                    </div>
-                                                            </div>
-                                                            <div class="modal-footer text-center">
-                                                                <button type="submit" class="btn btn-info waves-effect" data-dismiss="modal">Guardar</button>
-                                                                </from>
-                                                                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
-                                                            </div>
-                                                        </div>
-                                                        <!-- /.modal-content -->
-                                                    </div>
-                                                    <!-- /.modal-dialog -->
-                                                </div>
-                                                <td colspan="7">
-                                                    <div class="text-right">
-                                                        <ul class="pagination"> </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tfoot>
                                     </table>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                @foreach($usuarios as $user)
-                <!-- Modal ---------->
-                <div class="modal fade" id="exampleModal-{{$user->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header bc-colored bg-danger">
-                                <h4 class="modal-title" id="exampleModalLabel1">Editar usuario: {{$user->name}}</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="{{route('admin/usuarios/control/actualizar')}}" method="POST">
-                                    @csrf
-                                    <input hidden type="text" name="usr" value="{{$user->id}}" class="form-control">
-                                    <div class="form-body">
-                                    <span class="label label-success">*si no desea actualizar algun dato dejarlo como esta</span>
-                                        <div class="row p-t-20">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">Nombre del diagrama </label>
-                                                    <input type="text" id="firstName" name="name" value="{{$user->name}}" class="form-control" placeholder="Usuario">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">Correo</label>
-                                                    <input type="text" id="email" name="email" value="{{$user->email}}" class="form-control" placeholder="Correo">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--/row-->
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">Contraseña</label>
-                                                    <input type="password" id="password" name="password" value="password" class="form-control form-control-line" placeholder="Contraseña">
-                                                </div>
-                                            </div>
-                                            <!--/span-->
-                                            <div class="col-md-6">
-                                                <label class="control-label text-right ">Tipo de usuario:</label>
-                                                <div class="col-md-9">
-                                                    <div class="form-group">
-                                                        <div class="col-sm-12">
-                                                            <select class="form-control form-control-line" name="tipo_usuario">
-                                                                <option value="1">Administrador</option>
-                                                                <option value="2">Supervisor</option>
-                                                                <option value="3">Usuario Estandar</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--/span-->
-                                        </div>
-                                    </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                <button type="submit" class="btn btn-danger">Guardar</button>
-                            </div>
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
-                <!-- End Modal ---------->
-                @endforeach
-
-                <!-- Modal DEL---------->
-                @foreach($usuarios as $diag)
-                                <div class="modal fade" id="exampleModal-del{{$diag->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
-                                    <div class="modal-dialog  " role="document">
+                                <!-- Modal ---------->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                                    <div class="modal-dialog modal-lg " role="document">
                                         <div class="modal-content ">
                                             <div class="modal-header bc-colored bg-danger">
-                                                <h4 class="modal-title" id="exampleModalLabel1">Eliminar Usuario: {{$diag->name}}</h4>
+                                                <h4 class="modal-title" id="exampleModalLabel1">Nueva Ubicacion</h4>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="{{route('diagrama/eliminar')}}" method="POST">
+                                                <form action="{{route('admin/usuarios/ubicaciones/nueva')}}" method="POST">
                                                     @csrf
-                                                    <input hidden type="text" name="dg" value="{{$diag->id}}" class="form-control">
+                                                    <div class="form-body">
+                                                        <div class="row p-t-20">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="control-label">Nombre de la ubicacion:</label>
+                                                                    <input type="text" name="nombre" class="form-control">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="control-label">Dirección:</label>
+                                                                    <input type="text" name="direccion" class="form-control">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="control-label">Teléfono:</label>
+                                                                    <input type="text" name="telefono" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="control-label">Ciudad:</label>
+                                                                    <input type="text" name="ciudad" class="form-control">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="control-label">Descripcion:</label>
+                                                                    <textarea class="form-control" name="descripcion" id="message-text1"></textarea>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-12">Tipo</label>
+                                                                    <div class="col-sm-12">
+                                                                        <select class="form-control form-control-line" name="tipo">
+                                                                            @foreach($tipo_ubicaciones as $tip_ub)
+                                                                            <option value="{{$tip_ub->id}}">{{$tip_ub->nombre}}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--/row-->
+                                                    </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                <button type="submit" class="btn btn-danger">Guardar</button>
+                                            </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Modal ---------->
+
+                                @foreach($ubicaciones as $ubic)
+                                <!-- Modal EDIT ---------->
+                                <div class="modal fade" id="exampleModal-{{$ubic->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header bc-colored bg-danger">
+                                                <h4 class="modal-title" id="exampleModalLabel1">Diagrama: {{$ubic->nombre}}</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="{{route('admin/usuarios/ubicaciones/actualizar')}}" method="POST">
+                                                    @csrf
+                                                    <input hidden type="text" name="ubc" value="{{$ubic->id}}" class="form-control">
+                                                    <div class="form-body">
+                                                        <div class="row p-t-20">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="control-label">Nombre de la ubicacion:</label>
+                                                                    <input type="text" name="nombre" value="{{$ubic->nombre}}" class="form-control">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="control-label">Dirección:</label>
+                                                                    <input type="text" name="direccion" value="{{$ubic->direccion}}" class="form-control">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="control-label">Teléfono:</label>
+                                                                    <input type="text" name="telefono" value="{{$ubic->telefono}}" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="control-label">Ciudad:</label>
+                                                                    <input type="text" name="ciudad" value="{{$ubic->ciudad}}" class="form-control">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="control-label">Descripcion:</label>
+                                                                    <textarea class="form-control" name="descripcion"  id="message-text1">{{$ubic->descripcion}}</textarea>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-12">Tipo</label>
+                                                                    <div class="col-sm-12">
+                                                                        <select class="form-control form-control-line" name="tipo">
+                                                                            @foreach($tipo_ubicaciones as $tip_ub)
+                                                                            <option value="{{$tip_ub->id}}" @if($ubic->id_tipo == $tip_ub->id){{"selected"}}@endif>{{$tip_ub->nombre}}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--/row-->
+                                                    </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                <button type="submit" class="btn btn-danger">Guardar</button>
+                                            </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Modal ---------->
+                                @endforeach
+
+                                <!-- Modal DEL---------->
+                                @foreach($ubicaciones as $ubic)
+                                <div class="modal fade" id="exampleModal-del{{$ubic->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                                    <div class="modal-dialog  " role="document">
+                                        <div class="modal-content ">
+                                            <div class="modal-header bc-colored bg-danger">
+                                                <h4 class="modal-title" id="exampleModalLabel1">Eliminar diagrama: {{$ubic->nombre}}</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="{{route('admin/usuarios/ubicaciones/eliminar')}}" method="POST">
+                                                    @csrf
+                                                    <input hidden type="text" name="ub" value="{{$ubic->id}}" class="form-control">
                                                     <div class="alert alert-warning">
-                                                        <h3 class="text-warning"><i class="fa fa-exclamation-triangle"></i> Deseas eliminar al Usuario:</h3>
-                                                        Nombre: {{$diag->name}} <br>
-                                                        
+                                                        <h3 class="text-warning"><i class="fa fa-exclamation-triangle"></i> Deseas eliminar el Diagrama:</h3>
+                                                        Nombre: {{$ubic->nombre}} <br>
+                                                        Descripción: {{$ubic->descripcion}} <br>
                                                         Esta acción no se podrá revertir
                                                     </div>
                                             </div>
@@ -412,16 +414,17 @@
                                 @endforeach
                                 <!-- End Modal DEL ---------->
 
-                <!-- Row -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
+                <!-- Row -->
 
                 <!-- ============================================================== -->
-                <!-- End Info box -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Over Visitor, Our income , slaes different and  sales prediction -->
+                <!-- End Formulario -->
                 <!-- ============================================================== -->
 
             </div>
