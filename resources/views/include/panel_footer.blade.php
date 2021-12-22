@@ -47,6 +47,7 @@
 <script src="{{asset('res/assets/node_modules/footable/js/footable.all.min.js')}}"></script>
 <!--FooTable init-->
 <script src="{{asset('res/dist/js/pages/footable-init.js')}}"></script>
+<script src="{{asset('res/dist/js/pages/jasny-bootstrap.js')}}"></script>
 
 <!-- Chart JS -->
 <!--<script src="{{asset('res/dist/js/dashboard1.js')}}"></script>-->

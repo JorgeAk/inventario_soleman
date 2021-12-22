@@ -40,6 +40,8 @@ Route::post('/admin/usuarios/control/actualizar',[App\Http\Controllers\HomeContr
 //--------------------------------PRODUCTOS-------------------------------
 Route::get('/admin/productos',[App\Http\Controllers\ProductosController::class, 'index'],function(){ 
 })->middleware('auth')->name('admin/productos');
+Route::get('/admin/productos/agregar',[App\Http\Controllers\ProductosController::class, 'nuevo'],function(){ 
+})->middleware('auth')->name('admin/productos/agregar');
 
 //--------------------------------END PRODUCTOS-------------------------------
 

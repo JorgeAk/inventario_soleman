@@ -200,69 +200,194 @@
                             <div class="card-body">
                                 <h4 class="card-title">Data Export</h4>
                                 <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
+                                <div class="row show-grid">
+                                    <div class="col-xs-6 col-sm-4"></div>
+                                    <div class="col-xs-6 col-sm-4">
+                                        <button type="button" type="button" data-toggle="modal" data-target="#exampleModal" data-whatever="@fat" class="btn btn-danger d-none d-lg-block m-l-15  m-t-30  m-b-10">
+                                            <i class="fa fa-plus-circle"></i> Agregar nueva tarea</button></div>
+                                    <!-- Optional: clear the XS cols if their content doesn't match in height -->
+                                    <div class="clearfix visible-xs"></div>
+                                    <div class="col-xs-6 col-sm-4"></div>
+                                </div>
                                 <div class="table-responsive m-t-40">
                                     <table id="example30" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Position</th>
-                                                <th>Office</th>
-                                                <th>Age</th>
-                                                <th>Start date</th>
-                                                <th>Salary</th>
+                                                <th>Codigo</th>
+                                                <th>Nombre</th>
+                                                <th>Descripción</th>
+                                                <th>Cantidad</th>
+                                                <th>Estatus</th>
+                                                <th>Creado</th>
+                                                <th>Accion</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Position</th>
-                                                <th>Office</th>
-                                                <th>Age</th>
-                                                <th>Start date</th>
-                                                <th>Salary</th>
+                                                <th>Codigo</th>
+                                                <th>Nombre</th>
+                                                <th>Descripción</th>
+                                                <th>Cantidad</th>
+                                                <th>Estatus</th>
+                                                <th>Modificado</th>
+                                                <th>Accion</th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
+                                            @foreach($productos as $prod)
                                             <tr>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
+                                                <td>{{$prod->codigo}}</td>
+                                                <td>{{$prod->nomvre}}</td>
+                                                <td>{{$prod->descripcion}}</td>
+                                                <td>{{$prod->cantidad}}</td>
+                                                <td>{{$prod->estatus}}</td>
+                                                <td>{{$prod->updated_at}}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-success btn-circle waves-light"><a class="" href="#" style="color: #f9f9f9;"><i class="fa fa-eye" title="Ver" data-toggle="tooltip"></i></a></button>
+                                                    <button type="button" class="btn btn-warning btn-circle waves-light" data-toggle="modal" data-target="#exampleModal-{{$prod->id}}"><i class="fa fa-pencil-square-o" title="Modificar" data-toggle="tooltip"></i></button>
+                                                    <button type="button" class="btn btn-danger btn-circle  waves-light" data-toggle="modal" data-target="#exampleModal-del{{$prod->id}}"><i class="fa fa-trash-o" title="Eliminar" data-toggle="tooltip"></i></button>
+                                                </td>
+
+
+
                                             </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
 
-                <!-- ============================================================== -->
-                <!-- End Info box -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Over Visitor, Our income , slaes different and  sales prediction -->
-                <!-- ============================================================== -->
 
+
+                        <!-- Modal ---------->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                            <div class="modal-dialog modal-lg " role="document">
+                                <div class="modal-content ">
+                                    <div class="modal-header bc-colored bg-danger">
+                                        <h4 class="modal-title" id="exampleModalLabel1">Nuevo Producto</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{{route('tarea/nueva')}}" method="POST">
+                                            @csrf
+                                            <div class="form-body">
+                                                <div class="row p-t-20">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="control-label">Nombre del producto:</label>
+                                                            <input type="text" name="nombre" class="form-control">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="control-label">Codigo:</label>
+                                                            <input type="codigo" name="lider_proyecto" class="form-control">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="control-label">Cantidad:</label>
+                                                            <input type="number" name="lider_proyecto" class="form-control">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="message-text" class="control-label">Descripción:</label>
+                                                            <textarea class="form-control" name="descripcion" id="message-text1"></textarea>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-12">Categoria</label>
+                                                            <div class="col-sm-12">
+                                                                <select class="form-control form-control-line" name="categoria">
+                                                                    <option value="1">Activo</option>
+                                                                    <option value="2">Pendiente</option>
+                                                                    <option value="3">Terminado</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-sm-12">Sub Categoria</label>
+                                                            <div class="col-sm-12">
+                                                                <select class="form-control form-control-line" name="sub_categoria">
+                                                                    <option value="1">Activo</option>
+                                                                    <option value="2">Pendiente</option>
+                                                                    <option value="3">Terminado</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-12">Estatus</label>
+                                                            <div class="col-sm-12">
+                                                                <select class="form-control form-control-line" name="estatus">
+                                                                    <option value="1">Activo</option>
+                                                                    <option value="2">Pendiente</option>
+                                                                    <option value="3">Terminado</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-12">Sucursal</label>
+                                                            <div class="col-sm-12">
+                                                                <select class="form-control form-control-line" name="sucursal">
+                                                                    <option value="1">Activo</option>
+                                                                    <option value="2">Pendiente</option>
+                                                                    <option value="3">Terminado</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                        <label for="recipient-name col-sm-12" class="control-label">Imagen:</label>
+                                                            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                                                <div class="form-control" data-trigger="fileinput">
+                                                                    <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                                                    <span class="fileinput-filename" style="font-size: 11px;"></span></span>
+                                                                </div>
+                                                                <span class="input-group-addon btn btn-default btn-file">
+                                                                    <span class="fileinput-new" >Selecciona</span>
+                                                                <span class="fileinput-exists"  >Cambiar</span>
+                                                                <input type="file" name="imagen"></span>
+                                                                <a href="javascript:void(0)" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Eliminar</a>
+                                                            </div>
+                                                        </div> 
+                                                    </div>
+                                                </div>
+                                                <!--/row-->
+                                            </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                        <button type="submit" class="btn btn-danger">Guardar</button>
+                                    </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Modal ---------->
+
+                        <!-- ============================================================== -->
+                        <!-- End Info box -->
+                        <!-- ============================================================== -->
+                        <!-- ============================================================== -->
+                        <!-- Over Visitor, Our income , slaes different and  sales prediction -->
+                        <!-- ============================================================== -->
+
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- End Container fluid  -->
+                    <!-- ============================================================== -->
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Page wrapper  -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- footer -->
+                <!-- ============================================================== -->
+                <footer class="footer">
+                    © 2021 Soleman
+                </footer>
+                <!-- ============================================================== -->
+                <!-- End footer -->
+                <!-- ============================================================== -->
             </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-        </div>
-        <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- footer -->
-        <!-- ============================================================== -->
-        <footer class="footer">
-            © 2021 Soleman
-        </footer>
-        <!-- ============================================================== -->
-        <!-- End footer -->
-        <!-- ============================================================== -->
-    </div>
-    @include('include.panel_footer')
+            @include('include.panel_footer')
 </body>
 
 </html>
