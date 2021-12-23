@@ -194,12 +194,18 @@
                 <!-- ============================================================== -->
                 <!-- Info box -->
                 <!-- ============================================================== -->
+                
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Data Export</h4>
                                 <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
+                                <!--
+                                @foreach($productos as $prod)
+                                <img src="{{ asset('storage/images/'.$prod->imagen) }}" alt="" title="">
+                                @endforeach
+                            -->
                                 <div class="row show-grid">
                                     <div class="col-xs-6 col-sm-4"></div>
                                     <div class="col-xs-6 col-sm-4">
@@ -210,6 +216,7 @@
                                     <div class="col-xs-6 col-sm-4"></div>
                                 </div>
                                 <div class="table-responsive m-t-40">
+                               
                                     <table id="example30" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
@@ -235,9 +242,10 @@
                                         </tfoot>
                                         <tbody>
                                             @foreach($productos as $prod)
+                                            <img src="{{ storage_path().'/app/public/images/'.$prod->imagen }}" alt="" title="">
                                             <tr>
-                                                <td>{{$prod->codigo}}</td>
-                                                <td>{{$prod->nomvre}}</td>
+                                                <td>{{$prod->codigo}} </td>
+                                                <td>{{$prod->nombre}}</td>
                                                 <td>{{$prod->descripcion}}</td>
                                                 <td>{{$prod->cantidad}}</td>
                                                 <td>{{$prod->estatus}}</td>
@@ -269,7 +277,7 @@
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="{{route('tarea/nueva')}}" method="POST">
+                                        <form action="{{route('admin/productos/agregar')}}" method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-body">
                                                 <div class="row p-t-20">
@@ -280,11 +288,11 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="recipient-name" class="control-label">Codigo:</label>
-                                                            <input type="codigo" name="lider_proyecto" class="form-control">
+                                                            <input type="text" name="codigo" class="form-control">
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="recipient-name" class="control-label">Cantidad:</label>
-                                                            <input type="number" name="lider_proyecto" class="form-control">
+                                                            <input type="number" name="cantidad" class="form-control">
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="message-text" class="control-label">Descripción:</label>
@@ -294,9 +302,9 @@
                                                             <label class="col-sm-12">Categoria</label>
                                                             <div class="col-sm-12">
                                                                 <select class="form-control form-control-line" name="categoria">
-                                                                    <option value="1">Activo</option>
-                                                                    <option value="2">Pendiente</option>
-                                                                    <option value="3">Terminado</option>
+                                                                    <option value="1">Equipo electronico</option>
+                                                                    <option value="2">Mobiliario</option>
+                                                                    <option value="3">Consumibles</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -306,9 +314,9 @@
                                                             <label class="col-sm-12">Sub Categoria</label>
                                                             <div class="col-sm-12">
                                                                 <select class="form-control form-control-line" name="sub_categoria">
-                                                                    <option value="1">Activo</option>
-                                                                    <option value="2">Pendiente</option>
-                                                                    <option value="3">Terminado</option>
+                                                                    <option value="1">Computo</option>
+                                                                    <option value="2">Silla</option>
+                                                                    <option value="3">Impresora</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -326,9 +334,9 @@
                                                             <label class="col-sm-12">Sucursal</label>
                                                             <div class="col-sm-12">
                                                                 <select class="form-control form-control-line" name="sucursal">
-                                                                    <option value="1">Activo</option>
-                                                                    <option value="2">Pendiente</option>
-                                                                    <option value="3">Terminado</option>
+                                                                    @foreach($sucursales as $suc)
+                                                                    <option value="{{$suc->id}}">{{$suc->nombre}}</option>
+                                                                    @endforeach
                                                                 </select>
                                                             </div>
                                                         </div>
