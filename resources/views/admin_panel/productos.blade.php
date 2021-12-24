@@ -40,7 +40,9 @@
                             <!-- dark Logo text -->
                             <img src="{{asset('res/assets/images/logo-text.png')}}" alt="homepage" class="dark-logo" />
                             <!-- Light Logo text -->
-                            <img src="{{asset('res/assets/images/logo-light-text.png')}}" class="light-logo" alt="homepage" /></span> </a>
+                            <img src="{{asset('res/assets/images/logo-light-text.png')}}" class="light-logo" alt="homepage" />
+                        </span>
+                    </a>
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Logo -->
@@ -194,7 +196,7 @@
                 <!-- ============================================================== -->
                 <!-- Info box -->
                 <!-- ============================================================== -->
-                
+
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -210,13 +212,14 @@
                                     <div class="col-xs-6 col-sm-4"></div>
                                     <div class="col-xs-6 col-sm-4">
                                         <button type="button" type="button" data-toggle="modal" data-target="#exampleModal" data-whatever="@fat" class="btn btn-danger d-none d-lg-block m-l-15  m-t-30  m-b-10">
-                                            <i class="fa fa-plus-circle"></i> Agregar nueva tarea</button></div>
+                                            <i class="fa fa-plus-circle"></i> Agregar nueva tarea</button>
+                                    </div>
                                     <!-- Optional: clear the XS cols if their content doesn't match in height -->
                                     <div class="clearfix visible-xs"></div>
                                     <div class="col-xs-6 col-sm-4"></div>
                                 </div>
                                 <div class="table-responsive m-t-40">
-                               
+
                                     <table id="example30" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
@@ -255,9 +258,6 @@
                                                     <button type="button" class="btn btn-warning btn-circle waves-light" data-toggle="modal" data-target="#exampleModal-{{$prod->id}}"><i class="fa fa-pencil-square-o" title="Modificar" data-toggle="tooltip"></i></button>
                                                     <button type="button" class="btn btn-danger btn-circle  waves-light" data-toggle="modal" data-target="#exampleModal-del{{$prod->id}}"><i class="fa fa-trash-o" title="Eliminar" data-toggle="tooltip"></i></button>
                                                 </td>
-
-
-
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -341,19 +341,19 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
-                                                        <label for="recipient-name col-sm-12" class="control-label">Imagen:</label>
+                                                            <label for="recipient-name col-sm-12" class="control-label">Imagen:</label>
                                                             <div class="fileinput fileinput-new input-group" data-provides="fileinput">
                                                                 <div class="form-control" data-trigger="fileinput">
                                                                     <i class="glyphicon glyphicon-file fileinput-exists"></i>
                                                                     <span class="fileinput-filename" style="font-size: 11px;"></span></span>
                                                                 </div>
                                                                 <span class="input-group-addon btn btn-default btn-file">
-                                                                    <span class="fileinput-new" >Selecciona</span>
-                                                                <span class="fileinput-exists"  >Cambiar</span>
-                                                                <input type="file" name="imagen"></span>
+                                                                    <span class="fileinput-new">Selecciona</span>
+                                                                    <span class="fileinput-exists">Cambiar</span>
+                                                                    <input type="file" name="imagen"></span>
                                                                 <a href="javascript:void(0)" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Eliminar</a>
                                                             </div>
-                                                        </div> 
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <!--/row-->
@@ -369,6 +369,170 @@
                             </div>
                         </div>
                         <!-- End Modal ---------->
+
+                        <!--  Edit Modal ---------->
+                        @foreach($productos as $prod)
+                        <div class="modal fade" id="exampleModal-{{$prod->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                            <div class="modal-dialog modal-lg " role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header bc-colored bg-danger">
+                                        <h4 class="modal-title" id="exampleModalLabel1">Editar Producto</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <div class="row">
+                                            <!-- Column -->
+                                            <div class="col-lg-4 col-xlg-3 col-md-5">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <center class="m-t-30"> <img src="{{ asset('storage/images/'.$prod->imagen) }}" class="" width="150" />
+                                                            <h4 class="card-title m-t-10">{{ $prod->nombre }}</h4>
+                                                            <h6 class="card-subtitle">Codigo:</h6>
+                                                            <div class="row text-center justify-content-md-center">
+                                                                <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-people"></i>
+                                                                        <font class="font-medium">254</font>
+                                                                    </a></div>
+                                                                <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-picture"></i>
+                                                                        <font class="font-medium">54</font>
+                                                                    </a></div>
+                                                            </div>
+                                                        </center>
+                                                    </div>
+                                                    <div>
+                                                        <hr>
+                                                    </div>
+                                                    <div class="card-body"> <small class="text-muted">Descripcion: </small>
+                                                        <h6></h6> <small class="text-muted p-t-30 db">Cantidad</small>
+                                                        <h6></h6>
+                                                        <small class="text-muted p-t-30 db">Generar Etiqueta</small>
+                                                        <br />
+                                                        <button class="btn btn-circle btn-secondary"><i class="mdi mdi-barcode-scan"></i></button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Column -->
+                                            <!-- Column -->
+                                            <div class="col-lg-8 col-xlg-9 col-md-7">
+                                                <div class="card">
+                                                    <!-- Nav tabs -->
+                                                    <ul class="nav nav-tabs profile-tab" role="tablist">
+                                                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab">Configuración</a> </li>
+                                                    </ul>
+                                                    <!-- Tab panes -->
+                                                    <div class="tab-content">
+                                                        <div class="tab-pane active" id="home" role="tabpanel">
+                                                            <div class="card-body">
+
+
+                                                                <form action="{{route('admin/productos/agregar')}}" method="POST" enctype="multipart/form-data">
+                                                                    @csrf
+                                                                    <div class="form-body">
+                                                                        <div class="row p-t-20">
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label for="recipient-name" class="control-label">Nombre del producto:</label>
+                                                                                    <input type="text" name="nombre" value="{{$prod->nombre}}" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label for="recipient-name" class="control-label">Codigo:</label>
+                                                                                    <input type="text" name="codigo" value="{{$prod->codigo}}" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label for="recipient-name" class="control-label">Cantidad:</label>
+                                                                                    <input type="number" name="cantidad" value="{{$prod->cantidad}}" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label for="message-text" class="control-label">Descripción:</label>
+                                                                                    <textarea class="form-control" name="descripcion" id="message-text1">{{$prod->descripcion}}</textarea>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label class="col-sm-12">Categoria</label>
+                                                                                    <div class="col-sm-12">
+                                                                                        <select class="form-control form-control-line" name="categoria">
+                                                                                            <option value="1">Equipo electronico</option>
+                                                                                            <option value="2">Mobiliario</option>
+                                                                                            <option value="3">Consumibles</option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label class="col-sm-12">Sub Categoria</label>
+                                                                                    <div class="col-sm-12">
+                                                                                        <select class="form-control form-control-line" name="sub_categoria">
+                                                                                            <option value="1">Computo</option>
+                                                                                            <option value="2">Silla</option>
+                                                                                            <option value="3">Impresora</option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label class="col-sm-12">Estatus</label>
+                                                                                    <div class="col-sm-12">
+                                                                                        <select class="form-control form-control-line" name="estatus">
+                                                                                            <option value="1">Activo</option>
+                                                                                            <option value="2">Pendiente</option>
+                                                                                            <option value="3">Terminado</option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label class="col-sm-12">Sucursal</label>
+                                                                                    <div class="col-sm-12">
+                                                                                        <select class="form-control form-control-line" name="sucursal">
+                                                                                            @foreach($sucursales as $suc)
+                                                                                            <option value="{{$suc->id}}">{{$suc->nombre}}</option>
+                                                                                            @endforeach
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label for="recipient-name col-sm-12" class="control-label">Imagen:</label>
+                                                                                    <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                                                                        <div class="form-control" data-trigger="fileinput">
+                                                                                            <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                                                                            <span class="fileinput-filename" style="font-size: 11px;"></span></span>
+                                                                                        </div>
+                                                                                        <span class="input-group-addon btn btn-default btn-file">
+                                                                                            <span class="fileinput-new">Selecciona</span>
+                                                                                            <span class="fileinput-exists">Cambiar</span>
+                                                                                            <input type="file" name="imagen"></span>
+                                                                                        <a href="javascript:void(0)" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Eliminar</a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!--/row-->
+                                                                    </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Column -->
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                        <button type="submit" class="btn btn-danger">Guardar</button>
+                                    </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        @endforeach
+
+                        <!-- End Edit Modal ---------->
 
                         <!-- ============================================================== -->
                         <!-- End Info box -->
