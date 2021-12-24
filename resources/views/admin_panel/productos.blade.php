@@ -373,7 +373,7 @@
                         <!--  Edit Modal ---------->
                         @foreach($productos as $prod)
                         <div class="modal fade" id="exampleModal-{{$prod->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
-                            <div class="modal-dialog modal-lg " role="document">
+                            <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header bc-colored bg-danger">
                                         <h4 class="modal-title" id="exampleModalLabel1">Editar Producto</h4>
@@ -387,28 +387,29 @@
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <center class="m-t-30"> <img src="{{ asset('storage/images/'.$prod->imagen) }}" class="" width="150" />
-                                                            <h4 class="card-title m-t-10">{{ $prod->nombre }}</h4>
-                                                            <h6 class="card-subtitle">Codigo:</h6>
+                                                            <h4 class="card-title m-t-15">{{ $prod->nombre }}</h4>
+                                                            <h6 class="card-subtitle">Codigo: {{$prod->codigo}}</h6>
                                                             <div class="row text-center justify-content-md-center">
-                                                                <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-people"></i>
-                                                                        <font class="font-medium">254</font>
-                                                                    </a></div>
-                                                                <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-picture"></i>
-                                                                        <font class="font-medium">54</font>
-                                                                    </a></div>
+
+                                                                <div class="col-4">
+                                                                    <a href="javascript:void(0)" class="link"><i class="ti-archive" style="font-size: 15px;"></i>
+                                                                        <font class="font-medium" style="font-size: 15px;">Total: {{$prod->cantidad}}</font>
+                                                                    </a>
+                                                                </div>
                                                             </div>
                                                         </center>
                                                     </div>
                                                     <div>
                                                         <hr>
                                                     </div>
-                                                    <div class="card-body"> <small class="text-muted">Descripcion: </small>
-                                                        <h6></h6> <small class="text-muted p-t-30 db">Cantidad</small>
-                                                        <h6></h6>
-                                                        <small class="text-muted p-t-30 db">Generar Etiqueta</small>
-                                                        <br />
-                                                        <button class="btn btn-circle btn-secondary"><i class="mdi mdi-barcode-scan"></i></button>
-
+                                                    <div class="card-body text-center">
+                                                        <h5 class="card-title m-t-10 db">Generar Etiqueta</h5>
+                                                        <a href="javascript:void(0)" class="link"><i class="mdi mdi-barcode-scan" style="font-size: 25px;"></i>
+                                                            <font class="font-medium"></font>
+                                                        </a>
+                                                    </div>
+                                                    <div>
+                                                        <hr>
                                                     </div>
                                                 </div>
                                             </div>
@@ -418,7 +419,7 @@
                                                 <div class="card">
                                                     <!-- Nav tabs -->
                                                     <ul class="nav nav-tabs profile-tab" role="tablist">
-                                                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab">Configuración</a> </li>
+                                                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab">Detalles de Producto</a> </li>
                                                     </ul>
                                                     <!-- Tab panes -->
                                                     <div class="tab-content">
@@ -446,16 +447,6 @@
                                                                                 <div class="form-group">
                                                                                     <label for="message-text" class="control-label">Descripción:</label>
                                                                                     <textarea class="form-control" name="descripcion" id="message-text1">{{$prod->descripcion}}</textarea>
-                                                                                </div>
-                                                                                <div class="form-group">
-                                                                                    <label class="col-sm-12">Categoria</label>
-                                                                                    <div class="col-sm-12">
-                                                                                        <select class="form-control form-control-line" name="categoria">
-                                                                                            <option value="1">Equipo electronico</option>
-                                                                                            <option value="2">Mobiliario</option>
-                                                                                            <option value="3">Consumibles</option>
-                                                                                        </select>
-                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-6">
@@ -490,6 +481,19 @@
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="form-group">
+                                                                                    <label class="col-sm-12">Categoria</label>
+                                                                                    <div class="col-sm-12">
+                                                                                        <select class="form-control form-control-line" name="categoria">
+                                                                                            <option value="1">Equipo electronico</option>
+                                                                                            <option value="2">Mobiliario</option>
+                                                                                            <option value="3">Consumibles</option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            
+                                                                            <div class="col-md-12">
+                                                                                <div class="form-group">
                                                                                     <label for="recipient-name col-sm-12" class="control-label">Imagen:</label>
                                                                                     <div class="fileinput fileinput-new input-group" data-provides="fileinput">
                                                                                         <div class="form-control" data-trigger="fileinput">
@@ -504,6 +508,7 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
+
                                                                         </div>
                                                                         <!--/row-->
                                                                     </div>
