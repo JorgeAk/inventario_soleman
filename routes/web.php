@@ -42,6 +42,8 @@ Route::get('/admin/productos',[App\Http\Controllers\ProductosController::class, 
 })->middleware('auth')->name('admin/productos');
 Route::post('/admin/productos/agregar',[App\Http\Controllers\ProductosController::class, 'nuevo'],function(){ 
 })->middleware('auth')->name('admin/productos/agregar');
+Route::post('/admin/productos/actualizar',[App\Http\Controllers\ProductosController::class, 'actualizar'],function(){ 
+})->middleware('auth')->name('admin/productos/actualizar');
 
 //--------------------------------END PRODUCTOS-------------------------------
 

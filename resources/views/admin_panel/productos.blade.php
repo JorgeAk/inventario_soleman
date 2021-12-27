@@ -279,6 +279,7 @@
                                     <div class="modal-body">
                                         <form action="{{route('admin/productos/agregar')}}" method="POST" enctype="multipart/form-data">
                                             @csrf
+                                            
                                             <div class="form-body">
                                                 <div class="row p-t-20">
                                                     <div class="col-md-6">
@@ -426,9 +427,9 @@
                                                         <div class="tab-pane active" id="home" role="tabpanel">
                                                             <div class="card-body">
 
-
-                                                                <form action="{{route('admin/productos/agregar')}}" method="POST" enctype="multipart/form-data">
+                                                                <form action="{{route('admin/productos/actualizar')}}" method="POST" enctype="multipart/form-data">
                                                                     @csrf
+                                                                    <input hidden type="text" name="id_pr" value="{{$prod->id}}" class="form-control">
                                                                     <div class="form-body">
                                                                         <div class="row p-t-20">
                                                                             <div class="col-md-6">
@@ -491,7 +492,7 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            
+
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
                                                                                     <label for="recipient-name col-sm-12" class="control-label">Imagen:</label>
@@ -520,7 +521,6 @@
                                             </div>
                                             <!-- Column -->
                                         </div>
-
 
                                     </div>
 
