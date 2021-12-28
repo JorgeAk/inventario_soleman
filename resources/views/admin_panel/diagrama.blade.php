@@ -127,7 +127,7 @@
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="{{route('admin/productos')}}">Todos los Productos </a></li>
                                 <li><a href="index2.html">Ingresar</a></li>
-                                <li><a href="index3.html">Categorias</a></li>
+                                <li><a href="{{route('admin/productos/categorias')}}">Categorias</a></li>
                             </ul>
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-truck"></i><span class="hide-menu">Traslados <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
@@ -138,7 +138,7 @@
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-map-alt"></i><span class="hide-menu">Sucursales <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="app-email.html">Todas las sucursales</a></li>
+                                <li><a href="{{route('admin/usuarios/ubicaciones')}}">Todas las sucursales</a></li>
                                 <li><a href="app-chat.html">Generar Reportes</a></li>
                             </ul>
                         </li>

@@ -44,8 +44,20 @@ Route::post('/admin/productos/agregar',[App\Http\Controllers\ProductosController
 })->middleware('auth')->name('admin/productos/agregar');
 Route::post('/admin/productos/actualizar',[App\Http\Controllers\ProductosController::class, 'actualizar'],function(){ 
 })->middleware('auth')->name('admin/productos/actualizar');
+Route::post('/admin/productos/eliminar',[App\Http\Controllers\ProductosController::class, 'eliminar_producto'],function(){ 
+})->middleware('auth')->name('admin/productos/eliminar');
 
 //--------------------------------END PRODUCTOS-------------------------------
+//--------------------------------CATEGORIAS-------------------------------
+Route::get('/admin/productos/categorias',[App\Http\Controllers\ProductosController::class, 'obtener_categorias'],function(){ 
+})->middleware('auth')->name('admin/productos/categorias');
+Route::post('/admin/productos/categorias/agregar',[App\Http\Controllers\ProductosController::class, 'agregar_categorias'],function(){ 
+})->middleware('auth')->name('admin/categorias/agregar');
+Route::post('/admin/productos/categorias/actualizar',[App\Http\Controllers\ProductosController::class, 'actualizar_categorias'],function(){ 
+})->middleware('auth')->name('admin/categorias/actualizar');
+Route::post('/admin/productos/categorias/eliminar',[App\Http\Controllers\ProductosController::class, 'eliminar_categorias'],function(){ 
+})->middleware('auth')->name('admin/categorias/eliminar');
+//--------------------------------END CATEGORIAS-------------------------------
 
 
 //--------------------------------UBICACIONES-------------------------------

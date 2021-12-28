@@ -129,7 +129,7 @@
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="{{route('admin/productos')}}">Todos los Productos </a></li>
                                 <li><a href="index2.html">Ingresar</a></li>
-                                <li><a href="index3.html">Categorias</a></li>
+                                <li><a href="{{route('admin/productos/categorias')}}">Categorias</a></li>
                             </ul>
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-truck"></i><span class="hide-menu">Traslados <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
@@ -179,12 +179,12 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h4 class="text-themecolor">Home</h4>
+                        <h4 class="text-themecolor">Productos</h4>
                     </div>
                     <div class="col-md-7 align-self-center text-right">
                         <div class="d-flex justify-content-end align-items-center">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{route('admin')}}">Home</a></li>
+                                <li class="breadcrumb-item"><a href="{{route('admin')}}">Productos</a></li>
                                 <li class="breadcrumb-item active">Inicio</li>
                             </ol>
                         </div>
@@ -212,7 +212,7 @@
                                     <div class="col-xs-6 col-sm-4"></div>
                                     <div class="col-xs-6 col-sm-4">
                                         <button type="button" type="button" data-toggle="modal" data-target="#exampleModal" data-whatever="@fat" class="btn btn-danger d-none d-lg-block m-l-15  m-t-30  m-b-10">
-                                            <i class="fa fa-plus-circle"></i> Agregar nueva tarea</button>
+                                            <i class="fa fa-plus-circle"></i> Agregar nuevo Producto</button>
                                     </div>
                                     <!-- Optional: clear the XS cols if their content doesn't match in height -->
                                     <div class="clearfix visible-xs"></div>
@@ -538,6 +538,37 @@
                         @endforeach
 
                         <!-- End Edit Modal ---------->
+
+                        <!-- Modal DEL---------->
+                        @foreach($productos as $prod)
+                                <div class="modal fade" id="exampleModal-del{{$prod->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                                    <div class="modal-dialog  " role="document">
+                                        <div class="modal-content ">
+                                            <div class="modal-header bc-colored bg-danger">
+                                                <h4 class="modal-title" id="exampleModalLabel1">Eliminar Producto: {{$prod->nombre}}</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="{{route('admin/productos/eliminar')}}" method="POST">
+                                                    @csrf
+                                                    <input hidden type="text" name="id_pr" value="{{$prod->id}}" class="form-control">
+                                                    <div class="alert alert-warning">
+                                                        <h3 class="text-warning"><i class="fa fa-exclamation-triangle"></i> Deseas eliminar el Producto:</h3>
+                                                        Nombre: {{$prod->nombre}} <br>
+                                                        Descripción: {{$prod->descripcion}} <br>
+                                                        Esta acción no se podrá revertir
+                                                    </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endforeach
+                                <!-- End Modal DEL ---------->
 
                         <!-- ============================================================== -->
                         <!-- End Info box -->
