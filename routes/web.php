@@ -58,6 +58,17 @@ Route::post('/admin/productos/categorias/actualizar',[App\Http\Controllers\Produ
 Route::post('/admin/productos/categorias/eliminar',[App\Http\Controllers\ProductosController::class, 'eliminar_categorias'],function(){ 
 })->middleware('auth')->name('admin/categorias/eliminar');
 //--------------------------------END CATEGORIAS-------------------------------
+//--------------------------------SUB CATEGORIAS-------------------------------
+Route::get('/admin/productos/sub/categorias',[App\Http\Controllers\ProductosController::class, 'obtener_subcategorias'],function(){ 
+})->middleware('auth')->name('admin/productos/Sub_categorias');
+Route::post('/admin/productos/sub/categorias/agregar',[App\Http\Controllers\ProductosController::class, 'agregar_subcategorias'],function(){ 
+})->middleware('auth')->name('admin/sub/categorias/agregar');
+Route::post('/admin/productos/sub/categorias/actualizar',[App\Http\Controllers\ProductosController::class, 'actualizar_subcategorias'],function(){ 
+})->middleware('auth')->name('admin/sub/categorias/actualizar');
+Route::post('/admin/productos/sub/categorias/eliminar',[App\Http\Controllers\ProductosController::class, 'eliminar_subcategorias'],function(){ 
+})->middleware('auth')->name('admin/sub/categorias/eliminar');
+
+//--------------------------------END CATEGORIAS-------------------------------
 
 
 //--------------------------------UBICACIONES-------------------------------

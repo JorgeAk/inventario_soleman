@@ -208,4 +208,73 @@ class ProductosController extends Controller
         return $this->obtener_categorias($mensaje);
     }
 
+    //---------------Sub CAtegorias -------------- ///
+    public function obtener_subcategorias ($mensaje = ""){
+        $categorias     = DB::table('categorias')->get();
+        $sub_categorias = DB::table('sub_categorias')->get();
+        if (Auth::user()->tipo_usuario == 1) {
+            return view('admin_panel/sub_categorias', compact('mensaje','categorias' ,'sub_categorias' ));
+        } else {
+            return view('home');
+        }
+
+    }
+
+    public function agregar_subcategorias (Request $request){
+
+        $nombre =  $request->input('nombre');
+        $descr  =  $request->input('descripcion');
+        $id_cat =  $request->input('id_categoria');
+        $fecha = Carbon::now();
+        $insert = DB::table('sub_categorias')->insert([
+            'nombre' => $nombre,'descripcion' => $descr,
+            'id_categoria'=>$id_cat,
+            'created_at' => "$fecha", 'updated_at' => "$fecha"
+        ]);
+
+        if($insert){
+            $mensaje = "Sub Categoria agregada con exito";
+        }else{
+            $mensaje = "Error verifique datos";
+        }
+
+        return $this->obtener_subcategorias($mensaje);  
+    }
+
+    public function actualizar_subcategorias (Request $request){
+
+        $id_cat = $request->input('cat_id');
+        $nombre =  $request->input('nombre');
+        $descr  =  $request->input('descripcion');
+        $id_cate =  $request->input('id_categoria');
+        $fecha = Carbon::now();
+
+        $update = DB::table('sub_categorias')->where('id',$id_cat)->update([
+            'nombre' => $nombre,'descripcion' => $descr,'id_categoria'=>$id_cate,'updated_at' => "$fecha"
+        ]);
+
+        if($update){
+            $mensaje = "Sub Categoria actualizada con exito";
+        }else{
+            $mensaje = "Error verifique datos";
+        }
+
+        return  $this->obtener_subcategorias($mensaje);  
+    }
+
+    public function eliminar_subcategorias(Request $request)
+    {
+
+        $id_cat  = $request->input('cat_id');
+        $delete   = DB::table('sub_categorias')->where('id', $id_cat)->delete();
+        if ($delete) {
+            $mensaje = "Sub ategoria eliminada";
+        } else {
+            $mensaje = "ERROR no eliminado verifica datos";
+        }
+
+        return $this->obtener_subcategorias($mensaje);
+    }
+
+
 }

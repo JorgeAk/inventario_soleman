@@ -128,6 +128,7 @@
                                 <li><a href="{{route('admin/productos')}}">Todos los Productos </a></li>
                                 <li><a href="index2.html">Ingresar</a></li>
                                 <li><a href="{{route('admin/productos/categorias')}}">Categorias</a></li>
+                                <li><a href="{{route('admin/productos/Sub_categorias')}}">Sub Categorias</a></li>
                             </ul>
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-truck"></i><span class="hide-menu">Traslados <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>

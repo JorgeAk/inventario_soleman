@@ -178,12 +178,12 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h4 class="text-themecolor">Diagrama de Gantt</h4>
+                        <h4 class="text-themecolor">Sub Categorias</h4>
                     </div>
                     <div class="col-md-7 align-self-center text-right">
                         <div class="d-flex justify-content-end align-items-center">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="javascript:void(0)">Diagramas</a></li>
+                                <li class="breadcrumb-item"><a href="javascript:void(0)">Sub Categorias</a></li>
                                 <li class="breadcrumb-item active">Generar</li>
                             </ol>
                         </div>
@@ -204,111 +204,148 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header bg-danger">
-                                <h4 class="m-b-0 text-white">Mis diagramas</h4>
+                                <h4 class="m-b-0 text-white">Mis Sub Categorias</h4>
                             </div>
                             <div class="card-body">
 
-                                <h6 class="card-subtitle">Exportar tabla : Copiar, CSV, Excel, PDF & Imprimir</h6>
+                                <h6 class="card-subtitle">Creacion de Sub Categorias</h6>
                                 <div class="table-responsive m-t-40">
-                                    <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+
+                                    <div class="row show-grid">
+                                        <div class="col-xs-6 col-sm-4"></div>
+                                        <div class="col-xs-6 col-sm-4">
+                                            <button type="button" type="button" data-toggle="modal" data-target="#exampleModal" data-whatever="@fat" class="btn btn-danger d-none d-lg-block m-l-15  m-t-30  m-b-10">
+                                                <i class="fa fa-plus-circle"></i> Agregar nueva Sub Categoria</button></div>
+                                        <!-- Optional: clear the XS cols if their content doesn't match in height -->
+                                        <div class="clearfix visible-xs"></div>
+                                        <div class="col-xs-6 col-sm-4"></div>
+                                    </div>
+
+                                    <table id="example29" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
                                                 <th>Nombre</th>
                                                 <th>Descripción</th>
-                                                <th>Duración</th>
-                                                <th>Periodo</th>
-                                                <th>creacion</th>
+                                                <th>Categoria</th>
+                                                <th>Creado</th>
                                                 <th>Se modifico</th>
                                                 <th>Acciónes</th>
                                             </tr>
                                         </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Nombre</th>
-                                                <th>Descripción</th>
-                                                <th>Duración</th>
-                                                <th>Periodo</th>
-                                                <th>creacion</th>
-                                                <th>Se modifico</th>
-                                                <th>Acciónes</th>
-                                            </tr>
-                                        </tfoot>
+
                                         <tbody>
-                                            @foreach($diagramas as $diag)
+                                            @foreach($sub_categorias as $cat)
                                             <tr>
-                                                <td>{{$diag->nombre}}</td>
-                                                <td>{{$diag->descripcion}}</td>
-                                                <td>{{$diag->duracion}}</td>
-                                                <td>@foreach($periodo as $per)@if($diag->id_periodo == $per->id){{$per->nombre}} @endif @endforeach</td>
-                                                <td>{{$diag->created_at}}</td>
-                                                <td>{{$diag->updated_at}}</td>
+                                                <td>{{$cat->nombre}}</td>
+                                                <td style="white-space: pre-wrap !important;">{{$cat->descripcion}}</td>
+                                                @foreach($categorias as $cate)
+                                                @if($cate->id == $cat->id_categoria )
+                                                <td style="white-space: pre-wrap !important;">{{$cate->nombre}}</td>
+                                                @endif
+                                                @endforeach
+
+                                                <td>{{$cat->created_at}}</td>
+                                                <td>{{$cat->updated_at}}</td>
                                                 <td>
-                                                    <button type="button" class="btn btn-success btn-circle waves-light"><a class="" href="{{route('mis_diagramas/diagrama',$diag->id)}}" style="color: #f9f9f9;"><i class="fa fa-eye" title="Ver" data-toggle="tooltip"></i></a></button>
-                                                    <button type="button" class="btn btn-warning btn-circle waves-light" data-toggle="modal" data-target="#exampleModal-{{$diag->id}}"><i class="fa fa-pencil-square-o" title="Modificar" data-toggle="tooltip"></i></button>
-                                                    <button type="button" class="btn btn-danger btn-circle  waves-light" data-toggle="modal" data-target="#exampleModal-del{{$diag->id}}"><i class="fa fa-trash-o" title="Eliminar" data-toggle="tooltip"></i></button>
+                                                    <button type="button" class="btn btn-warning btn-circle waves-light" data-toggle="modal" data-target="#exampleModal-{{$cat->id}}"><i class="fa fa-pencil-square-o" title="Modificar" data-toggle="tooltip"></i></button>
+                                                    <button type="button" class="btn btn-danger btn-circle  waves-light" data-toggle="modal" data-target="#exampleModal-del{{$cat->id}}"><i class="fa fa-trash-o" title="Eliminar" data-toggle="tooltip"></i></button>
                                                 </td>
                                             </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
                                 </div>
-                                @foreach($diagramas as $diag)
+
                                 <!-- Modal ---------->
-                                <div class="modal fade" id="exampleModal-{{$diag->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
-                                    <div class="modal-dialog modal-lg" role="document">
-                                        <div class="modal-content">
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                                    <div class="modal-dialog modal-lg " role="document">
+                                        <div class="modal-content ">
                                             <div class="modal-header bc-colored bg-danger">
-                                                <h4 class="modal-title" id="exampleModalLabel1">Diagrama: {{$diag->nombre}}</h4>
+                                                <h4 class="modal-title" id="exampleModalLabel1">Nueva Sub Categoria</h4>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="{{route('mis_diagramas/actualizar')}}" method="POST">
+                                                <form action="{{route('admin/sub/categorias/agregar')}}" method="POST">
                                                     @csrf
-                                                    <input hidden type="text" name="dg" value="{{$diag->id}}" class="form-control">
-                                                    <div class="form-body">                                                       
+                                                    <div class="form-body">
                                                         <div class="row p-t-20">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label class="control-label">Nombre del diagrama</label>
-                                                                    <input type="text" id="firstName" name="n_diagrama" value="{{$diag->nombre}}" class="form-control" placeholder="Nombre del diagrama">
+                                                                    <label for="recipient-name" class="control-label">Nombre de la Sub Categoria:</label>
+                                                                    <input type="text" name="nombre" class="form-control">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-12">Selecciona tipo de Categoria</label>
+                                                                    <div class="col-sm-12">
+                                                                        <select name="id_categoria" class="form-control form-control-line">
+                                                                            @foreach($categorias as $cate)
+                                                                            <option value="{{$cate->id}}">{{$cate->nombre}}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label class="control-label">Descripción</label>
-                                                                    <textarea class="form-control" name="d_diagrama" rows="2">{{$diag->descripcion}}</textarea>
+                                                                    <label for="recipient-name" class="control-label">Descripcion:</label>
+                                                                    <textarea class="form-control" name="descripcion" id="message-text1"></textarea>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <!--/row-->
+                                                    </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                <button type="submit" class="btn btn-danger">Guardar</button>
+                                            </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Modal ---------->
+
+                                @foreach($sub_categorias as $cat)
+                                <!-- Modal EDIT ---------->
+                                <div class="modal fade" id="exampleModal-{{$cat->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header bc-colored bg-danger">
+                                                <h4 class="modal-title" id="exampleModalLabel1">Sub Categoria: {{$cat->nombre}}</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="{{route('admin/sub/categorias/actualizar')}}" method="POST">
+                                                    @csrf
+                                                    <input hidden type="text" name="cat_id" value="{{$cat->id}}" class="form-control">
+                                                    <div class="form-body">
+                                                        <div class="row p-t-20">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="control-label">Nombre de la Sub Categoria:</label>
+                                                                    <input type="text" name="nombre" value="{{$cat->nombre}}" class="form-control">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-12">Selecciona tipo de Categoria</label>
+                                                                    <div class="col-sm-12">
+                                                                        <select name="id_categoria" class="form-control form-control-line">
+                                                                            @foreach($categorias as $cate)
+                                                                            <option value="{{$cate->id}}">{{$cate->nombre}}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="control-label">Descripcion:</label>
+                                                                    <textarea class="form-control" name="descripcion" id="message-text1">{{$cat->descripcion}}</textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <!--/row-->
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label class="control-label">Duracion total</label>
-                                                                    <input type="text" id="firstName" name="duracion_diagrama" value="{{$diag->duracion}}" class="form-control" placeholder="Numero de (dias,meses,años)">
-                                                                </div>
-                                                            </div>
-                                                            <!--/span-->
-                                                            <div class="col-md-6">
-                                                                <label class="control-label text-right ">Dividir Duracion total en:</label>
-                                                                <div class="col-md-9">
-                                                                    @foreach($periodo as $pr)
-                                                                    <div class="custom-control custom-radio">
-                                                                        @if($pr->id== $diag->id_periodo)
-                                                                        <input type="radio" id="customRadio{{$pr->id}}{{$diag->id}}" name="duracion_dividir" value="{{$pr->id}}" class="custom-control-input" checked>
-                                                                        <label class="custom-control-label" for="customRadio{{$pr->id}}{{$diag->id}}">{{$pr->nombre}}</label>
-                                                                        @else
-                                                                        <input type="radio" id="customRadio{{$pr->id}}{{$diag->id}}" name="duracion_dividir" value="{{$pr->id}}" class="custom-control-input">
-                                                                        <label class="custom-control-label" for="customRadio{{$pr->id}}{{$diag->id}}">{{$pr->nombre}}</label>
-                                                                        @endif
-                                                                        
-                                                                        
-                                                                    </div>
-                                                                    @endforeach
-                                                                </div>
-                                                            </div>
-                                                            <!--/span-->
-                                                        </div>
                                                     </div>
                                             </div>
                                             <div class="modal-footer">
@@ -323,23 +360,23 @@
                                 <!-- End Modal ---------->
                                 @endforeach
 
-                                 <!-- Modal DEL---------->
-                                 @foreach($diagramas as $diag)
-                                <div class="modal fade" id="exampleModal-del{{$diag->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                                <!-- Modal DEL---------->
+                                @foreach($sub_categorias as $cat)
+                                <div class="modal fade" id="exampleModal-del{{$cat->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
                                     <div class="modal-dialog  " role="document">
                                         <div class="modal-content ">
                                             <div class="modal-header bc-colored bg-danger">
-                                                <h4 class="modal-title" id="exampleModalLabel1">Eliminar diagrama: {{$diag->nombre}}</h4>
+                                                <h4 class="modal-title" id="exampleModalLabel1">Eliminar Sub Categoria: {{$cat->nombre}}</h4>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="{{route('diagrama/eliminar')}}" method="POST">
+                                                <form action="{{route('admin/sub/categorias/eliminar')}}" method="POST">
                                                     @csrf
-                                                    <input hidden type="text" name="dg" value="{{$diag->id}}" class="form-control">
+                                                    <input hidden type="text" name="cat_id" value="{{$cat->id}}" class="form-control">
                                                     <div class="alert alert-warning">
-                                                        <h3 class="text-warning"><i class="fa fa-exclamation-triangle"></i> Deseas eliminar el Diagrama:</h3>
-                                                        Nombre: {{$diag->nombre}} <br>
-                                                        Descripción: {{$diag->descripcion}}<br>
+                                                        <h3 class="text-warning"><i class="fa fa-exclamation-triangle"></i> Deseas eliminar la Sub Categoria:</h3>
+                                                        Nombre: {{$cat->nombre}} <br>
+                                                        Descripción: {{$cat->descripcion}} <br>
                                                         Esta acción no se podrá revertir
                                                     </div>
                                             </div>
