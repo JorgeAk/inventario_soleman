@@ -47,6 +47,9 @@ Route::post('/admin/productos/actualizar',[App\Http\Controllers\ProductosControl
 Route::post('/admin/productos/eliminar',[App\Http\Controllers\ProductosController::class, 'eliminar_producto'],function(){ 
 })->middleware('auth')->name('admin/productos/eliminar');
 
+Route::get('/barcode/{id}', [App\Http\Controllers\BarcodeController::class, 'index'])
+->middleware('auth')->name('barcode/');
+
 //--------------------------------END PRODUCTOS-------------------------------
 //--------------------------------CATEGORIAS-------------------------------
 Route::get('/admin/productos/categorias',[App\Http\Controllers\ProductosController::class, 'obtener_categorias'],function(){ 

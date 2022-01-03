@@ -255,7 +255,7 @@
                                                 <td>{{$prod->estatus}}</td>
                                                 <td>{{$prod->updated_at}}</td>
                                                 <td>
-                                                    <button type="button" class="btn btn-success btn-circle waves-light"><a class="" href="#" style="color: #f9f9f9;"><i class="fa fa-eye" title="Ver" data-toggle="tooltip"></i></a></button>
+                                                    <button type="button" class="btn btn-success btn-circle waves-light"><a class="" href="{{route('barcode/',$prod->id)}}" style="color: #f9f9f9;"><i class="fa fa-eye" title="Etiqueta QR" data-toggle="tooltip"></i></a></button>
                                                     <button type="button" class="btn btn-warning btn-circle waves-light" data-toggle="modal" data-target="#exampleModal-{{$prod->id}}"><i class="fa fa-pencil-square-o" title="Modificar" data-toggle="tooltip"></i></button>
                                                     <button type="button" class="btn btn-danger btn-circle  waves-light" data-toggle="modal" data-target="#exampleModal-del{{$prod->id}}"><i class="fa fa-trash-o" title="Eliminar" data-toggle="tooltip"></i></button>
                                                 </td>
@@ -406,10 +406,11 @@
                                                     </div>
                                                     <div class="card-body text-center">
                                                         <h5 class="card-title m-t-10 db">Generar Etiqueta</h5>
-                                                        <a href="javascript:void(0)" class="link"><i class="mdi mdi-barcode-scan" style="font-size: 25px;"></i>
+                                                        <a href="{{route('barcode/',$prod->id)}}" class="link"><i class="mdi mdi-barcode-scan" style="font-size: 25px;"></i>
                                                             <font class="font-medium"></font>
                                                         </a>
                                                     </div>
+                                                    
                                                     <div>
                                                         <hr>
                                                     </div>
