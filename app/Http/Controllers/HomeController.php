@@ -35,7 +35,7 @@ class HomeController extends Controller
 
         $mensaje = "";
 
-        if (Auth::user()->tipo_usuario == 1) {
+        if (Auth::user()->tipo_usuario == 1 or Auth::user()->tipo_usuario == 2) {
             return view('admin_panel/index', compact('mensaje'));
         } else {
             return view('home');

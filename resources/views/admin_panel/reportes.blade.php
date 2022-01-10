@@ -195,98 +195,28 @@
                 <!-- Info box -->
                 <!-- ============================================================== -->
                 <div class="card-group">
-                    <div class="card">
+                    <div class="card" style="width: 20rem;">
+                        <img class="card-img-top" src="https://blog.bind.com.mx/hubfs/2.0/Modulos/Bind-ERP-Modulos_Reportes-tiempo-real-existencias.png" alt="Card image cap">
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="d-flex no-block align-items-center">
-                                        <div>
-                                            <h3><i class="icon-screen-desktop"></i></h3>
-                                            <p class="text-muted">NUEVOS PRODUCTOS</p>
-                                        </div>
-                                        <div class="ml-auto">
-                                            <h2 class="counter text-primary">23</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="progress">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 85%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
+                            <h4 class="card-title">Existencias</h4>
+                            <p class="card-text">Reporte de productos en las sucursales.</p>
+                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#existencias-modal">Generar</a>
                         </div>
                     </div>
-                    <!-- Column -->
-                    <!-- Column -->
-                    <div class="card">
+                    <div class="card" style="width: 20rem;">
+                        <img class="card-img-top" src="https://blog.bind.com.mx/hubfs/2.0/Modulos/Bind-ERP-Modulos_Reportes-tiempo-real-existencias.png" alt="Card image cap">
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="d-flex no-block align-items-center">
-                                        <div>
-                                            <h3><i class="icon-note"></i></h3>
-                                            <p class="text-muted">SUCURSALES</p>
-                                        </div>
-                                        <div class="ml-auto">
-                                            <h2 class="counter text-cyan">169</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="progress">
-                                        <div class="progress-bar bg-cyan" role="progressbar" style="width: 85%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
+                            <h4 class="card-title">Entradas de productos</h4>
+                            <p class="card-text">Reporte de nuevos productos añadidos.</p>
+                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#entradas-modal">Generar</a>
                         </div>
                     </div>
-                    <!-- Column -->
-                    <!-- Column -->
-                    <div class="card">
+                    <div class="card" style="width: 20rem;">
+                        <img class="card-img-top" src="https://blog.bind.com.mx/hubfs/2.0/Modulos/Bind-ERP-Modulos_Reportes-tiempo-real-existencias.png" alt="Card image cap">
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="d-flex no-block align-items-center">
-                                        <div>
-                                            <h3><i class="icon-doc"></i></h3>
-                                            <p class="text-muted">TRASLADOS</p>
-                                        </div>
-                                        <div class="ml-auto">
-                                            <h2 class="counter text-purple">157</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="progress">
-                                        <div class="progress-bar bg-purple" role="progressbar" style="width: 85%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Column -->
-                    <!-- Column -->
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="d-flex no-block align-items-center">
-                                        <div>
-                                            <h3><i class="icon-bag"></i></h3>
-                                            <p class="text-muted">DIAGRAMAS</p>
-                                        </div>
-                                        <div class="ml-auto">
-                                            <h2 class="counter text-success">431</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 85%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
+                            <h4 class="card-title">Salida de productos</h4>
+                            <p class="card-text">Reporte de produtos trasladados.</p>
+                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#salidas-modal">Generar</a>
                         </div>
                     </div>
                 </div>
@@ -296,6 +226,133 @@
                 <!-- ============================================================== -->
                 <!-- Over Visitor, Our income , slaes different and  sales prediction -->
                 <!-- ============================================================== -->
+
+                <!-- Existencias Modal -->
+                <div id="existencias-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Existencia de productos</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{{route('admin/existencias')}}" method="POST">
+                                    @csrf
+                                    <div class="form-body">
+                                        <div class="row p-t-20">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="col-sm-12">Selecciona Sucursal</label>
+                                                    <div class="col-sm-12">
+                                                        <select class="form-control form-control-line" name="sucursal">
+                                                            <option value="all">Todas</option>
+                                                            @foreach($sucursales as $suc)
+                                                            <option value="{{$suc->id}}">{{$suc->nombre}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/row-->
+                                    </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-danger waves-effect waves-light">Generar</button>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.End modal -->
+
+                <!-- Entradas Modal -->
+                <div id="entradas-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Entrada de productos</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            </div>
+                            <div class="modal-body">
+                            <form action="{{route('admin/entradas')}}" method="POST">
+                                    @csrf
+                                    <div class="form-body">
+                                        <div class="row p-t-20">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="col-sm-12">Selecciona Sucursal</label>
+                                                    <div class="col-sm-12">
+                                                        <select class="form-control form-control-line" name="sucursal">
+                                                            <option value="all">Todas</option>
+                                                            @foreach($sucursales as $suc)
+                                                            <option value="{{$suc->id}}">{{$suc->nombre}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Por fechas</label>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" id="customRadio1" name="xfecha" value="1" class="custom-control-input">
+                                                        <label class="custom-control-label" for="customRadio1">Si</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" id="customRadio2" name="xfecha" value="0" class="custom-control-input">
+                                                        <label class="custom-control-label" for="customRadio2">No</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="recipient-name" class="control-label">Fecha: </label>
+                                                    <input type="text" name="fecha" class="form-control input-daterange-datepicker">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/row-->
+                                    </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-danger waves-effect waves-light">Generar</button>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.End modal -->
+
+                <!-- Salidas Modal -->
+                <div id="salidas-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Salida de productos</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="control-label">Recipient:</label>
+                                        <input type="text" class="form-control" id="recipient-name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="message-text" class="control-label">Message:</label>
+                                        <textarea class="form-control" id="message-text"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger waves-effect waves-light">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.End modal -->
 
             </div>
             <!-- ============================================================== -->

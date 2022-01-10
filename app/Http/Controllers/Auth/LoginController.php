@@ -43,7 +43,7 @@ class LoginController extends Controller
             return '/admin';
         }else{
             if(Auth::user()->tipo_usuario == 2){
-                return '/home';
+                return '/admin';
             }
         }
         

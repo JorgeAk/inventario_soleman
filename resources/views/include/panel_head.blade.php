@@ -28,6 +28,15 @@
     <!-- Dropzone css -->
     <link href="{{asset('res/assets/node_modules/dropzone-master/dist/dropzone.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('res/dist/css/pages/file-upload.css')}}" rel="stylesheet">
+    <!-- Page plugins css -->
+    <link href="{{asset('res/assets/node_modules/clockpicker/dist/jquery-clockpicker.min.css')}}" rel="stylesheet">
+    <!-- Color picker plugins css -->
+    <link href="{{asset('res/assets/node_modules/jquery-asColorPicker-master/css/asColorPicker.css')}}" rel="stylesheet">
+    <!-- Date picker plugins css -->
+    <link href="{{asset('res/assets/node_modules/bootstrap-datepicker/bootstrap-datepicker.min.css')}}" rel="stylesheet" type="text/css" />
+    <!-- Daterange picker plugins css -->
+    <link href="{{asset('res/assets/node_modules/timepicker/bootstrap-timepicker.min.css')}}" rel="stylesheet">
+    <link href="{{asset('res/assets/node_modules/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

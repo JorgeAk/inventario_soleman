@@ -128,7 +128,6 @@
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-speedometer"></i><span class="hide-menu">Productos <span class="badge badge-pill badge-cyan ml-auto">3</span></span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="{{route('admin/productos')}}">Todos los Productos </a></li>
-                                <li><a href="index2.html">Ingresar</a></li>
                                 <li><a href="{{route('admin/productos/categorias')}}">Categorias</a></li>
                                 <li><a href="{{route('admin/productos/Sub_categorias')}}">Sub Categorias</a></li>
                             </ul>
@@ -142,7 +141,7 @@
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-map-alt"></i><span class="hide-menu">Sucursales <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="{{route('admin/usuarios/ubicaciones')}}">Todas las sucursales</a></li>
-                                <li><a href="app-chat.html">Generar Reportes</a></li>
+                                <li><a href="{{route('admin/reportes')}}">Generar Reportes</a></li>
                             </ul>
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-bar-chart"></i><span class="hide-menu">Diagramas <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
@@ -252,7 +251,18 @@
                                                 <td>{{$prod->nombre}}</td>
                                                 <td>{{$prod->descripcion}}</td>
                                                 <td>{{$prod->cantidad}}</td>
-                                                <td>{{$prod->estatus}}</td>
+                                                <td>
+                                                    @if($prod->estatus == 1)
+                                                    Activo
+                                                    @endif
+                                                    @if($prod->estatus == 2)
+                                                    Pendiente
+                                                    @endif
+                                                    @if($prod->estatus == 3)
+                                                    Terminado
+                                                    @endif
+
+                                                </td>
                                                 <td>{{$prod->updated_at}}</td>
                                                 <td>
                                                     <button type="button" class="btn btn-success btn-circle waves-light"><a class="" href="{{route('barcode/',$prod->id)}}" style="color: #f9f9f9;"><i class="fa fa-eye" title="Etiqueta QR" data-toggle="tooltip"></i></a></button>
@@ -280,7 +290,7 @@
                                     <div class="modal-body">
                                         <form action="{{route('admin/productos/agregar')}}" method="POST" enctype="multipart/form-data">
                                             @csrf
-                                            
+
                                             <div class="form-body">
                                                 <div class="row p-t-20">
                                                     <div class="col-md-6">
@@ -360,6 +370,8 @@
                                                 </div>
                                                 <!--/row-->
                                             </div>
+
+
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -408,9 +420,12 @@
                                                         <h5 class="card-title m-t-10 db">Generar Etiqueta</h5>
                                                         <a href="{{route('barcode/',$prod->id)}}" class="link"><i class="mdi mdi-barcode-scan" style="font-size: 25px;"></i>
                                                             <font class="font-medium"></font>
+                                                        </a>&nbsp;&nbsp;&nbsp;
+                                                        <a href="{{route('barcode/',$prod->id)}}" class="link"><i class="mdi mdi-qrcode-scan" style="font-size: 25px;"></i>
+                                                            <font class="font-medium"></font>
                                                         </a>
                                                     </div>
-                                                    
+
                                                     <div>
                                                         <hr>
                                                     </div>
@@ -454,6 +469,16 @@
                                                                             </div>
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group">
+                                                                                    <label class="col-sm-12">Categoria</label>
+                                                                                    <div class="col-sm-12">
+                                                                                        <select class="form-control form-control-line" name="categoria">
+                                                                                            @foreach($categorias as $cat)
+                                                                                            <option value="{{$cat->id}}">{{$cat->nombre}}</option>
+                                                                                            @endforeach
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group">
                                                                                     <label class="col-sm-12">Sub Categoria</label>
                                                                                     <div class="col-sm-12">
                                                                                         <select class="form-control form-control-line" name="sub_categoria">
@@ -483,16 +508,7 @@
                                                                                         </select>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="form-group">
-                                                                                    <label class="col-sm-12">Categoria</label>
-                                                                                    <div class="col-sm-12">
-                                                                                        <select class="form-control form-control-line" name="categoria">
-                                                                                            <option value="1">Equipo electronico</option>
-                                                                                            <option value="2">Mobiliario</option>
-                                                                                            <option value="3">Consumibles</option>
-                                                                                        </select>
-                                                                                    </div>
-                                                                                </div>
+
                                                                             </div>
 
                                                                             <div class="col-md-12">
@@ -543,34 +559,34 @@
 
                         <!-- Modal DEL---------->
                         @foreach($productos as $prod)
-                                <div class="modal fade" id="exampleModal-del{{$prod->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
-                                    <div class="modal-dialog  " role="document">
-                                        <div class="modal-content ">
-                                            <div class="modal-header bc-colored bg-danger">
-                                                <h4 class="modal-title" id="exampleModalLabel1">Eliminar Producto: {{$prod->nombre}}</h4>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form action="{{route('admin/productos/eliminar')}}" method="POST">
-                                                    @csrf
-                                                    <input hidden type="text" name="id_pr" value="{{$prod->id}}" class="form-control">
-                                                    <div class="alert alert-warning">
-                                                        <h3 class="text-warning"><i class="fa fa-exclamation-triangle"></i> Deseas eliminar el Producto:</h3>
-                                                        Nombre: {{$prod->nombre}} <br>
-                                                        Descripción: {{$prod->descripcion}} <br>
-                                                        Esta acción no se podrá revertir
-                                                    </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                                <button type="submit" class="btn btn-danger">Eliminar</button>
-                                            </div>
-                                            </form>
-                                        </div>
+                        <div class="modal fade" id="exampleModal-del{{$prod->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                            <div class="modal-dialog  " role="document">
+                                <div class="modal-content ">
+                                    <div class="modal-header bc-colored bg-danger">
+                                        <h4 class="modal-title" id="exampleModalLabel1">Eliminar Producto: {{$prod->nombre}}</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                     </div>
+                                    <div class="modal-body">
+                                        <form action="{{route('admin/productos/eliminar')}}" method="POST">
+                                            @csrf
+                                            <input hidden type="text" name="id_pr" value="{{$prod->id}}" class="form-control">
+                                            <div class="alert alert-warning">
+                                                <h3 class="text-warning"><i class="fa fa-exclamation-triangle"></i> Deseas eliminar el Producto:</h3>
+                                                Nombre: {{$prod->nombre}} <br>
+                                                Descripción: {{$prod->descripcion}} <br>
+                                                Esta acción no se podrá revertir
+                                            </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    </div>
+                                    </form>
                                 </div>
-                                @endforeach
-                                <!-- End Modal DEL ---------->
+                            </div>
+                        </div>
+                        @endforeach
+                        <!-- End Modal DEL ---------->
 
                         <!-- ============================================================== -->
                         <!-- End Info box -->

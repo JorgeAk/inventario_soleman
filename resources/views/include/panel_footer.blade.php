@@ -48,6 +48,20 @@
 <!--FooTable init-->
 <script src="{{asset('res/dist/js/pages/footable-init.js')}}"></script>
 <script src="{{asset('res/dist/js/pages/jasny-bootstrap.js')}}"></script>
+<!-- Plugin JavaScript -->
+<script src="{{asset('res/assets/node_modules/moment/moment.js')}}"></script>
+<script src="{{asset('res/assets/node_modules/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js')}}"></script>
+<!-- Clock Plugin JavaScript -->
+<script src="{{asset('res/assets/node_modules/clockpicker/dist/jquery-clockpicker.min.js')}}"></script>
+<!-- Color Picker Plugin JavaScript -->
+<script src="{{asset('res/assets/node_modules/jquery-asColorPicker-master/libs/jquery-asColor.js')}}"></script>
+<script src="{{asset('res/assets/node_modules/jquery-asColorPicker-master/libs/jquery-asGradient.js')}}"></script>
+<script src="{{asset('res/assets/node_modules/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js')}}"></script>
+<!-- Date Picker Plugin JavaScript -->
+<script src="{{asset('res/assets/node_modules/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
+<!-- Date range Plugin JavaScript -->
+<script src="{{asset('res/assets/node_modules/timepicker/bootstrap-timepicker.min.js')}}"></script>
+<script src="{{asset('res/assets/node_modules/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
 
 <!-- Chart JS -->
 <!--<script src="{{asset('res/dist/js/dashboard1.js')}}"></script>-->
@@ -345,6 +359,54 @@
         buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print'
         ]
+    });
+
+    $('#existen-table').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'excel'
+        ]
+    });
+</script>
+<script>
+    // Date Picker
+    jQuery('.mydatepicker, #datepicker').datepicker();
+    jQuery('#datepicker-autoclose').datepicker({
+        autoclose: true,
+        todayHighlight: true
+    });
+    jQuery('#date-range').datepicker({
+        toggleActive: true
+    });
+    jQuery('#datepicker-inline').datepicker({
+        todayHighlight: true
+    });
+    // Daterange picker
+    $('.input-daterange-datepicker').daterangepicker({
+        buttonClasses: ['btn', 'btn-sm'],
+        applyClass: 'btn-danger',
+        cancelClass: 'btn-inverse'
+    });
+    $('.input-daterange-timepicker').daterangepicker({
+        timePicker: true,
+        format: 'MM/DD/YYYY h:mm A',
+        timePickerIncrement: 30,
+        timePicker12Hour: true,
+        timePickerSeconds: false,
+        buttonClasses: ['btn', 'btn-sm'],
+        applyClass: 'btn-danger',
+        cancelClass: 'btn-inverse'
+    });
+    $('.input-limit-datepicker').daterangepicker({
+        format: 'MM/DD/YYYY',
+        minDate: '06/01/2015',
+        maxDate: '06/30/2015',
+        buttonClasses: ['btn', 'btn-sm'],
+        applyClass: 'btn-danger',
+        cancelClass: 'btn-inverse',
+        dateLimit: {
+            days: 6
+        }
     });
 </script>
 

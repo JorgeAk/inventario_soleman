@@ -197,98 +197,67 @@
                 <div class="card-group">
                     <div class="card">
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="d-flex no-block align-items-center">
-                                        <div>
-                                            <h3><i class="icon-screen-desktop"></i></h3>
-                                            <p class="text-muted">NUEVOS PRODUCTOS</p>
-                                        </div>
-                                        <div class="ml-auto">
-                                            <h2 class="counter text-primary">23</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="progress">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 85%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
+                            <h4 class="card-title">Existencias</h4>
+                            <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
+                            <div class="row show-grid">
+                                <div class="col-xs-6 col-sm-4"></div>
+                                <div class="col-xs-6 col-sm-4"></div>
+                                <!-- Optional: clear the XS cols if their content doesn't match in height -->
+                                <div class="clearfix visible-xs"></div>
+                                <div class="col-xs-6 col-sm-4"></div>
+                            </div>
+                            <div class="table-responsive m-t-40">
+                                <table id="existen-table" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Codigo</th>
+                                            <th>Nombre</th>
+                                            <th>Descripción</th>
+                                            <th>Cantidad</th>
+                                            <th>Estatus</th>
+                                            <th>Sucursal</th>
+                                            <th>Creado</th>
+                                            <th>Modificado</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        @foreach($productos as $prod)
+                                        <tr>
+                                            <td>{{$prod->codigo}} </td>
+                                            <td>{{$prod->nombre}}</td>
+                                            <td>{{$prod->descripcion}}</td>
+                                            <td>{{$prod->cantidad}}</td>
+                                            <td>
+                                                @if($prod->estatus == 1)
+                                                Activo
+                                                @endif
+                                                @if($prod->estatus == 2)
+                                                Pendiente
+                                                @endif
+                                                @if($prod->estatus == 3)
+                                                Terminado
+                                                @endif
+                                            </td>
+                                            @foreach($sucursales as $suc)
+                                            @if($prod->id_sucursal == $suc->id)
+                                            <td>{{$suc->nombre}}</td>
+                                            @endif
+                                            @endforeach
+                                            <td>{{date('d/m/Y H:i:s', strtotime($prod->created_at))}}</td>
+                                            <td>{{date('d/m/Y H:i:s', strtotime($prod->updated_at))}}</td>
+
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
-                    <!-- Column -->
-                    <!-- Column -->
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="d-flex no-block align-items-center">
-                                        <div>
-                                            <h3><i class="icon-note"></i></h3>
-                                            <p class="text-muted">SUCURSALES</p>
-                                        </div>
-                                        <div class="ml-auto">
-                                            <h2 class="counter text-cyan">169</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="progress">
-                                        <div class="progress-bar bg-cyan" role="progressbar" style="width: 85%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Column -->
-                    <!-- Column -->
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="d-flex no-block align-items-center">
-                                        <div>
-                                            <h3><i class="icon-doc"></i></h3>
-                                            <p class="text-muted">TRASLADOS</p>
-                                        </div>
-                                        <div class="ml-auto">
-                                            <h2 class="counter text-purple">157</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="progress">
-                                        <div class="progress-bar bg-purple" role="progressbar" style="width: 85%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Column -->
-                    <!-- Column -->
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="d-flex no-block align-items-center">
-                                        <div>
-                                            <h3><i class="icon-bag"></i></h3>
-                                            <p class="text-muted">DIAGRAMAS</p>
-                                        </div>
-                                        <div class="ml-auto">
-                                            <h2 class="counter text-success">431</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 85%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+
+
+
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Info box -->

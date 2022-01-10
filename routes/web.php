@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('/auth/login');
 });
 
 Auth::routes();
@@ -88,6 +88,15 @@ Route::post('/admin/usuarios/ubicaciones/eliminar',[App\Http\Controllers\HomeCon
 })->middleware('auth')->name('admin/usuarios/ubicaciones/eliminar');
 
 //--------------------------------END UBICACIONES-------------------------------
+
+//--------------------------------REPORTES-------------------------------
+Route::get('/admin/usuarios/ubicaciones/reportes',[App\Http\Controllers\ReportesController::class, 'index'],function(){ 
+})->middleware('auth')->name('admin/reportes');
+Route::post('/admin/usuarios/ubicaciones/reportes/existencias',[App\Http\Controllers\ReportesController::class, 'existencias'],function(){ 
+})->middleware('auth')->name('admin/existencias');
+Route::post('/admin/usuarios/ubicaciones/reportes/entradas',[App\Http\Controllers\ReportesController::class, 'entradas'],function(){ 
+})->middleware('auth')->name('admin/entradas');
+//--------------------------------END REPORTES-------------------------------
 
 //--------------------------------DIAGRAMAS-------------------------------
 Route::get('/admin/diagramas',[App\Http\Controllers\HomeController::class, 'generar_diagrama'],function(){ 
