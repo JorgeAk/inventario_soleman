@@ -139,6 +139,8 @@
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-map-alt"></i><span class="hide-menu">Sucursales <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="{{route('admin/usuarios/ubicaciones')}}">Todas las sucursales</a></li>
+                                <li><a href="{{route('admin/usuarios/ubicaciones')}}">Ingreso</a></li>
+                                <li><a href="{{route('admin/usuarios/ubicaciones')}}">Baja</a></li>
                                 <li><a href="{{route('admin/reportes')}}">Generar Reportes</a></li>
                             </ul>
                         </li>

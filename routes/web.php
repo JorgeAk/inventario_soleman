@@ -89,6 +89,21 @@ Route::post('/admin/usuarios/ubicaciones/eliminar',[App\Http\Controllers\HomeCon
 
 //--------------------------------END UBICACIONES-------------------------------
 
+//--------------------------------INGRESO DE INVENTARIO-------------------------------
+Route::get('/admin/usuarios/ubicaciones',[App\Http\Controllers\HomeController::class, 'ubicaciones'],function(){ 
+})->middleware('auth')->name('admin/usuarios/ubicaciones');
+
+Route::post('/admin/usuarios/ubicaciones/nueva',[App\Http\Controllers\HomeController::class, 'ubicaciones_nueva'],function(){ 
+})->middleware('auth')->name('admin/usuarios/ubicaciones/nueva');
+
+Route::post('/admin/usuarios/ubicaciones/nueva/actualizar',[App\Http\Controllers\HomeController::class, 'ubicaciones_actualizar'],function(){ 
+})->middleware('auth')->name('admin/usuarios/ubicaciones/actualizar');
+
+Route::post('/admin/usuarios/ubicaciones/eliminar',[App\Http\Controllers\HomeController::class, 'ubicaciones_eliminar'],function(){ 
+})->middleware('auth')->name('admin/usuarios/ubicaciones/eliminar');
+
+//--------------------------------END INGRESO DE INVENTARIO-------------------------------
+
 //--------------------------------REPORTES-------------------------------
 Route::get('/admin/usuarios/ubicaciones/reportes',[App\Http\Controllers\ReportesController::class, 'index'],function(){ 
 })->middleware('auth')->name('admin/reportes');

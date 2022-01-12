@@ -55,7 +55,7 @@ class ProductosController extends Controller
             'estatus' => $estatus, 'codigo' => $codigo,
             'imagen' => $name, 'id_categoria' => $id_cat,
             'id_subcategoria' => $id_sub, 'descripcion' => $descr,
-            'id_sucursal' => $id_suc, 'created_at' => "$fecha", 'updated_at' => "$fecha"
+            'created_at' => "$fecha", 'updated_at' => "$fecha"
         ]);
 
         $productos      = DB::table('productos')->get();
@@ -109,7 +109,7 @@ class ProductosController extends Controller
             'estatus' => $estatus, 'codigo' => $codigo,
             'id_categoria' => $id_cat,
             'id_subcategoria' => $id_sub, 'descripcion' => $descr,
-            'id_sucursal' => $id_suc, 'updated_at' => "$fecha"
+             'updated_at' => "$fecha"
         ]);
 
         if ($update) {
