@@ -142,7 +142,7 @@
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="{{route('admin/usuarios/ubicaciones')}}">Todas las sucursales</a></li>
                                 <li><a href="{{route('admin/inventario/ingreso')}}">Ingreso</a></li>
-                                <li><a href="{{route('admin/usuarios/ubicaciones')}}">Baja</a></li>
+                                <li><a href="{{route('admin/inventario/bajas')}}">Baja</a></li>
                                 <li><a href="{{route('admin/reportes')}}">Generar Reportes</a></li>
                             </ul>
                         </li>
@@ -181,12 +181,12 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h4 class="text-themecolor">Productos</h4>
+                        <h4 class="text-themecolor">Bajas Inventario </h4>
                     </div>
                     <div class="col-md-7 align-self-center text-right">
                         <div class="d-flex justify-content-end align-items-center">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{route('admin')}}">Productos</a></li>
+                                <li class="breadcrumb-item"><a href="{{route('admin')}}">Inventario</a></li>
                                 <li class="breadcrumb-item active">Inicio</li>
                             </ol>
                         </div>
@@ -214,7 +214,7 @@
                                     <div class="col-xs-6 col-sm-4"></div>
                                     <div class="col-xs-6 col-sm-4">
                                         <button type="button" type="button" data-toggle="modal" data-target="#exampleModal" data-whatever="@fat" class="btn btn-danger d-none d-lg-block m-l-15  m-t-30  m-b-10">
-                                            <i class="fa fa-plus-circle"></i> Agregar nuevo Producto</button>
+                                            <i class="fa fa-plus-circle"></i> Generar nueva Baja</button>
                                     </div>
                                     <!-- Optional: clear the XS cols if their content doesn't match in height -->
                                     <div class="clearfix visible-xs"></div>
@@ -225,52 +225,44 @@
                                     <table id="example30" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
-                                                <th>Codigo</th>
-                                                <th>Nombre</th>
-                                                <th>Descripción</th>
+                                                <th>Sucursal</th>
+                                                <th>Producto</th>
                                                 <th>Cantidad</th>
-                                                <th>Estatus</th>
+                                                <th>Descripcion</th>
+                                                <th>Genero</th>
                                                 <th>Creado</th>
-                                                <th>Accion</th>
+                                                
+                                                
                                             </tr>
                                         </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Codigo</th>
-                                                <th>Nombre</th>
-                                                <th>Descripción</th>
-                                                <th>Cantidad</th>
-                                                <th>Estatus</th>
-                                                <th>Modificado</th>
-                                                <th>Accion</th>
-                                            </tr>
-                                        </tfoot>
+                                        
                                         <tbody>
-                                            @foreach($productos as $prod)
-                                            <img src="{{ storage_path().'/app/public/images/'.$prod->imagen }}" alt="" title="">
+                                            @foreach($ingresos as $ingres)
                                             <tr>
-                                                <td>{{$prod->codigo}} </td>
-                                                <td>{{$prod->nombre}}</td>
-                                                <td>{{$prod->descripcion}}</td>
-                                                <td>{{$prod->cantidad}}</td>
                                                 <td>
-                                                    @if($prod->estatus == 1)
-                                                    Activo
-                                                    @endif
-                                                    @if($prod->estatus == 2)
-                                                    Pendiente
-                                                    @endif
-                                                    @if($prod->estatus == 3)
-                                                    Terminado
-                                                    @endif
-
+                                                    @foreach($sucursales as $suc)
+                                                      @if($suc->id == $ingres->id_ubicacion)
+                                                        {{$suc->nombre}}
+                                                      @endif
+                                                    @endforeach
                                                 </td>
-                                                <td>{{$prod->updated_at}}</td>
                                                 <td>
-                                                    <button type="button" class="btn btn-success btn-circle waves-light"><a class="" href="{{route('barcode/',$prod->id)}}" style="color: #f9f9f9;"><i class="fa fa-eye" title="Etiqueta QR" data-toggle="tooltip"></i></a></button>
-                                                    <button type="button" class="btn btn-warning btn-circle waves-light" data-toggle="modal" data-target="#exampleModal-{{$prod->id}}"><i class="fa fa-pencil-square-o" title="Modificar" data-toggle="tooltip"></i></button>
-                                                    <button type="button" class="btn btn-danger btn-circle  waves-light" data-toggle="modal" data-target="#exampleModal-del{{$prod->id}}"><i class="fa fa-trash-o" title="Eliminar" data-toggle="tooltip"></i></button>
+                                                    @foreach($productos as $prod)
+                                                     @if($prod->id == $ingres->id_producto)
+                                                     {{$prod->nombre}}
+                                                     @endif
+                                                    @endforeach
                                                 </td>
+                                                <td>{{$ingres->cantidad}}</td>
+                                                <td>{{$ingres->descripcion}}</td>
+                                                <td>
+                                                    @foreach($usuarios as $user)
+                                                      @if($user->id == $ingres->id_genero)
+                                                        {{$user->name}}
+                                                      @endif
+                                                    @endforeach
+                                                </td>
+                                                <td>{{$prod->created_at}}</td>
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -286,63 +278,34 @@
                             <div class="modal-dialog modal-lg " role="document">
                                 <div class="modal-content ">
                                     <div class="modal-header bc-colored bg-danger">
-                                        <h4 class="modal-title" id="exampleModalLabel1">Nuevo Producto</h4>
+                                        <h4 class="modal-title" id="exampleModalLabel1">Nuevo Producto a inventario</h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="{{route('admin/productos/agregar')}}" method="POST" enctype="multipart/form-data">
+                                        <form action="{{route('admin/usuarios/inventario/nuevo')}}" method="POST" enctype="multipart/form-data">
                                             @csrf
-
                                             <div class="form-body">
                                                 <div class="row p-t-20">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="recipient-name" class="control-label">Nombre del producto:</label>
-                                                            <input type="text" name="nombre" class="form-control">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="recipient-name" class="control-label">Codigo:</label>
-                                                            <input type="text" name="codigo" class="form-control">
+                                                            <label class="control-label">Producto</label>
+                                                            <div class="col-sm-12">
+                                                                <select class="form-control form-control-line" name="producto">
+                                                                    @foreach($productos as $prod)
+                                                                    <option value="{{$prod->id}}">{{$prod->nombre}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="recipient-name" class="control-label">Cantidad:</label>
                                                             <input type="number" name="cantidad" class="form-control">
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label for="message-text" class="control-label">Descripción:</label>
-                                                            <textarea class="form-control" name="descripcion" id="message-text1"></textarea>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="col-sm-12">Categoria</label>
-                                                            <div class="col-sm-12">
-                                                                <select class="form-control form-control-line" name="categoria">
-                                                                    <option value="1">Equipo electronico</option>
-                                                                    <option value="2">Mobiliario</option>
-                                                                    <option value="3">Consumibles</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label class="col-sm-12">Sub Categoria</label>
-                                                            <div class="col-sm-12">
-                                                                <select class="form-control form-control-line" name="sub_categoria">
-                                                                    <option value="1">Computo</option>
-                                                                    <option value="2">Silla</option>
-                                                                    <option value="3">Impresora</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="col-sm-12">Estatus</label>
-                                                            <div class="col-sm-12">
-                                                                <select class="form-control form-control-line" name="estatus">
-                                                                    <option value="1">Activo</option>
-                                                                    <option value="2">Pendiente</option>
-                                                                    <option value="3">Terminado</option>
-                                                                </select>
-                                                            </div>
+                                                            <label for="message-text" class="control-label">Descripción:</label>
+                                                            <textarea class="form-control" name="descripcion" id="message-text1"></textarea>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="col-sm-12">Sucursal</label>
@@ -354,20 +317,7 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label for="recipient-name col-sm-12" class="control-label">Imagen:</label>
-                                                            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                                                                <div class="form-control" data-trigger="fileinput">
-                                                                    <i class="glyphicon glyphicon-file fileinput-exists"></i>
-                                                                    <span class="fileinput-filename" style="font-size: 11px;"></span></span>
-                                                                </div>
-                                                                <span class="input-group-addon btn btn-default btn-file">
-                                                                    <span class="fileinput-new">Selecciona</span>
-                                                                    <span class="fileinput-exists">Cambiar</span>
-                                                                    <input type="file" name="imagen"></span>
-                                                                <a href="javascript:void(0)" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Eliminar</a>
-                                                            </div>
-                                                        </div>
+
                                                     </div>
                                                 </div>
                                                 <!--/row-->

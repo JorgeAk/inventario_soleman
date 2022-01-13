@@ -90,17 +90,20 @@ Route::post('/admin/usuarios/ubicaciones/eliminar',[App\Http\Controllers\HomeCon
 //--------------------------------END UBICACIONES-------------------------------
 
 //--------------------------------INGRESO DE INVENTARIO-------------------------------
-Route::get('/admin/usuarios/ubicaciones',[App\Http\Controllers\HomeController::class, 'ubicaciones'],function(){ 
-})->middleware('auth')->name('admin/usuarios/ubicaciones');
+Route::get('/admin/usuarios/inventario/ingreso',[App\Http\Controllers\InventarioController::class, 'index'],function(){ 
+})->middleware('auth')->name('admin/inventario/ingreso');
 
-Route::post('/admin/usuarios/ubicaciones/nueva',[App\Http\Controllers\HomeController::class, 'ubicaciones_nueva'],function(){ 
-})->middleware('auth')->name('admin/usuarios/ubicaciones/nueva');
+Route::post('/admin/usuarios/inventario/nuevo',[App\Http\Controllers\InventarioController::class, 'nuevo'],function(){ 
+})->middleware('auth')->name('admin/usuarios/inventario/nuevo');
 
-Route::post('/admin/usuarios/ubicaciones/nueva/actualizar',[App\Http\Controllers\HomeController::class, 'ubicaciones_actualizar'],function(){ 
-})->middleware('auth')->name('admin/usuarios/ubicaciones/actualizar');
+Route::get('/admin/usuarios/inventario/bajas',[App\Http\Controllers\InventarioController::class, 'v_baja'],function(){ 
+})->middleware('auth')->name('admin/inventario/bajas');
 
-Route::post('/admin/usuarios/ubicaciones/eliminar',[App\Http\Controllers\HomeController::class, 'ubicaciones_eliminar'],function(){ 
-})->middleware('auth')->name('admin/usuarios/ubicaciones/eliminar');
+Route::post('/admin/usuarios/inventario/actualizar',[App\Http\Controllers\HomeController::class, 'index'],function(){ 
+})->middleware('auth')->name('admin/inventario/actualizar');
+
+Route::post('/admin/usuarios/inventario/eliminar',[App\Http\Controllers\HomeController::class, 'index'],function(){ 
+})->middleware('auth')->name('admin/inventario/eliminar');
 
 //--------------------------------END INGRESO DE INVENTARIO-------------------------------
 

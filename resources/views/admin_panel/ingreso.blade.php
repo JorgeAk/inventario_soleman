@@ -40,7 +40,9 @@
                             <!-- dark Logo text -->
                             <img src="{{asset('res/assets/images/logo-text.png')}}" alt="homepage" class="dark-logo" />
                             <!-- Light Logo text -->
-                            <img src="{{asset('res/assets/images/logo-light-text.png')}}" class="light-logo" alt="homepage" /></span> </a>
+                            <img src="{{asset('res/assets/images/logo-light-text.png')}}" class="light-logo" alt="homepage" />
+                        </span>
+                    </a>
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Logo -->
@@ -140,7 +142,7 @@
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="{{route('admin/usuarios/ubicaciones')}}">Todas las sucursales</a></li>
                                 <li><a href="{{route('admin/inventario/ingreso')}}">Ingreso</a></li>
-                                <li><a href="{{route('admin/usuarios/ubicaciones')}}">Baja</a></li>
+                                <li><a href="{{route('admin/inventario/bajas')}}">Baja</a></li>
                                 <li><a href="{{route('admin/reportes')}}">Generar Reportes</a></li>
                             </ul>
                         </li>
@@ -179,13 +181,13 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h4 class="text-themecolor">Perfil</h4>
+                        <h4 class="text-themecolor">Ingreso Inventario </h4>
                     </div>
                     <div class="col-md-7 align-self-center text-right">
                         <div class="d-flex justify-content-end align-items-center">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{route('admin')}}">Home</a></li>
-                                <li class="breadcrumb-item active">Perfil</li>
+                                <li class="breadcrumb-item"><a href="{{route('admin')}}">Inventario</a></li>
+                                <li class="breadcrumb-item active">Inicio</li>
                             </ol>
                         </div>
                     </div>
@@ -196,142 +198,169 @@
                 <!-- ============================================================== -->
                 <!-- Info box -->
                 <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Start Page Content -->
-                <!-- ============================================================== -->
-                <!-- Row -->
+
                 <div class="row">
-                    <!-- Column -->
-                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                    <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <center class="m-t-30"> <img src="{{asset('res/assets/images/users/1.jpg')}}" class="img-circle" width="150" />
-                                    <h4 class="card-title m-t-10">{{ Auth::user()->name }}</h4>
-                                    <h6 class="card-subtitle">Tipo de usuario: @if(Auth::user()->tipo_usuario == 1) {{"Administrador"}} @endif @if(Auth::user()->tipo_usuario == 2) {{"Usuario 2"}} @endif</h6>
-                                    <div class="row text-center justify-content-md-center">
-                                        <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-people"></i>
-                                                <font class="font-medium">254</font>
-                                            </a></div>
-                                        <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-picture"></i>
-                                                <font class="font-medium">54</font>
-                                            </a></div>
+                                <h4 class="card-title">Data Export</h4>
+                                <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
+                                <!--
+                                @foreach($productos as $prod)
+                                <img src="{{ asset('storage/images/'.$prod->imagen) }}" alt="" title="">
+                                @endforeach
+                            -->
+                                <div class="row show-grid">
+                                    <div class="col-xs-6 col-sm-4"></div>
+                                    <div class="col-xs-6 col-sm-4">
+                                        <button type="button" type="button" data-toggle="modal" data-target="#exampleModal" data-whatever="@fat" class="btn btn-danger d-none d-lg-block m-l-15  m-t-30  m-b-10">
+                                            <i class="fa fa-plus-circle"></i> Generar nuevo Ingreso</button>
                                     </div>
-                                </center>
-                            </div>
-                            <div>
-                                <hr>
-                            </div>
-                            <div class="card-body"> <small class="text-muted">Dirección de correo </small>
-                                <h6>{{Auth::user()->email}}</h6> <small class="text-muted p-t-30 db">Teléfono</small>
-                                <h6>+91 654 784 547</h6>
-                                <small class="text-muted p-t-30 db">Social Profile</small>
-                                <br />
-                                <button class="btn btn-circle btn-secondary"><i class="fa fa-facebook"></i></button>
-                                <button class="btn btn-circle btn-secondary"><i class="fa fa-twitter"></i></button>
-                                <button class="btn btn-circle btn-secondary"><i class="fa fa-youtube"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Column -->
-                    <!-- Column -->
-                    <div class="col-lg-8 col-xlg-9 col-md-7">
-                        <div class="card">
-                            <!-- Nav tabs -->
-                            <ul class="nav nav-tabs profile-tab" role="tablist">
-                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab">Configuración</a> </li>
-                            </ul>
-                            <!-- Tab panes -->
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="home" role="tabpanel">
-                                    <div class="card-body">
-                                        <form action="{{route('admin/usuarios/control/actualizar')}}" method="POST">
-                                            @csrf
-                                            <div class="form-group">
-                                                <label class="col-md-12">Nombre</label>
-                                                <div class="col-md-12">
-                                                    <input type="text" name="nombre" value="{{Auth::user()->name}}" placeholder="Nombre" class="form-control form-control-line">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="example-email" class="col-md-12">Correo</label>
-                                                <div class="col-md-12">
-                                                    <input type="email" name="correo" value="{{Auth::user()->email}}" placeholder="Correo" class="form-control form-control-line" name="example-email" id="example-email">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-md-12">Contraseña</label>
-                                                <div class="col-md-12">
-                                                    <input type="password" name="password" value="password" class="form-control form-control-line">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-12">Selecciona tipo de usuario</label>
-                                                <div class="col-sm-12">
-                                                    <select name="tipo_usuario" class="form-control form-control-line">
-                                                        <option value="1">Administrador</option>
-                                                        <option value="2">Usuario</option>
-                                                        <option value="3">Usuario Estandar</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-12">Sucursal a la que pertenece</label>
-                                                <div class="col-sm-12">
-                                                    <select class="form-control form-control-line">
-                                                        <option>Morelia,Mich.</option>
-                                                        <option>Uruapán,Mich.</option>
-                                                        <option>Querétaro</option>
-                                                        <option>Toluca, Edo. México</option>
-                                                        <option>Ezequiel Montes</option>
-                                                        <option>Guanajuato</option>
-                                                        <option>San Juan del Río</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group text-center">
-                                                <div class="col-sm-12">
-                                                    <button class="btn btn-success">Actualizar Perfil</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
+                                    <!-- Optional: clear the XS cols if their content doesn't match in height -->
+                                    <div class="clearfix visible-xs"></div>
+                                    <div class="col-xs-6 col-sm-4"></div>
+                                </div>
+                                <div class="table-responsive m-t-40">
+
+                                    <table id="example30" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Sucursal</th>
+                                                <th>Producto</th>
+                                                <th>Cantidad</th>
+                                                <th>Descripcion</th>
+                                                <th>Genero</th>
+                                                <th>Creado</th>
+                                                
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($ingresos as $ingres)
+                                            <tr>
+                                                <td>
+                                                    @foreach($sucursales as $suc)
+                                                      @if($suc->id == $ingres->id_ubicacion)
+                                                        {{$suc->nombre}}
+                                                      @endif
+                                                    @endforeach
+                                                </td>
+                                                <td>
+                                                    @foreach($productos as $prod)
+                                                     @if($prod->id == $ingres->id_producto)
+                                                     {{$prod->nombre}}
+                                                     @endif
+                                                    @endforeach
+                                                </td>
+                                                <td>{{$ingres->cantidad}}</td>
+                                                <td>{{$ingres->descripcion}}</td>
+                                                <td>
+                                                    @foreach($usuarios as $user)
+                                                      @if($user->id == $ingres->id_genero)
+                                                        {{$user->name}}
+                                                      @endif
+                                                    @endforeach
+                                                </td>
+                                                <td>{{$prod->created_at}}</td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
+
+
+
+                        <!-- Modal ---------->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                            <div class="modal-dialog modal-lg " role="document">
+                                <div class="modal-content ">
+                                    <div class="modal-header bc-colored bg-danger">
+                                        <h4 class="modal-title" id="exampleModalLabel1">Nuevo Producto a inventario</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{{route('admin/usuarios/inventario/nuevo')}}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="form-body">
+                                                <div class="row p-t-20">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Producto</label>
+                                                            <div class="col-sm-12">
+                                                                <select class="form-control form-control-line" name="producto">
+                                                                    @foreach($productos as $prod)
+                                                                    <option value="{{$prod->id}}">{{$prod->nombre}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="control-label">Cantidad:</label>
+                                                            <input type="number" name="cantidad" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="message-text" class="control-label">Descripción:</label>
+                                                            <textarea class="form-control" name="descripcion" id="message-text1"></textarea>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-12">Sucursal</label>
+                                                            <div class="col-sm-12">
+                                                                <select class="form-control form-control-line" name="sucursal">
+                                                                    @foreach($sucursales as $suc)
+                                                                    <option value="{{$suc->id}}">{{$suc->nombre}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <!--/row-->
+                                            </div>
+
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                        <button type="submit" class="btn btn-danger">Guardar</button>
+                                    </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Modal ---------->
+
+                        <!-- ============================================================== -->
+                        <!-- End Info box -->
+                        <!-- ============================================================== -->
+                        <!-- ============================================================== -->
+                        <!-- Over Visitor, Our income , slaes different and  sales prediction -->
+                        <!-- ============================================================== -->
+
                     </div>
-                    <!-- Column -->
+                    <!-- ============================================================== -->
+                    <!-- End Container fluid  -->
+                    <!-- ============================================================== -->
                 </div>
-                <!-- Row -->
                 <!-- ============================================================== -->
-                <!-- End PAge Content -->
-                <!-- ============================================================== -->
-
-                <!-- ============================================================== -->
-                <!-- End Info box -->
+                <!-- End Page wrapper  -->
                 <!-- ============================================================== -->
                 <!-- ============================================================== -->
-                <!-- Over Visitor, Our income , slaes different and  sales prediction -->
+                <!-- footer -->
                 <!-- ============================================================== -->
-
+                <footer class="footer">
+                    © 2021 Soleman
+                </footer>
+                <!-- ============================================================== -->
+                <!-- End footer -->
+                <!-- ============================================================== -->
             </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-        </div>
-        <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- footer -->
-        <!-- ============================================================== -->
-        <footer class="footer">
-            © 2021 Soleman
-        </footer>
-        <!-- ============================================================== -->
-        <!-- End footer -->
-        <!-- ============================================================== -->
-    </div>
-    @include('include.panel_footer')
+            @include('include.panel_footer')
 </body>
 
 </html>
