@@ -134,7 +134,7 @@
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-truck"></i><span class="hide-menu">Traslados <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="app-calendar.html">Generar Traslado</a></li>
+                                <li><a href="{{route('admin/traslados')}}">Generar Traslado</a></li>
                                 <li><a href="app-chat.html">Generar Reportes</a></li>
                             </ul>
                         </li>
@@ -231,35 +231,35 @@
                                                 <th>Descripcion</th>
                                                 <th>Genero</th>
                                                 <th>Creado</th>
-                                                
-                                                
+
+
                                             </tr>
                                         </thead>
-                                        
+
                                         <tbody>
                                             @foreach($ingresos as $ingres)
                                             <tr>
                                                 <td>
                                                     @foreach($sucursales as $suc)
-                                                      @if($suc->id == $ingres->id_ubicacion)
-                                                        {{$suc->nombre}}
-                                                      @endif
+                                                    @if($suc->id == $ingres->id_ubicacion)
+                                                    {{$suc->nombre}}
+                                                    @endif
                                                     @endforeach
                                                 </td>
                                                 <td>
                                                     @foreach($productos as $prod)
-                                                     @if($prod->id == $ingres->id_producto)
-                                                     {{$prod->nombre}}
-                                                     @endif
+                                                    @if($prod->id == $ingres->id_producto)
+                                                    {{$prod->nombre}}
+                                                    @endif
                                                     @endforeach
                                                 </td>
                                                 <td>{{$ingres->cantidad}}</td>
                                                 <td>{{$ingres->descripcion}}</td>
                                                 <td>
                                                     @foreach($usuarios as $user)
-                                                      @if($user->id == $ingres->id_genero)
-                                                        {{$user->name}}
-                                                      @endif
+                                                    @if($user->id == $ingres->id_genero)
+                                                    {{$user->name}}
+                                                    @endif
                                                     @endforeach
                                                 </td>
                                                 <td>{{$prod->created_at}}</td>
@@ -282,33 +282,13 @@
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="{{route('admin/usuarios/inventario/nuevo')}}" method="POST" enctype="multipart/form-data">
+                                        <form action="{{route('admin/inventario/bajas/nuevo')}}" method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-body">
                                                 <div class="row p-t-20">
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label class="control-label">Producto</label>
-                                                            <div class="col-sm-12">
-                                                                <select class="form-control form-control-line" name="producto">
-                                                                    @foreach($productos as $prod)
-                                                                    <option value="{{$prod->id}}">{{$prod->nombre}}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="recipient-name" class="control-label">Cantidad:</label>
-                                                            <input type="number" name="cantidad" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="message-text" class="control-label">Descripción:</label>
-                                                            <textarea class="form-control" name="descripcion" id="message-text1"></textarea>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="col-sm-12">Sucursal</label>
+                                                            <label class="control-label">Selecciona Sucursal</label>
                                                             <div class="col-sm-12">
                                                                 <select class="form-control form-control-line" name="sucursal">
                                                                     @foreach($sucursales as $suc)
@@ -317,17 +297,14 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-
                                                     </div>
                                                 </div>
                                                 <!--/row-->
                                             </div>
-
-
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                        <button type="submit" class="btn btn-danger">Guardar</button>
+                                        <button type="submit" class="btn btn-danger">Generar</button>
                                     </div>
                                     </form>
 

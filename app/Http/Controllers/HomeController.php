@@ -182,4 +182,12 @@ class HomeController extends Controller
         }
         return $this->ubicaciones($mensaje); 
     }
+
+    public function obtn_prod(Request $request){
+
+        $id_origen = $request->input('id');
+        $existencia = DB::table('existencias_inventario')->select('id_producto','productos.nombre')->join('productos',"existencias_inventario.id_producto","productos.id")->where('id_ubicacion',$id_origen)->get();
+        return response()->json($existencia);
+
+    }
 }

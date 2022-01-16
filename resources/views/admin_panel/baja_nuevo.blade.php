@@ -40,7 +40,9 @@
                             <!-- dark Logo text -->
                             <img src="{{asset('res/assets/images/logo-text.png')}}" alt="homepage" class="dark-logo" />
                             <!-- Light Logo text -->
-                            <img src="{{asset('res/assets/images/logo-light-text.png')}}" class="light-logo" alt="homepage" /></span> </a>
+                            <img src="{{asset('res/assets/images/logo-light-text.png')}}" class="light-logo" alt="homepage" />
+                        </span>
+                    </a>
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Logo -->
@@ -140,13 +142,13 @@
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="{{route('admin/usuarios/ubicaciones')}}">Todas las sucursales</a></li>
                                 <li><a href="{{route('admin/inventario/ingreso')}}">Ingreso</a></li>
-                                <li><a href="{{route('admin/usuarios/ubicaciones')}}">Baja</a></li>
+                                <li><a href="{{route('admin/inventario/bajas')}}">Baja</a></li>
                                 <li><a href="{{route('admin/reportes')}}">Generar Reportes</a></li>
                             </ul>
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-bar-chart"></i><span class="hide-menu">Diagramas <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
                             <ul aria-expanded="false" class="collapse">
-                            <li><a href="{{ route('diagramas') }}">Generar</a></li>
+                                <li><a href="{{ route('diagramas') }}">Generar</a></li>
                                 <li><a href="{{route('mis_diagramas')}}">Mis diagramas</a></li>
                             </ul>
                         </li>
@@ -179,107 +181,209 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h4 class="text-themecolor">Diagrama de Gantt</h4>
+                        <h4 class="text-themecolor">Bajas Inventario Nuevo</h4>
                     </div>
                     <div class="col-md-7 align-self-center text-right">
                         <div class="d-flex justify-content-end align-items-center">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="javascript:void(0)">Diagramas</a></li>
-                                <li class="breadcrumb-item active">Generar</li>
+                                <li class="breadcrumb-item"><a href="{{route('admin')}}">Inventario</a></li>
+                                <li class="breadcrumb-item active">Inicio</li>
                             </ol>
                         </div>
                     </div>
                 </div>
                 <!-- ============================================================== -->
-                <!-- Formulario -->
+                <!-- End Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Info box -->
                 <!-- ============================================================== -->
 
-                <!-- Row -->
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-12">
                         <div class="card">
-                            <div class="card-header bg-danger">
-                                <h4 class="m-b-0 text-white">Generar Diagrama</h4>
-                            </div>
                             <div class="card-body">
-                                <form action="{{route('diagrama_nuevo')}}" method="POST">
-                                @csrf
-                                    <div class="form-body">
-                                        <h3 class="card-title">Ingresa los siguientes datos</h3>
-                                        <hr>
-                                        <div class="row p-t-20">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">Nombre del diagrama</label>
-                                                    <input type="text" id="firstName" name="n_diagrama" class="form-control" placeholder="Nombre del diagrama">
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">Descripción</label>
-                                                    <textarea class="form-control" name="d_diagrama" rows="2"></textarea>
-                                                    
-                                                </div>
-                                            </div>
-                                        
-                                        </div>
-                                        <!--/row-->
-                                        <div class="row">
-                                        <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">Duracion total</label>
-                                                    <input type="text" id="firstName" name="duracion_diagrama" class="form-control" placeholder="Numero de (dias,meses,años)">
-                                                </div>
-                                            </div>
-                                            <!--/span-->
-                                            <div class="col-md-6">
-                                                    <label class="control-label text-right ">Dividir Duracion total en:</label>
-                                                    <div class="col-md-9">
-                                                        @foreach($periodo as $pr)
-                                                        <div class="custom-control custom-radio">
-                                                            <input type="radio" id="customRadio{{$pr->id}}" name="duracion_dividir" value="{{$pr->id}}" class="custom-control-input">
-                                                            <label class="custom-control-label" for="customRadio{{$pr->id}}">{{$pr->nombre}}</label>
-                                                        </div>
-                                                        @endforeach
-                                                    </div>
-                                            </div>
-                                            <!--/span-->
-                                        </div>
+                                <h4 class="card-title">Data Export</h4>
+                                <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
+                                <!--
+                                @foreach($productos as $prod)
+                                <img src="{{ asset('storage/images/'.$prod->imagen) }}" alt="" title="">
+                                @endforeach
+                            -->
+                                <div class="row show-grid">
+                                    <div class="col-xs-6 col-sm-4"></div>
+                                    <div class="col-xs-6 col-sm-4">
+
                                     </div>
-                                    <div class="form-actions text-center">
-                                        <button type="submit" class="btn btn-success m-t-30"> <i class="fa fa-check"></i> Generar</button>
-                                    </div>
-                                </form>
+                                    <!-- Optional: clear the XS cols if their content doesn't match in height -->
+                                    <div class="clearfix visible-xs"></div>
+                                    <div class="col-xs-6 col-sm-4"></div>
+                                </div>
+                                <div class="table-responsive m-t-40">
+
+                                    <table id="example30" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Sucursal</th>
+                                                <th>Producto</th>
+                                                <th>Cantidad</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($existencias as $exist)
+                                            <tr>
+                                                <td>
+                                                    @foreach($ubicaciones as $suc)
+                                                    @if($suc->id == $exist->id_ubicacion)
+                                                    {{$suc->nombre}}
+                                                    @endif
+                                                    @endforeach
+                                                </td>
+                                                <td>
+                                                    @foreach($productos as $prod)
+                                                    @if($prod->id == $exist->id_producto)
+                                                    {{$prod->nombre}}
+                                                    @endif
+                                                    @endforeach
+                                                </td>
+                                                <td>{{$exist->cantidad}}</td>
+                                               
+                                                <td><button type="button" class="btn btn-warning btn-circle waves-light" data-toggle="modal" data-target="#exampleModal-{{$exist->id}}"><i class="fa fa-pencil-square-o" title="Generar" data-toggle="tooltip"></i></button></td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
+
+
+
+                        <!--  Edit Modal ---------->
+                        @foreach($existencias as $ingres)
+                        <div class="modal fade" id="exampleModal-{{$ingres->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header bc-colored bg-danger">
+                                        <h4 class="modal-title" id="exampleModalLabel1">Generar Baja de Producto</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{{route('admin/inventario/bajas/nuevo/generar')}}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="form-body">
+                                                <div class="row p-t-20">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="control-label">Producto:</label>
+                                                            <input type="text" hidden name="producto" class="form-control" value="{{$ingres->id_producto}}">
+                                                            <input type="text" hidden name="ingres" class="form-control" value="{{$ingres->id}}">
+                                                            @foreach($productos as $prod)
+                                                            @if($prod->id == $ingres->id_producto)
+                                                            <input type="text" name="producto-name" class="form-control" placeholder="{{$prod->nombre}}" readonly>
+                                                            @endif
+                                                            @endforeach
+
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="control-label">Cantidad:</label>
+                                                            <input type="number" name="cantidad" min="1" max="{{$ingres->cantidad}}" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="message-text" class="control-label">Descripción:</label>
+                                                            <textarea class="form-control" name="descripcion" id="message-text1"></textarea>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="control-label">Sucursal:</label>
+                                                            <input type="text" hidden name="sucursal" class="form-control" value="{{$ingres->id_ubicacion}}">
+                                                            @foreach($ubicaciones as $suc)
+                                                            @if($suc->id == $ingres->id_ubicacion)
+                                                            <input type="text" name="sucursal-name" class="form-control" placeholder="{{$suc->nombre}}" readonly>
+                                                            @endif
+                                                            @endforeach
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <!--/row-->
+                                            </div>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                        <button type="submit" class="btn btn-danger">Guardar</button>
+                                    </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+
+                        <!-- End Edit Modal ---------->
+
+                        <!-- Modal DEL---------->
+                        @foreach($productos as $prod)
+                        <div class="modal fade" id="exampleModal-del{{$prod->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                            <div class="modal-dialog  " role="document">
+                                <div class="modal-content ">
+                                    <div class="modal-header bc-colored bg-danger">
+                                        <h4 class="modal-title" id="exampleModalLabel1">Eliminar Producto: {{$prod->nombre}}</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{{route('admin/productos/eliminar')}}" method="POST">
+                                            @csrf
+                                            <input hidden type="text" name="id_pr" value="{{$prod->id}}" class="form-control">
+                                            <div class="alert alert-warning">
+                                                <h3 class="text-warning"><i class="fa fa-exclamation-triangle"></i> Deseas eliminar el Producto:</h3>
+                                                Nombre: {{$prod->nombre}} <br>
+                                                Descripción: {{$prod->descripcion}} <br>
+                                                Esta acción no se podrá revertir
+                                            </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                        <!-- End Modal DEL ---------->
+
+                        <!-- ============================================================== -->
+                        <!-- End Info box -->
+                        <!-- ============================================================== -->
+                        <!-- ============================================================== -->
+                        <!-- Over Visitor, Our income , slaes different and  sales prediction -->
+                        <!-- ============================================================== -->
+
                     </div>
+                    <!-- ============================================================== -->
+                    <!-- End Container fluid  -->
+                    <!-- ============================================================== -->
                 </div>
-                <!-- Row -->
-
                 <!-- ============================================================== -->
-                <!-- End Formulario -->
+                <!-- End Page wrapper  -->
                 <!-- ============================================================== -->
-
+                <!-- ============================================================== -->
+                <!-- footer -->
+                <!-- ============================================================== -->
+                <footer class="footer">
+                    © 2021 Soleman
+                </footer>
+                <!-- ============================================================== -->
+                <!-- End footer -->
+                <!-- ============================================================== -->
             </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-        </div>
-        <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- footer -->
-        <!-- ============================================================== -->
-        <footer class="footer">
-            © 2021 Soleman
-        </footer>
-        <!-- ============================================================== -->
-        <!-- End footer -->
-        <!-- ============================================================== -->
-    </div>
-    @include('include.panel_footer')
+            @include('include.panel_footer')
 </body>
 
 </html>

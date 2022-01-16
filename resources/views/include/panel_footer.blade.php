@@ -409,5 +409,52 @@
         }
     });
 </script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+    
+    $("#origen").change(function(){
+       
+        var productos = $("#productos");
+        var op_origen = $(this);
+        if($(this).val() != '')
+        {
+            $.ajax({
+                data: { id : op_origen.val() },
+                url:   '{{ route('admin/obtener/prod') }}',
+                type:  'GET',
+                dataType: 'json',
+                beforeSend: function () 
+                {
+                    op_origen.prop('disabled', true);
+                  productos.prop('disabled', true);
+                  //alert('Espera unos segundos...');
+                },
+                success:  function (r) 
+                {
+                    op_origen.prop('disabled', false);
+                    // Limpiamos el select
+                    productos.find('option').remove();
+                    productos.append('<option class="hidden"  selected disabled>Selecciona una opcion </option>');
+                    $(r).each(function(i, v){ // indice, valor
+                      productos.append('<option value="' + v.id_producto + '">' + v.nombre+ '</option>');
+                    })
+                    productos.prop('disabled', false);
+                   
+                },
+                error: function()
+                {
+                    alert('Ocurrio un error en el servidor ..');
+                    productos.prop('disabled', false);
+                }
+            });
+        }
+        else
+        {
+            cursos.find('option').remove();
+            cursos.prop('disabled', true);
+        }
+    })
+})
+</script>
 
 <script src="{{asset('res/assets/node_modules/toast-master/js/jquery.toast.js')}}"></script>

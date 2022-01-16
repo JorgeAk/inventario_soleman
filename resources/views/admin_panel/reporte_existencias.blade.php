@@ -132,14 +132,14 @@
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-truck"></i><span class="hide-menu">Traslados <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="app-calendar.html">Generar Traslado</a></li>
+                                <li><a href="{{route('admin/traslados')}}">Generar Traslado</a></li>
                                 <li><a href="app-chat.html">Generar Reportes</a></li>
                             </ul>
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-map-alt"></i><span class="hide-menu">Sucursales <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="{{route('admin/usuarios/ubicaciones')}}">Todas las sucursales</a></li>
-                                <li><a href="{{route(admin/inventario/ingreso')}}">Ingreso</a></li>
+                                <li><a href="{{route('admin/inventario/ingreso')}}">Ingreso</a></li>
                                 <li><a href="{{route('admin/usuarios/ubicaciones')}}">Baja</a></li>
                                 <li><a href="{{route('admin/reportes')}}">Generar Reportes</a></li>
                             </ul>
@@ -212,24 +212,31 @@
                                 <table id="existen-table" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                     <thead>
                                         <tr>
+                                            <th>Sucursal</th>
                                             <th>Codigo</th>
                                             <th>Nombre</th>
                                             <th>Descripción</th>
                                             <th>Cantidad</th>
                                             <th>Estatus</th>
-                                            <th>Sucursal</th>
                                             <th>Creado</th>
                                             <th>Modificado</th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
+                                        @foreach($existencias as $exi)
                                         @foreach($productos as $prod)
+                                        @if($exi->id_producto == $prod->id)
                                         <tr>
+                                            @foreach($sucursales as $suc)
+                                            @if($exi->id_ubicacion == $suc->id)
+                                            <td>{{$suc->nombre}}</td>
+                                            @endif
+                                            @endforeach
                                             <td>{{$prod->codigo}} </td>
                                             <td>{{$prod->nombre}}</td>
                                             <td>{{$prod->descripcion}}</td>
-                                            <td>{{$prod->cantidad}}</td>
+                                            <td>{{$exi->cantidad}}</td>
                                             <td>
                                                 @if($prod->estatus == 1)
                                                 Activo
@@ -241,15 +248,11 @@
                                                 Terminado
                                                 @endif
                                             </td>
-                                            @foreach($sucursales as $suc)
-                                            @if($prod->id_sucursal == $suc->id)
-                                            <td>{{$suc->nombre}}</td>
-                                            @endif
-                                            @endforeach
-                                            <td>{{date('d/m/Y H:i:s', strtotime($prod->created_at))}}</td>
-                                            <td>{{date('d/m/Y H:i:s', strtotime($prod->updated_at))}}</td>
-
+                                            <td>{{date('d/m/Y H:i:s', strtotime($exi->created_at))}}</td>
+                                            <td>{{date('d/m/Y H:i:s', strtotime($exi->updated_at))}}</td>
                                         </tr>
+                                        @endif
+                                        @endforeach
                                         @endforeach
                                     </tbody>
                                 </table>

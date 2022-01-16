@@ -96,16 +96,26 @@ Route::get('/admin/usuarios/inventario/ingreso',[App\Http\Controllers\Inventario
 Route::post('/admin/usuarios/inventario/nuevo',[App\Http\Controllers\InventarioController::class, 'nuevo'],function(){ 
 })->middleware('auth')->name('admin/usuarios/inventario/nuevo');
 
-Route::get('/admin/usuarios/inventario/bajas',[App\Http\Controllers\InventarioController::class, 'v_baja'],function(){ 
-})->middleware('auth')->name('admin/inventario/bajas');
 
-Route::post('/admin/usuarios/inventario/actualizar',[App\Http\Controllers\HomeController::class, 'index'],function(){ 
+Route::post('/admin/usuarios/inventario/actualizar',[App\Http\Controllers\InventarioController::class, 'actualizar'],function(){ 
 })->middleware('auth')->name('admin/inventario/actualizar');
 
 Route::post('/admin/usuarios/inventario/eliminar',[App\Http\Controllers\HomeController::class, 'index'],function(){ 
 })->middleware('auth')->name('admin/inventario/eliminar');
 
 //--------------------------------END INGRESO DE INVENTARIO-------------------------------
+
+//--------------------------------BAJA DE INVENTARIO-------------------------------
+
+Route::get('/admin/usuarios/inventario/bajas',[App\Http\Controllers\InventarioController::class, 'v_baja'],function(){ 
+})->middleware('auth')->name('admin/inventario/bajas');
+
+Route::post('/admin/usuarios/inventario/bajas/nuevo',[App\Http\Controllers\InventarioController::class, 'v_baja_nuevo'],function(){ 
+})->middleware('auth')->name('admin/inventario/bajas/nuevo');
+
+Route::post('/admin/usuarios/inventario/bajas/nuevo/generar',[App\Http\Controllers\InventarioController::class, 'baja_nuevo'],function(){ 
+})->middleware('auth')->name('admin/inventario/bajas/nuevo/generar');
+//--------------------------------END BAJA DE INVENTARIO-------------------------------
 
 //--------------------------------REPORTES-------------------------------
 Route::get('/admin/usuarios/ubicaciones/reportes',[App\Http\Controllers\ReportesController::class, 'index'],function(){ 
@@ -116,7 +126,18 @@ Route::post('/admin/usuarios/ubicaciones/reportes/entradas',[App\Http\Controller
 })->middleware('auth')->name('admin/entradas');
 //--------------------------------END REPORTES-------------------------------
 
-//--------------------------------DIAGRAMAS-------------------------------
+//--------------------------------TRASLADOS-----------------------------------
+Route::get('/admin/traslados',[App\Http\Controllers\InventarioController::class, 'traslados'],function(){ 
+})->middleware('auth')->name('admin/traslados');
+
+Route::post('/admin/traslados/nuevo',[App\Http\Controllers\InventarioController::class, 'nuevo_traslado'],function(){ 
+})->middleware('auth')->name('admin/traslados/nuevo');
+
+Route::get('/admin/obtener/prod/',[App\Http\Controllers\HomeController::class, 'obtn_prod'],function(){ 
+})->middleware('auth')->name('admin/obtener/prod');
+//--------------------------------END TRASLADOS-------------------------------
+
+//--------------------------------DIAGRAMAS----------------------------------
 Route::get('/admin/diagramas',[App\Http\Controllers\HomeController::class, 'generar_diagrama'],function(){ 
 })->middleware('auth')->name('diagramas');
 
@@ -132,7 +153,7 @@ Route::post('/admin/diagramas/mis/diagramas/actualizar',[App\Http\Controllers\Di
 Route::post('/admin/diagramas/mis/diagramas/eliminar',[App\Http\Controllers\DiagramaController::class,'diagramas_eliminar'],function(){
 })->middleware('auth')->name('diagrama/eliminar');
 
-Route::get('/admin/diagramas/mis/diagramas/{id}',[App\Http\Controllers\DiagramaController::class,'diagrama'],function(){
+Route::post('/admin/diagramas/mis/diagramas',[App\Http\Controllers\DiagramaController::class,'diagrama'],function(){
 })->middleware('auth')->name('mis_diagramas/diagrama');
 
 Route::post('/admin/diagramas/mis/diagramas/tarea/nueva',[App\Http\Controllers\DiagramaController::class,'tarea_nueva'],function(){

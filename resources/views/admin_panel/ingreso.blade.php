@@ -134,7 +134,7 @@
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-truck"></i><span class="hide-menu">Traslados <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="app-calendar.html">Generar Traslado</a></li>
+                                <li><a href="a{{route('admin/traslados')}}">Generar Traslado</a></li>
                                 <li><a href="app-chat.html">Generar Reportes</a></li>
                             </ul>
                         </li>
@@ -231,8 +231,6 @@
                                                 <th>Descripcion</th>
                                                 <th>Genero</th>
                                                 <th>Creado</th>
-                                                
-                                                
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -261,7 +259,7 @@
                                                       @endif
                                                     @endforeach
                                                 </td>
-                                                <td>{{$prod->created_at}}</td>
+                                                <td>{{$ingres->created_at}}</td>
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -334,6 +332,74 @@
                             </div>
                         </div>
                         <!-- End Modal ---------->
+
+                        <!--  Edit Modal ---------->
+                        @foreach($ingresos as $ingres)
+                        <div class="modal fade" id="exampleModal-{{$ingres->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header bc-colored bg-danger">
+                                        <h4 class="modal-title" id="exampleModalLabel1">Editar Producto</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    </div>
+                                    <div class="modal-body">
+                                    <form action="{{route('admin/inventario/actualizar')}}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <input name="ingres" hidden value="{{$ingres->id}}">
+                                            <div class="form-body">
+                                                <div class="row p-t-20">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Producto</label>
+                                                            <div class="col-sm-12">
+                                                                <select class="form-control form-control-line" name="producto">
+                                                                    @foreach($productos as $prod)
+                                                                    <option value="{{$prod->id}}">{{$prod->nombre}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="control-label">Cantidad:</label>
+                                                            <input type="number" name="cantidad" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="message-text" class="control-label">Descripción:</label>
+                                                            <textarea class="form-control" name="descripcion" id="message-text1"></textarea>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-12">Sucursal</label>
+                                                            <div class="col-sm-12">
+                                                                <select class="form-control form-control-line" name="sucursal">
+                                                                    @foreach($sucursales as $suc)
+                                                                    <option value="{{$suc->id}}">{{$suc->nombre}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <!--/row-->
+                                            </div>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                        <button type="submit" class="btn btn-danger">Guardar</button>
+                                    </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        @endforeach
+
+                        <!-- End Edit Modal ---------->
 
                         <!-- ============================================================== -->
                         <!-- End Info box -->
