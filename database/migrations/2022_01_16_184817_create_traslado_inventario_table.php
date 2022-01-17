@@ -20,6 +20,7 @@ class CreateTrasladoInventarioTable extends Migration
             $table->integer('id_destino');
             $table->integer('cantidad');
             $table->integer('id_genero');
+            $table->integer('tipo');
             $table->timestamps();
         });
     }

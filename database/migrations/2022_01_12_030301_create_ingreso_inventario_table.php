@@ -20,6 +20,7 @@ class CreateIngresoInventarioTable extends Migration
             $table->integer('cantidad');
             $table->string('descripcion');
             $table->integer('id_genero');
+            $table->integer('tipo');
             $table->timestamps();
         });
     }

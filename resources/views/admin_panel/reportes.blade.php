@@ -221,6 +221,17 @@
                             <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#salidas-modal">Generar</a>
                         </div>
                     </div>
+                    <div class="card" style="width: 20rem;">
+                        <img class="card-img-top" src="https://blog.bind.com.mx/hubfs/2.0/Modulos/Bind-ERP-Modulos_Reportes-tiempo-real-existencias.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title">Historico de productos por Ubicacion</h4>
+                            <p class="card-text">Reporte de produtos trasladados.</p>
+                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#his-prod-modal">Generar</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-group">
+
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Info box -->
@@ -354,6 +365,74 @@
                         </div>
                     </div>
                 </div>
+                <!-- /.End modal -->
+
+                 <!-- Historico de Producto x  Ubicacion-->
+                
+                <div id="his-prod-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Historico de productos</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            </div>
+                            <div class="modal-body">
+                            <form action="{{route('admin/reporte/historico/producto')}}" method="POST">
+                                    @csrf
+                                    <div class="form-body">
+                                        <div class="row p-t-20">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="col-sm-12">Selecciona Sucursal</label>
+                                                    <div class="col-sm-12">
+                                                        <select class="form-control form-control-line" name="sucursal">
+                                                            @foreach($sucursales as $suc)
+                                                            <option value="{{$suc->id}}">{{$suc->nombre}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-12">Selecciona Producto</label>
+                                                    <div class="col-sm-12">
+                                                        <select class="form-control form-control-line" name="producto">
+                                                            @foreach($productos as $prod)
+                                                            <option value="{{$prod->id}}">{{$prod->nombre}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Por fechas</label>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" id="customRadio12" name="xfecha" value="1" class="custom-control-input">
+                                                        <label class="custom-control-label" for="customRadio12">Si</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" id="customRadio22" name="xfecha" value="0" class="custom-control-input">
+                                                        <label class="custom-control-label" for="customRadio22">No</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="recipient-name" class="control-label">Fecha: </label>
+                                                    <input type="text" name="fecha" class="form-control input-daterange-datepicker">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/row-->
+                                    </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-danger waves-effect waves-light">Generar</button>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
                 <!-- /.End modal -->
 
             </div>

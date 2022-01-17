@@ -51,6 +51,7 @@ Route::get('/barcode/{id}', [App\Http\Controllers\BarcodeController::class, 'ind
 ->middleware('auth')->name('barcode/');
 
 //--------------------------------END PRODUCTOS-------------------------------
+
 //--------------------------------CATEGORIAS-------------------------------
 Route::get('/admin/productos/categorias',[App\Http\Controllers\ProductosController::class, 'obtener_categorias'],function(){ 
 })->middleware('auth')->name('admin/productos/categorias');
@@ -61,6 +62,7 @@ Route::post('/admin/productos/categorias/actualizar',[App\Http\Controllers\Produ
 Route::post('/admin/productos/categorias/eliminar',[App\Http\Controllers\ProductosController::class, 'eliminar_categorias'],function(){ 
 })->middleware('auth')->name('admin/categorias/eliminar');
 //--------------------------------END CATEGORIAS-------------------------------
+
 //--------------------------------SUB CATEGORIAS-------------------------------
 Route::get('/admin/productos/sub/categorias',[App\Http\Controllers\ProductosController::class, 'obtener_subcategorias'],function(){ 
 })->middleware('auth')->name('admin/productos/Sub_categorias');
@@ -96,7 +98,6 @@ Route::get('/admin/usuarios/inventario/ingreso',[App\Http\Controllers\Inventario
 Route::post('/admin/usuarios/inventario/nuevo',[App\Http\Controllers\InventarioController::class, 'nuevo'],function(){ 
 })->middleware('auth')->name('admin/usuarios/inventario/nuevo');
 
-
 Route::post('/admin/usuarios/inventario/actualizar',[App\Http\Controllers\InventarioController::class, 'actualizar'],function(){ 
 })->middleware('auth')->name('admin/inventario/actualizar');
 
@@ -124,6 +125,8 @@ Route::post('/admin/usuarios/ubicaciones/reportes/existencias',[App\Http\Control
 })->middleware('auth')->name('admin/existencias');
 Route::post('/admin/usuarios/ubicaciones/reportes/entradas',[App\Http\Controllers\ReportesController::class, 'entradas'],function(){ 
 })->middleware('auth')->name('admin/entradas');
+Route::post('/admin/usuarios/ubicaciones/reportes/historico/productos',[App\Http\Controllers\ReportesController::class, 'reporte_historico'],function(){ 
+})->middleware('auth')->name('admin/reporte/historico/producto');
 //--------------------------------END REPORTES-------------------------------
 
 //--------------------------------TRASLADOS-----------------------------------
