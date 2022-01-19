@@ -16,7 +16,7 @@ class ReportesController extends Controller
         $mensaje = "";
         $sucursales = DB::table('ubicaciones')->get();
         $productos = DB::table('productos')->get();
-        if (Auth::user()->tipo_usuario == 1) {
+        if (Auth::user()) {
             return view('admin_panel/reportes', compact('mensaje', 'sucursales', 'productos'));
         } else {
             return view('home');
@@ -38,7 +38,7 @@ class ReportesController extends Controller
             $existencias = DB::table('existencias_inventario')->get();
         }
 
-        if (Auth::user()->tipo_usuario == 1) {
+        if (Auth::user()) {
             return view('admin_panel/reporte_existencias', compact('mensaje', 'productos', 'existencias', 'sucursales'));
         } else {
             return view('home');
@@ -79,7 +79,7 @@ class ReportesController extends Controller
                 $existencias = DB::table('ingreso_inventario')->get();
             }
         }
-        if (Auth::user()->tipo_usuario == 1) {
+        if (Auth::user()) {
             return view('admin_panel/reporte_existencias', compact('mensaje', 'productos', 'existencias', 'sucursales'));
         } else {
             return view('home');
@@ -137,7 +137,7 @@ class ReportesController extends Controller
 
             //dd($union);
 
-        if (Auth::user()->tipo_usuario == 1) {
+        if (Auth::user()) {
             return view('admin_panel/reportes_historic', compact('mensaje','usuarios' ,'ingresos','sucursales', 'bajas','union', 'productos', 'sucursales','id_sucursal','id_producto','date','exist_t'));
         } else {
             return view('home');

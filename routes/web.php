@@ -35,6 +35,10 @@ Route::get('/admin/usuarios/control',[App\Http\Controllers\HomeController::class
 Route::post('/admin/usuarios/control/actualizar',[App\Http\Controllers\HomeController::class, 'usuarios_actualizar'],function(){ 
 })->middleware('auth')->name('admin/usuarios/control/actualizar');
 
+Route::post('/admin/usuarios/control/crear',[App\Http\Controllers\HomeController::class, 'usuarios_crear'],function(){ 
+})->middleware('auth')->name('admin/usuarios/control/crear');
+
+
 //------------------------------END CONTROL DE USUARIOS-------------------------------
 
 //--------------------------------PRODUCTOS-------------------------------

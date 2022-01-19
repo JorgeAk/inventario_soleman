@@ -152,7 +152,9 @@
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-settings"></i><span class="hide-menu">Configuración <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
                             <ul aria-expanded="false" class="collapse">
+                                @if(Auth::user()->tipo_usuario == 1)
                                 <li><a href="{{route('admin/usuarios/control')}}">Usuarios</a></li>
+                                @endif
                                 <li><a href="{{route('admin/perfil')}}">Mi perfil</a></li>
                             </ul>
                         </li>
@@ -266,7 +268,7 @@
                                                 <form action="{{route('mis_diagramas/actualizar')}}" method="POST">
                                                     @csrf
                                                     <input hidden type="text" name="dg" value="{{$diag->id}}" class="form-control">
-                                                    <div class="form-body">                                                       
+                                                    <div class="form-body">
                                                         <div class="row p-t-20">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
@@ -302,8 +304,8 @@
                                                                         <input type="radio" id="customRadio{{$pr->id}}{{$diag->id}}" name="duracion_dividir" value="{{$pr->id}}" class="custom-control-input">
                                                                         <label class="custom-control-label" for="customRadio{{$pr->id}}{{$diag->id}}">{{$pr->nombre}}</label>
                                                                         @endif
-                                                                        
-                                                                        
+
+
                                                                     </div>
                                                                     @endforeach
                                                                 </div>
@@ -324,8 +326,8 @@
                                 <!-- End Modal ---------->
                                 @endforeach
 
-                                 <!-- Modal DEL---------->
-                                 @foreach($diagramas as $diag)
+                                <!-- Modal DEL---------->
+                                @foreach($diagramas as $diag)
                                 <div class="modal fade" id="exampleModal-del{{$diag->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
                                     <div class="modal-dialog  " role="document">
                                         <div class="modal-content ">

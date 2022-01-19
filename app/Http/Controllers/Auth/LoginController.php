@@ -44,6 +44,12 @@ class LoginController extends Controller
         }else{
             if(Auth::user()->tipo_usuario == 2){
                 return '/admin';
+            }else{
+
+                if(Auth::user()->tipo_usuario == 3){
+                    return '/admin';
+                }
+
             }
         }
         

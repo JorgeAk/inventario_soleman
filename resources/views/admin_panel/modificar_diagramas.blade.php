@@ -153,7 +153,9 @@
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-settings"></i><span class="hide-menu">Configuración <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
                             <ul aria-expanded="false" class="collapse">
+                                @if(Auth::user()->tipo_usuario == 1)
                                 <li><a href="{{route('admin/usuarios/control')}}">Usuarios</a></li>
+                                @endif
                                 <li><a href="{{route('admin/perfil')}}">Mi perfil</a></li>
                             </ul>
                         </li>
@@ -241,7 +243,7 @@
                                                 <b>Estatus:</b> @if($tarea->estatus == 1) <span class='text-success'><b>Activo</b></span> @endif
                                                 @if($tarea->estatus == 2) <span class='text-warning'><b>Pendiente</b></span> @endif
                                                 @if($tarea->estatus == 3) <span class='text-danger'><b>Terminado</b></span> @endif
-                                                
+
                                                 <b>Avance: </b><span class='text-info'><b>{{$tarea->avance}} %</b></span>
                                             </td>
                                             <td style="text-align: center;">

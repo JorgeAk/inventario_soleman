@@ -152,7 +152,9 @@
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-settings"></i><span class="hide-menu">Configuración <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
                             <ul aria-expanded="false" class="collapse">
+                                @if(Auth::user()->tipo_usuario == 1)
                                 <li><a href="{{route('admin/usuarios/control')}}">Usuarios</a></li>
+                                @endif
                                 <li><a href="{{route('admin/perfil')}}">Mi perfil</a></li>
                             </ul>
                         </li>
@@ -290,7 +292,7 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                             </div>
                             <div class="modal-body">
-                            <form action="{{route('admin/entradas')}}" method="POST">
+                                <form action="{{route('admin/entradas')}}" method="POST">
                                     @csrf
                                     <div class="form-body">
                                         <div class="row p-t-20">
@@ -367,8 +369,8 @@
                 </div>
                 <!-- /.End modal -->
 
-                 <!-- Historico de Producto x  Ubicacion-->
-                
+                <!-- Historico de Producto x  Ubicacion-->
+
                 <div id="his-prod-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
@@ -377,7 +379,7 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                             </div>
                             <div class="modal-body">
-                            <form action="{{route('admin/reporte/historico/producto')}}" method="POST">
+                                <form action="{{route('admin/reporte/historico/producto')}}" method="POST">
                                     @csrf
                                     <div class="form-body">
                                         <div class="row p-t-20">
@@ -432,7 +434,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- /.End modal -->
 
             </div>

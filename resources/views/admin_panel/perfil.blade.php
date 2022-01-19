@@ -152,7 +152,9 @@
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-settings"></i><span class="hide-menu">Configuración <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
                             <ul aria-expanded="false" class="collapse">
+                                @if(Auth::user()->tipo_usuario == 1)
                                 <li><a href="{{route('admin/usuarios/control')}}">Usuarios</a></li>
+                                @endif
                                 <li><a href="{{route('admin/perfil')}}">Mi perfil</a></li>
                             </ul>
                         </li>
@@ -246,37 +248,38 @@
                                     <div class="card-body">
                                         <form action="{{route('admin/usuarios/control/actualizar')}}" method="POST">
                                             @csrf
+                                            <input hidden type="text" name="usr" value="{{Auth::user()->id}}" class="form-control">
                                             <div class="form-group">
                                                 <label class="col-md-12">Nombre</label>
                                                 <div class="col-md-12">
-                                                    <input type="text" name="nombre" value="{{Auth::user()->name}}" placeholder="Nombre" class="form-control form-control-line">
+                                                    <input type="text" name="name" value="{{Auth::user()->name}}" placeholder="Nombre" class="form-control form-control-line">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="example-email" class="col-md-12">Correo</label>
                                                 <div class="col-md-12">
-                                                    <input type="email" name="correo" value="{{Auth::user()->email}}" placeholder="Correo" class="form-control form-control-line" name="example-email" id="example-email">
+                                                    <input type="email" name="email" value="{{Auth::user()->email}}" placeholder="Correo" class="form-control form-control-line" name="example-email" id="example-email">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-12">Contraseña</label>
                                                 <div class="col-md-12">
-                                                    <input type="password" name="password" value="password" class="form-control form-control-line">
+                                                    <input type="password" name="password" class="form-control form-control-line">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-12">Selecciona tipo de usuario</label>
                                                 <div class="col-sm-12">
                                                     <select name="tipo_usuario" class="form-control form-control-line">
-                                                        <option value="1">Administrador</option>
-                                                        <option value="2">Usuario</option>
-                                                        <option value="3">Usuario Estandar</option>
+                                                        <option value="1" @if(Auth::user()->tipo_usuario == 1) selected @endif>Administrador</option>
+                                                        <option value="2" @if(Auth::user()->tipo_usuario == 2) selected @endif>Usuario</option>
+                                                        <option value="3" @if(Auth::user()->tipo_usuario == 3) selected @endif>Usuario Estandar</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-12">Sucursal a la que pertenece</label>
-                                                <div class="col-sm-12">
+                                                <label class="col-sm-12" hidden>Sucursal a la que pertenece</label>
+                                                <div class="col-sm-12" hidden>
                                                     <select class="form-control form-control-line">
                                                         <option>Morelia,Mich.</option>
                                                         <option>Uruapán,Mich.</option>

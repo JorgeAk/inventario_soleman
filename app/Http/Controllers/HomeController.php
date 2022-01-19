@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\DB;
 use Auth;
+use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
@@ -35,7 +37,7 @@ class HomeController extends Controller
 
         $mensaje = "";
 
-        if (Auth::user()->tipo_usuario == 1 or Auth::user()->tipo_usuario == 2) {
+        if (Auth::user()) {
             return view('admin_panel/index', compact('mensaje'));
         } else {
             return view('home');
@@ -54,10 +56,10 @@ class HomeController extends Controller
         }
     }
 
-    public function usuarios_control()
+    public function usuarios_control($mensaje="")
     {
 
-        $mensaje = "";
+        
         $usuarios = DB::table('users')->get();
 
         if (Auth::user()) {
@@ -70,16 +72,68 @@ class HomeController extends Controller
     public function usuarios_actualizar(Request $request)
     {
 
-        dd($_POST);
-
-
+        //dd($_POST);
+        
         $mensaje = "";
         $usuarios = DB::table('users')->get();
+        $nombre    = $request->input('name');
+        $correo    = $request->input('email');
+        $pass    = $request->input('password');
+        $tipo_user    = $request->input('tipo_usuario');
+        $id_usr    = $request->input('usr');
 
-        if (Auth::user()) {
-            return view('admin_panel/control_usuarios', compact('mensaje', 'usuarios'));
+        $device = User::find($id_usr);
+        
+        if(empty($pass)){
+            $updat = $device->update([
+                'name' => $nombre,
+                'email' => $correo,
+                'tipo_usuario' => $tipo_user,
+            ]);
+        }else{
+            $updat = $device->update([
+                'name' => $nombre,
+                'email' => $correo,
+                'password' => Hash::make($pass),
+                'tipo_usuario' => $tipo_user,
+            ]);
+        }
+        
+
+      
+        if ($updat) {
+            $mensaje = "Usuario Actualizado con exito";
+            return view('admin_panel/index', compact('mensaje'));
         } else {
-            return view('home');
+            $mensaje = "Error verifica datos";
+            return view('admin_panel/index', compact('mensaje'));
+        }
+    }
+
+    public function usuarios_crear(Request $request)
+    {
+        
+        $mensaje = "";
+        $usuarios = DB::table('users')->get();
+        $nombre    = $request->input('name');
+        $correo    = $request->input('email');
+        $pass    = $request->input('password');
+        $tipo_user    = $request->input('tipo_usuario');
+        $creat = User::create([
+            'name' => $nombre,
+            'email' => $correo,
+            'password' => Hash::make($pass),
+            'tipo_usuario' => $tipo_user,
+        ]);
+
+        
+
+        if ($creat) {
+            $mensaje = "Usuario Creado con exito";
+            return $this->usuarios_control($mensaje);
+        } else {
+            $mensaje = "Error verifica datos";
+            return $this->usuarios_control($mensaje);
         }
     }
 
@@ -88,7 +142,7 @@ class HomeController extends Controller
         $periodo = DB::table('periodo')->get();
         $mensaje = "";
 
-        if (Auth::user()->tipo_usuario == 1) {
+        if (Auth::user()) {
             return view('admin_panel/diagrama', compact('periodo', 'mensaje'));
         } else {
             return view('home');

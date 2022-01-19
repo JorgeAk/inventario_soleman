@@ -61,19 +61,8 @@
                             <div class="col-xs-12 p-b-20">
                                 <button class="btn btn-block btn-lg btn-info btn-rounded" type="submit">Entrar</button>
                             </div>
-                            @if (Route::has('password.request'))
-                            <a class="btn btn-link" href="{{ route('password.request') }}">
-                            <i class="fa fa-lock m-r-5"></i> 
-                                {{ __('Olvido su Contraseña?') }}
-                            </a>
-                            @endif
                         </div>
                         
-                        <div class="form-group m-b-0">
-                            <div class="col-sm-12 text-center">
-                                No tienes cuenta? <a href="{{ route('register') }}" class="text-info m-l-5"><b>Registrate</b></a>
-                            </div>
-                        </div>
                     </form>
 
                     <form class="form-horizontal" id="recoverform" method="POST" action="{{ route('password.update') }}">

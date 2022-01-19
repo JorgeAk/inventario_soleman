@@ -21,7 +21,7 @@ class InventarioController extends Controller
         $ingresos       = DB::table('ingreso_inventario')->get();
         $usuarios       = DB::table('users')->get();
 
-        if (Auth::user()->tipo_usuario == 1) {
+        if (Auth::user()) {
             return view('admin_panel/ingreso', compact('mensaje', 'ingresos', 'productos', 'usuarios', 'categorias', 'sub_categorias', 'sucursales'));
         } else {
             return view('home');
@@ -108,7 +108,7 @@ class InventarioController extends Controller
         $sucursales     = DB::table('ubicaciones')->get();
         //dd($sucursales);
 
-        if (Auth::user()->tipo_usuario == 1) {
+        if (Auth::user()) {
             return view('admin_panel/baja', compact('mensaje', 'ingresos', 'productos', 'usuarios', 'categorias', 'sub_categorias', 'sucursales'));
         } else {
             return view('home');
@@ -131,7 +131,7 @@ class InventarioController extends Controller
 
 
 
-        if (Auth::user()->tipo_usuario == 1) {
+        if (Auth::user()) {
             return view('admin_panel/baja_nuevo', compact('mensaje', 'ubicaciones', 'existencias', 'ingresos', 'productos', 'usuarios', 'categorias', 'sub_categorias', 'sucursales'));
         } else {
             return view('home');
@@ -182,7 +182,7 @@ class InventarioController extends Controller
         $usuarios       = DB::table('users')->get();
         $traslados      = DB::table('traslado_inventario')->get();
 
-        if (Auth::user()->tipo_usuario == 1) {
+        if (Auth::user()) {
             return view('admin_panel/traslados', compact('mensaje', 'ingresos', 'traslados', 'productos', 'usuarios', 'categorias', 'sub_categorias', 'sucursales'));
         } else {
             return view('home');

@@ -154,7 +154,9 @@
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-settings"></i><span class="hide-menu">Configuración <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
                             <ul aria-expanded="false" class="collapse">
+                                @if(Auth::user()->tipo_usuario == 1)
                                 <li><a href="{{route('admin/usuarios/control')}}">Usuarios</a></li>
+                                @endif
                                 <li><a href="{{route('admin/perfil')}}">Mi perfil</a></li>
                             </ul>
                         </li>
@@ -238,25 +240,25 @@
                                             <tr>
                                                 <td>
                                                     @foreach($sucursales as $suc)
-                                                      @if($suc->id == $ingres->id_ubicacion)
-                                                        {{$suc->nombre}}
-                                                      @endif
+                                                    @if($suc->id == $ingres->id_ubicacion)
+                                                    {{$suc->nombre}}
+                                                    @endif
                                                     @endforeach
                                                 </td>
                                                 <td>
                                                     @foreach($productos as $prod)
-                                                     @if($prod->id == $ingres->id_producto)
-                                                     {{$prod->nombre}}
-                                                     @endif
+                                                    @if($prod->id == $ingres->id_producto)
+                                                    {{$prod->nombre}}
+                                                    @endif
                                                     @endforeach
                                                 </td>
                                                 <td>{{$ingres->cantidad}}</td>
                                                 <td>{{$ingres->descripcion}}</td>
                                                 <td>
                                                     @foreach($usuarios as $user)
-                                                      @if($user->id == $ingres->id_genero)
-                                                        {{$user->name}}
-                                                      @endif
+                                                    @if($user->id == $ingres->id_genero)
+                                                    {{$user->name}}
+                                                    @endif
                                                     @endforeach
                                                 </td>
                                                 <td>{{$ingres->created_at}}</td>
@@ -343,7 +345,7 @@
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                     </div>
                                     <div class="modal-body">
-                                    <form action="{{route('admin/inventario/actualizar')}}" method="POST" enctype="multipart/form-data">
+                                        <form action="{{route('admin/inventario/actualizar')}}" method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <input name="ingres" hidden value="{{$ingres->id}}">
                                             <div class="form-body">

@@ -20,7 +20,7 @@ class ProductosController extends Controller
         $sub_categorias = DB::table('sub_categorias')->get();
         $sucursales     = DB::table('ubicaciones')->get();
 
-        if (Auth::user()->tipo_usuario == 1) {
+        if (Auth::user()) {
             return view('admin_panel/productos', compact('mensaje', 'productos', 'categorias', 'sub_categorias', 'sucursales'));
         } else {
             return view('home');
@@ -147,7 +147,7 @@ class ProductosController extends Controller
     public function obtener_categorias ($mensaje = ""){
         $categorias     = DB::table('categorias')->get();
         $sub_categorias = DB::table('sub_categorias')->get();
-        if (Auth::user()->tipo_usuario == 1) {
+        if (Auth::user()) {
             return view('admin_panel/categorias', compact('mensaje','categorias', 'sub_categorias' ));
         } else {
             return view('home');
@@ -212,7 +212,7 @@ class ProductosController extends Controller
     public function obtener_subcategorias ($mensaje = ""){
         $categorias     = DB::table('categorias')->get();
         $sub_categorias = DB::table('sub_categorias')->get();
-        if (Auth::user()->tipo_usuario == 1) {
+        if (Auth::user()) {
             return view('admin_panel/sub_categorias', compact('mensaje','categorias' ,'sub_categorias' ));
         } else {
             return view('home');

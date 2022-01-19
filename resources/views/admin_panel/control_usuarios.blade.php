@@ -152,7 +152,9 @@
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-settings"></i><span class="hide-menu">Configuración <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
                             <ul aria-expanded="false" class="collapse">
+                            @if(Auth::user()->tipo_usuario == 1)
                                 <li><a href="{{route('admin/usuarios/control')}}">Usuarios</a></li>
+                                @endif
                                 <li><a href="{{route('admin/perfil')}}">Mi perfil</a></li>
                             </ul>
                         </li>
@@ -233,7 +235,7 @@
                                                 <td>{{date('d/m/Y H:i:s', strtotime($user->updated_at))}}</td>
                                                 <td style="display: inline-flex;">
                                                     <button type="button" class="btn btn-warning btn-circle waves-light" data-toggle="modal" data-target="#exampleModal-{{$user->id}}"><i class="fa fa-pencil-square-o" title="Modificar" data-toggle="tooltip"></i></button>&nbsp;
-                                                    <button type="button" class="btn btn-danger btn-circle  waves-light" data-toggle="modal" data-target="#exampleModal-del{{$user->id}}"><i class="fa fa-trash-o" title="Eliminar" data-toggle="tooltip"></i></button>
+                                                   
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -251,30 +253,17 @@
                                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <from class="form-horizontal form-material">
+                                                                <form class="form-horizontal form-material" method="POST" action="{{route('admin/usuarios/control/crear')}}">
+                                                                @csrf
                                                                     <div class="form-group">
                                                                         <div class="col-md-12 m-b-20">
-                                                                            <input type="text" class="form-control" placeholder="Nombre"> </div>
+                                                                            <input type="text" class="form-control" name="name" placeholder="Nombre"> </div>
                                                                         <div class="col-md-12 m-b-20">
-                                                                            <input type="text" class="form-control" placeholder="Correo"> </div>
+                                                                            <input type="text" class="form-control" name="email" placeholder="Correo"> </div>
+
                                                                         <div class="col-md-12 m-b-20">
-                                                                            <input type="text" class="form-control" placeholder="Teléfono"> </div>
-                                                                        <div class="col-md-12 m-b-20">
-                                                                            <input type="password" class="form-control" placeholder="Contraseña"> </div>
-                                                                        <div class="form-group">
-                                                                            <label class="col-sm-12">Sucursal a la que pertenece</label>
-                                                                            <div class="col-sm-12">
-                                                                                <select class="form-control form-control-line">
-                                                                                    <option>Morelia,Mich.</option>
-                                                                                    <option>Uruapán,Mich.</option>
-                                                                                    <option>Querétaro</option>
-                                                                                    <option>Toluca, Edo. México</option>
-                                                                                    <option>Ezequiel Montes</option>
-                                                                                    <option>Guanajuato</option>
-                                                                                    <option>San Juan del Río</option>
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>
+                                                                            <input type="password" class="form-control" name="password" placeholder="Contraseña"> </div>
+
                                                                         <div class="form-group">
                                                                             <label class="col-sm-12">Selecciona tipo de usuario</label>
                                                                             <div class="col-sm-12">
@@ -292,8 +281,8 @@
                                                                     </div>
                                                             </div>
                                                             <div class="modal-footer text-center">
-                                                                <button type="submit" class="btn btn-info waves-effect" data-dismiss="modal">Guardar</button>
-                                                                </from>
+                                                                <button type="submit" class="btn btn-info waves-effect" >Guardar</button>
+                                                                </form>
                                                                 <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
                                                             </div>
                                                         </div>
@@ -329,11 +318,11 @@
                                     @csrf
                                     <input hidden type="text" name="usr" value="{{$user->id}}" class="form-control">
                                     <div class="form-body">
-                                    <span class="label label-success">*si no desea actualizar algun dato dejarlo como esta</span>
+                                        <span class="label label-success">*si no desea actualizar algun dato dejarlo como esta</span>
                                         <div class="row p-t-20">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="control-label">Nombre del diagrama </label>
+                                                    <label class="control-label">Nombre del Usuario </label>
                                                     <input type="text" id="firstName" name="name" value="{{$user->name}}" class="form-control" placeholder="Usuario">
                                                 </div>
                                             </div>
@@ -349,7 +338,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Contraseña</label>
-                                                    <input type="password" id="password" name="password" value="password" class="form-control form-control-line" placeholder="Contraseña">
+                                                    <input type="password" id="password" name="password"  class="form-control form-control-line" placeholder="Contraseña">
                                                 </div>
                                             </div>
                                             <!--/span-->
@@ -359,9 +348,9 @@
                                                     <div class="form-group">
                                                         <div class="col-sm-12">
                                                             <select class="form-control form-control-line" name="tipo_usuario">
-                                                                <option value="1">Administrador</option>
-                                                                <option value="2">Supervisor</option>
-                                                                <option value="3">Usuario Estandar</option>
+                                                                <option value="1" @if($user->tipo_usuario == 1) selected @endif>Administrador</option>
+                                                                <option value="2" @if($user->tipo_usuario == 2) selected @endif>Supervisor</option>
+                                                                <option value="3" @if($user->tipo_usuario == 3) selected @endif>Usuario Estandar</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -385,34 +374,34 @@
 
                 <!-- Modal DEL---------->
                 @foreach($usuarios as $diag)
-                                <div class="modal fade" id="exampleModal-del{{$diag->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
-                                    <div class="modal-dialog  " role="document">
-                                        <div class="modal-content ">
-                                            <div class="modal-header bc-colored bg-danger">
-                                                <h4 class="modal-title" id="exampleModalLabel1">Eliminar Usuario: {{$diag->name}}</h4>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form action="{{route('diagrama/eliminar')}}" method="POST">
-                                                    @csrf
-                                                    <input hidden type="text" name="dg" value="{{$diag->id}}" class="form-control">
-                                                    <div class="alert alert-warning">
-                                                        <h3 class="text-warning"><i class="fa fa-exclamation-triangle"></i> Deseas eliminar al Usuario:</h3>
-                                                        Nombre: {{$diag->name}} <br>
-                                                        
-                                                        Esta acción no se podrá revertir
-                                                    </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                                <button type="submit" class="btn btn-danger">Eliminar</button>
-                                            </div>
-                                            </form>
-                                        </div>
+                <div class="modal fade" id="exampleModal-del{{$diag->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                    <div class="modal-dialog  " role="document">
+                        <div class="modal-content ">
+                            <div class="modal-header bc-colored bg-danger">
+                                <h4 class="modal-title" id="exampleModalLabel1">Eliminar Usuario: {{$diag->name}}</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{{route('diagrama/eliminar')}}" method="POST">
+                                    @csrf
+                                    <input hidden type="text" name="dg" value="{{$diag->id}}" class="form-control">
+                                    <div class="alert alert-warning">
+                                        <h3 class="text-warning"><i class="fa fa-exclamation-triangle"></i> Deseas eliminar al Usuario:</h3>
+                                        Nombre: {{$diag->name}} <br>
+
+                                        Esta acción no se podrá revertir
                                     </div>
-                                </div>
-                                @endforeach
-                                <!-- End Modal DEL ---------->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+                <!-- End Modal DEL ---------->
 
                 <!-- Row -->
                 <!-- ============================================================== -->

@@ -25,7 +25,7 @@ class DiagramaController extends Controller
         $diagramas = DB::table('diagramas')->where('id_usuario', $mi_id)->get();
         $periodo = DB::table('periodo')->get();
 
-        if (Auth::user()->tipo_usuario == 1) {
+        if (Auth::user()) {
             return view('admin_panel/mis_diagramas', compact('diagramas', 'periodo', 'mensaje'));
         } else {
             return view('home');
@@ -51,7 +51,7 @@ class DiagramaController extends Controller
         ]);
         if ($insert) {
             $mensaje = "Diagrama generado con exito";
-            if (Auth::user()->tipo_usuario == 1) {
+            if (Auth::user()) {
                 return view('admin_panel/diagrama', compact('periodo', 'mensaje'));
             } else {
                 return view('home');
@@ -76,7 +76,7 @@ class DiagramaController extends Controller
         $creacion = date_format($creacion, "d/m/Y");
         //dd($creacion);
         $dg = $id;
-        if (Auth::user()->tipo_usuario == 1 and count($diagramas) > 0) {
+        if (Auth::user() and count($diagramas) > 0) {
             return view('admin_panel/modificar_diagramas', compact('dg', 'creacion', 'diagramas', 'periodo', 'tareas', 'maximo', 'mensaje'));
         } else {
             $mensaje = "Error no existe ese diagrama";
