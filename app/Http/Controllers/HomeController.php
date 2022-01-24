@@ -37,6 +37,7 @@ class HomeController extends Controller
 
         $mensaje = "";
 
+
         if (Auth::user()) {
             return view('admin_panel/index', compact('mensaje'));
         } else {
@@ -252,4 +253,16 @@ class HomeController extends Controller
         return response()->json($existencia);
 
     }
+
+    public function estadistico(){
+        $datos = [];
+        $productos  = DB::table('productos')->count();
+        $sucursales = DB::table('ubicaciones')->count();
+        $diagramas  = DB::table('diagramas')->count(); 
+        $traslados  = DB::table('traslado_inventario')->count();
+        $datos= ['productos' => $productos, 'sucursales'=>$sucursales,'diagramas'=>$diagramas,'traslados'=>$traslados];
+        return response()->json($datos);
+
+    }
 }
+

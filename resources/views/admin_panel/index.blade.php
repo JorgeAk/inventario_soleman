@@ -208,7 +208,7 @@
                                             <p class="text-muted">NUEVOS PRODUCTOS</p>
                                         </div>
                                         <div class="ml-auto">
-                                            <h2 class="counter text-primary">0</h2>
+                                            <h2 id="produc-id" class="counter text-primary">0</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -232,7 +232,7 @@
                                             <p class="text-muted">SUCURSALES</p>
                                         </div>
                                         <div class="ml-auto">
-                                            <h2 class="counter text-cyan">0</h2>
+                                            <h2 id="suc-id"class="counter text-cyan">0</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -256,7 +256,7 @@
                                             <p class="text-muted">TRASLADOS</p>
                                         </div>
                                         <div class="ml-auto">
-                                            <h2 class="counter text-purple">0</h2>
+                                            <h2 id="tras-id" class="counter text-purple">0</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -280,7 +280,7 @@
                                             <p class="text-muted">DIAGRAMAS</p>
                                         </div>
                                         <div class="ml-auto">
-                                            <h2 class="counter text-success">0</h2>
+                                            <h2 id="diag-id" class="counter text-success">0</h2>
                                         </div>
                                     </div>
                                 </div>

@@ -18,12 +18,20 @@ Route::get('/', function () {
     return view('/auth/login');
 });
 
+/*
+Route::get('/storage/link', function () {
+    Artisan::call('storage:link');
+})->middleware('auth');
+*/
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/admin',[App\Http\Controllers\HomeController::class, 'index1'],function(){ 
 })->middleware('auth')->name('admin');
+
+Route::get('/estadistico',[App\Http\Controllers\HomeController::class, 'estadistico'],function(){ 
+})->middleware('auth')->name('estadistico');
 
 //--------------------------------CONTROL DE USUARIOS-------------------------------
 Route::get('/admin/perfil',[App\Http\Controllers\HomeController::class, 'perfil'],function(){ 
@@ -51,10 +59,10 @@ Route::post('/admin/productos/actualizar',[App\Http\Controllers\ProductosControl
 Route::post('/admin/productos/eliminar',[App\Http\Controllers\ProductosController::class, 'eliminar_producto'],function(){ 
 })->middleware('auth')->name('admin/productos/eliminar');
 
-Route::get('/barcode/{id}', [App\Http\Controllers\BarcodeController::class, 'index'])
+Route::get('/barcode/{id}', [App\Http\Controllers\BarCodeController::class, 'index'])
 ->middleware('auth')->name('barcode/');
 
-Route::get('/barcode/barr/{id}', [App\Http\Controllers\BarcodeController::class, 'index_barr'])
+Route::get('/barcode/barr/{id}', [App\Http\Controllers\BarCodeController::class, 'index_barr'])
 ->middleware('auth')->name('barcode/barr/');  
 
 Route::get('/admin/obtener/sub/cat',[App\Http\Controllers\HomeController::class, 'obtn_sub_cat'],function(){ 

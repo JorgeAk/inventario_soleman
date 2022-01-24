@@ -513,4 +513,33 @@
 })
 </script>
 
+<script type = "text/javascript">
+  $(document).ready(function(){
+            $.ajax({
+                data: {},
+                url:   '{{ route('estadistico') }}',
+                type:  'GET',
+                dataType: 'json',
+                success:  function (r) 
+                {
+                    $(r).each(function(i, v){ // indice, valor
+                        document.getElementById("produc-id").innerHTML = v.productos;
+                        document.getElementById("suc-id").innerHTML = v.sucursales;
+                        document.getElementById("tras-id").innerHTML = v.traslados;
+                        document.getElementById("diag-id").innerHTML = v.diagramas;
+                        
+                    })
+                },
+                error: function()
+                {
+                    alert('Ocurrio un error en el servidor ..');
+                    sub_categorias.prop('disabled', false);
+                }
+            });
+       
+    
+})
+</script>
+
+
 <script src="{{asset('res/assets/node_modules/toast-master/js/jquery.toast.js')}}"></script>
