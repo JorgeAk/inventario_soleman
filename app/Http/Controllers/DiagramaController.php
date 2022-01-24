@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\DB;
 use Auth;
 use Carbon\Carbon;
+use PDO;
 
 
 class DiagramaController extends Controller
@@ -17,13 +18,17 @@ class DiagramaController extends Controller
     }
 
 
-    public function mis_diagramas($mensaje="")
+    public function mis_diagramas($mensaje = "")
     {
 
         $mi_id = Auth::id();
         //dd($mi_id);
         $diagramas = DB::table('diagramas')->where('id_usuario', $mi_id)->get();
         $periodo = DB::table('periodo')->get();
+
+        if (Auth::user()->tipo_usuario == 1 or Auth::user()->tipo_usuario() == 2) {
+            $diagramas = DB::table('diagramas')->get();
+        }
 
         if (Auth::user()) {
             return view('admin_panel/mis_diagramas', compact('diagramas', 'periodo', 'mensaje'));
@@ -51,6 +56,11 @@ class DiagramaController extends Controller
         ]);
         if ($insert) {
             $mensaje = "Diagrama generado con exito";
+            $id_diagram = DB::getPdo()->lastInsertId();
+            $n_periodo = DB::table('periodo')->select('nombre')->where('id', $id_periodo)->first();
+            $movimiento = "Genero un nuevo diagrama el usuario:" . Auth::user()->name . " Datos: Nombre" . $nombre .
+                " /Descripcion:" . $descripcion . " /Duracion:" . $duracion . " /Periodo:" . $n_periodo->nombre;
+            $this->movimiento_bitacora($usuario, $movimiento, $id_diagram);
             if (Auth::user()) {
                 return view('admin_panel/diagrama', compact('periodo', 'mensaje'));
             } else {
@@ -59,11 +69,12 @@ class DiagramaController extends Controller
         }
     }
 
-    public function diagrama($id, $mensaje = "")
+    public function diagrama($id)
     {
         $mi_id = Auth::id();
         //dd($mi_id);
-        //$mensaje = "";
+        $mensaje = "";
+        $i_diagrama=$id;
         $diagramas = DB::table('diagramas')->where('id_usuario', $mi_id)->where('id', $id)->get();
         //$periodo   = DB::table('periodo')->get();
         $tareas = DB::table('tareas')->where('id_diagrama', $id)->get();
@@ -77,7 +88,7 @@ class DiagramaController extends Controller
         //dd($creacion);
         $dg = $id;
         if (Auth::user() and count($diagramas) > 0) {
-            return view('admin_panel/modificar_diagramas', compact('dg', 'creacion', 'diagramas', 'periodo', 'tareas', 'maximo', 'mensaje'));
+            return view('admin_panel/modificar_diagramas', compact('dg', 'creacion', 'diagramas','i_diagrama', 'periodo', 'tareas', 'maximo', 'mensaje'));
         } else {
             $mensaje = "Error no existe ese diagrama";
             return view('admin_panel/index', compact('mensaje'));
@@ -87,7 +98,7 @@ class DiagramaController extends Controller
     public function diagramas_actualizar(Request $request)
     {
         //dd($_POST);
-        
+
         $mi_id = Auth::id();
         $nombre = $request->input('n_diagrama');
         $descripcion = $request->input('d_diagrama');
@@ -100,33 +111,39 @@ class DiagramaController extends Controller
         //dd($_POST);
         $mensaje = "";
         $post = (isset($nombre) && !empty($nombre)) && (isset($descripcion) && !empty($descripcion)) && (isset($duracion) && !empty($duracion)) && (isset($id_periodo) && !empty($id_periodo)) && (isset($usuario) && !empty($usuario)) && (isset($id_diagrama) && !empty($id_diagrama));
-        
-        if($post){
+
+        if ($post) {
             $mensaje = "Diagrama Actualizado con exito";
-            $insert = DB::table('diagramas')->where('id',$id_diagrama)->update([
+            $insert = DB::table('diagramas')->where('id', $id_diagrama)->update([
                 'nombre' => $nombre, 'descripcion' => $descripcion,
                 'id_usuario' => $usuario, 'id_periodo' => $id_periodo, 'duracion' => $duracion, 'updated_at' => "$dia"
             ]);
 
-        }else{
+            $n_periodo = DB::table('periodo')->select('nombre')->where('id', $id_periodo)->first();
+            $movimiento = "Se actualizo el diagrama por el usuario:" . Auth::user()->name . "Datos: Nombre:" . $nombre .
+                " /Descripcion:" . $descripcion . " /Duracion:" . $duracion . " /Periodo:" . $n_periodo->nombre;
+
+            $this->movimiento_bitacora($usuario, $movimiento, $id_diagrama);
+        } else {
             $mensaje = "Diagrama no Actualizado verfica los datos";
         }
 
-        return $this->mis_diagramas();       
+        return $this->mis_diagramas();
     }
 
     public function diagramas_eliminar(Request $request)
     {
-        $mi_id = Auth::id();       
+        $mi_id = Auth::id();
         $id_diagrama = $request->input('dg');
         $delete = DB::table('diagramas')->where('id', $id_diagrama)->delete();
         $delete_tarea =  $delete = DB::table('tareas')->where('id_diagrama', $id_diagrama)->delete();
-        if ($delete) {
-            $mensaje = "Diagrama eliminado";
-        } else {
-            $mensaje = "ERROR Diagrama no eliminado verifica datos";
-        }
-        return $this->mis_diagramas($mensaje); 
+        $movimiento = "Se elimino el diagrama por el usuario:" . Auth::user()->name;
+        $this->movimiento_bitacora($mi_id, $movimiento, $id_diagrama);
+        //DD($delete);
+
+        $mensaje = "Diagrama eliminado";
+
+        return $this->mis_diagramas($mensaje);
     }
 
     public function tarea_nueva(Request $request)
@@ -145,12 +162,20 @@ class DiagramaController extends Controller
         $color = $request->input('color');
         $dia = Carbon::now();
         $insert = DB::table('tareas')->insert([
-            'nombre' => $nombre, 'descripcion' => $descripcion,'lider_proyecto'=> $lider,'materiales'=>$materiales,'estatus'=>$estatus,'avance'=>$avance,
+            'nombre' => $nombre, 'descripcion' => $descripcion, 'lider_proyecto' => $lider, 'materiales' => $materiales, 'estatus' => $estatus, 'avance' => $avance,
             'id_diagrama' => $id_diagrama, 'f_inicio' => $f_inicio, 'f_fin' => $f_fin, 'color' => $color, 'created_at' => "$dia", 'updated_at' => "$dia"
         ]);
 
+        $n_diag = DB::table('diagramas')->select('nombre')->where('id', $id_diagrama)->first();
+        $movimiento = "Se genero una nueva tarea para el diagrama:" . $n_diag->nombre . " por el usuario:" . Auth::user()->name . "Datos: Nombre:" . $nombre .
+            " /Descripcion:" . $descripcion . " /Lider:" . $lider . " /Materiales:" . $materiales . " /Estatus:" . $estatus . " /Avance:" . $avance . "%" .
+            " /Fecha de inicio:" . $f_inicio . " /Fecha de fin:" . $f_fin;
+
+        $this->movimiento_bitacora($mi_id, $movimiento, $id_diagrama);
+
+
         $mensaje = "Tarea generada con exito";
-        
+
         return $this->diagrama($id_diagrama, $mensaje);
     }
 
@@ -174,9 +199,18 @@ class DiagramaController extends Controller
         //dd($post);
         if ($post) {
             $mensaje = "Tarea Actualizada con exito";
-            $insert = DB::table('tareas')->where('id', $id_tarea)->update(['nombre' => $nombre, 'descripcion' => $descripcion,'lider_proyecto'=> $lider,
-            'materiales'=>$materiales,'estatus'=>$estatus,'avance'=>$avance,'id_diagrama' => $id_diagrama,
-             'f_inicio' => $f_inicio, 'f_fin' => $f_fin, 'color' => $color, 'updated_at' => "$dia"]);
+            $insert = DB::table('tareas')->where('id', $id_tarea)->update([
+                'nombre' => $nombre, 'descripcion' => $descripcion, 'lider_proyecto' => $lider,
+                'materiales' => $materiales, 'estatus' => $estatus, 'avance' => $avance, 'id_diagrama' => $id_diagrama,
+                'f_inicio' => $f_inicio, 'f_fin' => $f_fin, 'color' => $color, 'updated_at' => "$dia"
+            ]);
+
+            $n_diag = DB::table('diagramas')->select('nombre')->where('id', $id_diagrama)->first();
+            $movimiento = "Se Actualizo una tarea para el diagrama:" . $n_diag->nombre . " por el usuario:" . Auth::user()->name . "Datos: Nombre:" . $nombre .
+                " /Descripcion:" . $descripcion . " /Lider:" . $lider . " /Materiales:" . $materiales . " /Estatus:" . $estatus . " /Avance:" . $avance . "%" .
+                " /Fecha de inicio:" . $f_inicio . " /Fecha de fin:" . $f_fin;
+
+            $this->movimiento_bitacora($mi_id, $movimiento, $id_diagrama);
         } else {
             $mensaje = "Tarea no Actualizada verfica los datos";
         }
@@ -190,11 +224,41 @@ class DiagramaController extends Controller
         $id_tarea = $request->input('tarea');
         $id_diagrama = $request->input('dg');
         $delete = DB::table('tareas')->where('id', $id_tarea)->where('id_diagrama', $id_diagrama)->delete();
+
+        $n_diag  = DB::table('diagramas')->select('nombre')->where('id', $id_diagrama)->first();
+        $n_tarea = DB::table('tareas')->select('nombre')->where('id', $id_tarea)->first();
+        $movimiento = "Se Elimino una tarea para el diagrama:" . $n_diag->nombre . " por el usuario:" . Auth::user()->name . "Datos: Tarea:" . $n_tarea->nombre;
+        $this->movimiento_bitacora($mi_id, $movimiento, $id_diagrama);
         if ($delete) {
             $mensaje = "Tarea eliminada";
         } else {
             $mensaje = "ERROR Tarea no eliminada verifica datos";
         }
         return $this->diagrama($id_diagrama, $mensaje);
+    }
+
+    private function movimiento_bitacora($id_usuario, $descripcion, $id_diagrama)
+    {
+        $fecha = Carbon::now();
+        $movimiento = DB::table('bitacora_diagramas')->insert([
+            'descripcion' => $descripcion,
+            'id_genero' => $id_usuario, 'id_diagrama' => $id_diagrama, 'created_at' => $fecha, 'updated_at' => $fecha
+        ]);
+        if ($movimiento) {
+            return "exito";
+        } else {
+            return "error";
+        }
+    }
+
+    public function historial_diagramas($id){
+       
+        $id_diagrama = $id;
+        $bitacoras = DB::table('bitacora_diagramas')->where('id_diagrama',$id_diagrama)->get();
+        $mensaje = "";
+        $usuarios = DB::table('users')->get();
+        $diagramas = DB::table('diagramas')->where('id',$id_diagrama)->get();
+
+        return view('admin_panel/bitacora_diagramas', compact('mensaje','bitacoras','usuarios','diagramas'));
     }
 }

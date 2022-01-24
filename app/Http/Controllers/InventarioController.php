@@ -36,6 +36,7 @@ class InventarioController extends Controller
         $descr    = $request->input('descripcion');
         $id_suc   = $request->input('sucursal');
         $fecha    = Carbon::now();
+        $tipo = 1;
 
         $existe   = DB::table('existencias_inventario')->select('cantidad')->where('id_producto', $id_producto)
             ->where('id_ubicacion', $id_suc)->first();
@@ -55,7 +56,7 @@ class InventarioController extends Controller
         $insert = DB::table('ingreso_inventario')->insert([
             'id_producto' => $id_producto, 'id_ubicacion' => $id_suc,
             'cantidad' => $cantidad, 'descripcion' => $descr,
-            'id_genero' => $id, 'created_at' => "$fecha", 'updated_at' => "$fecha"
+            'id_genero' => $id,'tipo'=> $tipo, 'created_at' => "$fecha", 'updated_at' => "$fecha"
         ]);
 
 
@@ -147,6 +148,7 @@ class InventarioController extends Controller
         $descr    = $request->input('descripcion');
         $id_suc   = $request->input('sucursal');
         $fecha    = Carbon::now();
+        $tipo     = 2 ;
 
         //dd($_POST);
 
@@ -159,7 +161,7 @@ class InventarioController extends Controller
         $insert = DB::table('baja_inventario')->insert([
             'id_producto' => $id_producto, 'id_ubicacion' => $id_suc,
             'cantidad' => $cantidad, 'descripcion' => $descr,
-            'id_genero' => $id, 'created_at' => "$fecha", 'updated_at' => "$fecha"
+            'id_genero' => $id,'tipo' => $tipo ,'created_at' => "$fecha", 'updated_at' => "$fecha"
         ]);
 
         if ($insert and $actualiza) {
@@ -197,6 +199,7 @@ class InventarioController extends Controller
         $id_producto = $request->input('producto');
         $cantidad = $request->input('cantidad');
         $fecha    = Carbon::now();
+        $tipo = 3;
 
         $verificar_inventario = DB::table('existencias_inventario')->where('id_producto', $id_producto)
             ->where('id_ubicacion', $id_origen)->where('cantidad', ">=", $cantidad)->exists();
@@ -204,7 +207,7 @@ class InventarioController extends Controller
             // Se genera el insert en traslado
          $insert= DB::table('traslado_inventario')->insert([
             'id_producto' => $id_producto, 'id_origen' => $id_origen, 'id_destino' => $id_destino,
-            'cantidad' => $cantidad, 'id_genero' => $id,
+            'cantidad' => $cantidad, 'id_genero' => $id,'tipo'=> $tipo,
             'created_at' => "$fecha", 'updated_at' => "$fecha"
         ]);
 

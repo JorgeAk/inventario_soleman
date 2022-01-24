@@ -97,12 +97,22 @@
                         </td>
                     </tr>
                     <tr>
+                        @if($tipe == 1)
                         <td rowspan="3">
                             <div>{!! DNS2D::getBarcodeSVG($prod->codigo, 'QRCODE',4,4) !!}</div>{{$prod->codigo}}
                         </td>
                         <td rowspan="3">
                             <p>{{$prod->nombre}}<br>{{$prod->descripcion}}<br> {{ date('d/m/Y  H:i:s') }}</p>
                         </td>
+                        @endif
+                        @if($tipe == 2)
+                        <td rowspan="3">
+                        <p>{{$prod->nombre}}<br>{{$prod->descripcion}}</p>
+                            <div>{!! DNS1D::getBarcodeSVG($prod->codigo, 'C128') !!}</div>
+                            {{ date('d/m/Y  H:i:s') }}
+                        </td>
+                        @endif
+
                     </tr>
                 </tbody>
             </table>

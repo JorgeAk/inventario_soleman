@@ -244,4 +244,12 @@ class HomeController extends Controller
         return response()->json($existencia);
 
     }
+
+    public function obtn_sub_cat(Request $request){
+
+        $id_origen = $request->input('id');
+        $existencia = DB::table('sub_categorias')->select('id','nombre')->where('id_categoria',$id_origen)->get();
+        return response()->json($existencia);
+
+    }
 }

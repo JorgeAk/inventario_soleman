@@ -133,7 +133,6 @@
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-truck"></i><span class="hide-menu">Traslados <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="{{route('admin/traslados')}}">Generar Traslado</a></li>
-                                <li><a href="app-chat.html">Generar Reportes</a></li>
                             </ul>
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-map-alt"></i><span class="hide-menu">Sucursales <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
@@ -342,28 +341,56 @@
 
                 <!-- Salidas Modal -->
                 <div id="salidas-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h4 class="modal-title">Salida de productos</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                             </div>
                             <div class="modal-body">
-                                <form>
-                                    <div class="form-group">
-                                        <label for="recipient-name" class="control-label">Recipient:</label>
-                                        <input type="text" class="form-control" id="recipient-name">
+                            <form action="{{route('admin/salidas')}}" method="POST">
+                                    @csrf
+                                    <div class="form-body">
+                                        <div class="row p-t-20">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="col-sm-12">Selecciona Sucursal</label>
+                                                    <div class="col-sm-12">
+                                                        <select class="form-control form-control-line" name="sucursal">
+                                                            <option value="all">Todas</option>
+                                                            @foreach($sucursales as $suc)
+                                                            <option value="{{$suc->id}}">{{$suc->nombre}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Por fechas</label>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" id="customRadio1" name="xfecha" value="1" class="custom-control-input">
+                                                        <label class="custom-control-label" for="customRadio1">Si</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" id="customRadio2" name="xfecha" value="0" class="custom-control-input">
+                                                        <label class="custom-control-label" for="customRadio2">No</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="recipient-name" class="control-label">Fecha: </label>
+                                                    <input type="text" name="fecha" class="form-control input-daterange-datepicker">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/row-->
                                     </div>
-                                    <div class="form-group">
-                                        <label for="message-text" class="control-label">Message:</label>
-                                        <textarea class="form-control" id="message-text"></textarea>
-                                    </div>
-                                </form>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-danger waves-effect waves-light">Save changes</button>
+                                <button type="submit" class="btn btn-danger waves-effect waves-light">Generar</button>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>

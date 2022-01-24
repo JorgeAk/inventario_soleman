@@ -15,7 +15,16 @@ class BarCodeController extends Controller
     public function index($id)
     {
         $mensaje = "";
+        $tipe = 1;
         $productos = DB::table('productos')->where('id',$id)->get();
-        return view('admin_panel/barcode', compact('productos', 'mensaje'));
+        return view('admin_panel/barcode', compact('productos','tipe' ,'mensaje'));
+    }
+
+    public function index_barr($id)
+    {
+        $mensaje = "";
+        $tipe = 2;
+        $productos = DB::table('productos')->where('id',$id)->get();
+        return view('admin_panel/barcode', compact('productos','tipe','mensaje'));
     }
 }

@@ -135,7 +135,6 @@
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-truck"></i><span class="hide-menu">Traslados <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="{{route('admin/traslados')}}">Generar Traslado</a></li>
-                                <li><a href="app-chat.html">Generar Reportes</a></li>
                             </ul>
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-map-alt"></i><span class="hide-menu">Sucursales <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
@@ -154,7 +153,7 @@
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-settings"></i><span class="hide-menu">Configuración <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
                             <ul aria-expanded="false" class="collapse">
-                            @if(Auth::user()->tipo_usuario == 1)
+                                @if(Auth::user()->tipo_usuario == 1)
                                 <li><a href="{{route('admin/usuarios/control')}}">Usuarios</a></li>
                                 @endif
                                 <li><a href="{{route('admin/perfil')}}">Mi perfil</a></li>
@@ -252,8 +251,8 @@
                                             <img src="{{ storage_path().'/app/public/images/'.$prod->imagen }}" alt="" title="">
                                             <tr>
                                                 <td>{{$prod->codigo}} </td>
-                                                <td>{{$prod->nombre}}</td>
-                                                <td>{{$prod->descripcion}}</td>
+                                                <td style="white-space: pre-line;">{{$prod->nombre}}</td>
+                                                <td style="white-space: pre-line;">{{$prod->descripcion}}</td>
                                                 <td>{{$prod->cantidad}}</td>
                                                 <td>
                                                     @if($prod->estatus == 1)
@@ -314,25 +313,24 @@
                                                             <label for="message-text" class="control-label">Descripción:</label>
                                                             <textarea class="form-control" name="descripcion" id="message-text1"></textarea>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label class="col-sm-12">Categoria</label>
-                                                            <div class="col-sm-12">
-                                                                <select class="form-control form-control-line" name="categoria">
-                                                                    <option value="1">Equipo electronico</option>
-                                                                    <option value="2">Mobiliario</option>
-                                                                    <option value="3">Consumibles</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
+                                                            <label class="col-sm-12">Categoria</label>
+                                                            <div class="col-sm-12">
+                                                                <select id="categoria-pr" class="form-control form-control-line" name="categoria">
+                                                                    <option value="0" selected disabled>Selecciona una opcion</option>
+                                                                    @foreach($categorias as $cat)
+                                                                    <option value="{{$cat->id}}">{{$cat->nombre}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
                                                             <label class="col-sm-12">Sub Categoria</label>
                                                             <div class="col-sm-12">
-                                                                <select class="form-control form-control-line" name="sub_categoria">
-                                                                    <option value="1">Computo</option>
-                                                                    <option value="2">Silla</option>
-                                                                    <option value="3">Impresora</option>
+                                                                <select id="sub_categorias" class="form-control form-control-line" name="sub_categoria">
+                                                                    <option value="0" selected disabled>Selecciona una opcion</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -343,16 +341,6 @@
                                                                     <option value="1">Activo</option>
                                                                     <option value="2">Pendiente</option>
                                                                     <option value="3">Terminado</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="col-sm-12">Sucursal</label>
-                                                            <div class="col-sm-12">
-                                                                <select class="form-control form-control-line" name="sucursal">
-                                                                    @foreach($sucursales as $suc)
-                                                                    <option value="{{$suc->id}}">{{$suc->nombre}}</option>
-                                                                    @endforeach
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -422,7 +410,7 @@
                                                     </div>
                                                     <div class="card-body text-center">
                                                         <h5 class="card-title m-t-10 db">Generar Etiqueta</h5>
-                                                        <a href="{{route('barcode/',$prod->id)}}" class="link"><i class="mdi mdi-barcode-scan" style="font-size: 25px;"></i>
+                                                        <a href="{{route('barcode/barr/',$prod->id)}}" class="link"><i class="mdi mdi-barcode-scan" style="font-size: 25px;"></i>
                                                             <font class="font-medium"></font>
                                                         </a>&nbsp;&nbsp;&nbsp;
                                                         <a href="{{route('barcode/',$prod->id)}}" class="link"><i class="mdi mdi-qrcode-scan" style="font-size: 25px;"></i>

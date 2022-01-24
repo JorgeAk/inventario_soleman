@@ -54,6 +54,12 @@ Route::post('/admin/productos/eliminar',[App\Http\Controllers\ProductosControlle
 Route::get('/barcode/{id}', [App\Http\Controllers\BarcodeController::class, 'index'])
 ->middleware('auth')->name('barcode/');
 
+Route::get('/barcode/barr/{id}', [App\Http\Controllers\BarcodeController::class, 'index_barr'])
+->middleware('auth')->name('barcode/barr/');  
+
+Route::get('/admin/obtener/sub/cat',[App\Http\Controllers\HomeController::class, 'obtn_sub_cat'],function(){ 
+})->middleware('auth')->name('admin/obtener/sub/cat');
+
 //--------------------------------END PRODUCTOS-------------------------------
 
 //--------------------------------CATEGORIAS-------------------------------
@@ -129,6 +135,8 @@ Route::post('/admin/usuarios/ubicaciones/reportes/existencias',[App\Http\Control
 })->middleware('auth')->name('admin/existencias');
 Route::post('/admin/usuarios/ubicaciones/reportes/entradas',[App\Http\Controllers\ReportesController::class, 'entradas'],function(){ 
 })->middleware('auth')->name('admin/entradas');
+Route::post('/admin/usuarios/ubicaciones/reportes/salidas',[App\Http\Controllers\ReportesController::class, 'salidas'],function(){ 
+})->middleware('auth')->name('admin/salidas');
 Route::post('/admin/usuarios/ubicaciones/reportes/historico/productos',[App\Http\Controllers\ReportesController::class, 'reporte_historico'],function(){ 
 })->middleware('auth')->name('admin/reporte/historico/producto');
 //--------------------------------END REPORTES-------------------------------
@@ -160,7 +168,7 @@ Route::post('/admin/diagramas/mis/diagramas/actualizar',[App\Http\Controllers\Di
 Route::post('/admin/diagramas/mis/diagramas/eliminar',[App\Http\Controllers\DiagramaController::class,'diagramas_eliminar'],function(){
 })->middleware('auth')->name('diagrama/eliminar');
 
-Route::post('/admin/diagramas/mis/diagramas',[App\Http\Controllers\DiagramaController::class,'diagrama'],function(){
+Route::get('/admin/diagramas/mis/diagramas/{id}',[App\Http\Controllers\DiagramaController::class,'diagrama'],function(){
 })->middleware('auth')->name('mis_diagramas/diagrama');
 
 Route::post('/admin/diagramas/mis/diagramas/tarea/nueva',[App\Http\Controllers\DiagramaController::class,'tarea_nueva'],function(){
@@ -171,4 +179,7 @@ Route::post('/admin/diagramas/mis/diagramas/tarea/actualizar',[App\Http\Controll
 
 Route::post('/admin/diagramas/mis/diagramas/tarea/eliminar',[App\Http\Controllers\DiagramaController::class,'tarea_eliminar'],function(){
 })->middleware('auth')->name('tarea/eliminar');
+
+Route::get('/admin/diagramas/mis/diagramas/bitacora/{id}',[App\Http\Controllers\DiagramaController::class,'historial_diagramas'],function(){
+})->middleware('auth')->name('diagramas/bitacora');
 //--------------------------------END DIAGRAMAS-------------------------------

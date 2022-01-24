@@ -37,7 +37,6 @@ class ProductosController extends Controller
         $id_cat   = $request->input('categoria');
         $id_sub   = $request->input('sub_categoria');
         $descr    = $request->input('descripcion');
-        $id_suc   = $request->input('sucursal');
         $fecha    = Carbon::now();
 
         //dd($_POST);

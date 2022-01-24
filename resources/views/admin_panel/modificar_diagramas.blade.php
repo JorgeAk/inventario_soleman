@@ -134,7 +134,6 @@
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-truck"></i><span class="hide-menu">Traslados <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="{{route('admin/traslados')}}">Generar Traslado</a></li>
-                                <li><a href="app-chat.html">Generar Reportes</a></li>
                             </ul>
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-map-alt"></i><span class="hide-menu">Sucursales <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
@@ -219,7 +218,13 @@
                                         <button type="button" type="button" data-toggle="modal" data-target="#exampleModal" data-whatever="@fat" class="btn btn-danger d-none d-lg-block m-l-15  m-t-30  m-b-10">
                                             <i class="fa fa-plus-circle"></i> Agregar nueva tarea</button></div>
                                     <!-- Optional: clear the XS cols if their content doesn't match in height -->
-                                    <div class="clearfix visible-xs"></div>
+                                    <div class="clearfix visible-xs">
+                                        @if( Auth::user()->tipo_usuario == 1 or Auth::user()->tipo_usuario == 2  )
+                                        <button type="button" type="button" data-whatever="@fat" class="btn btn-danger d-none d-lg-block m-l-15  m-t-30  m-b-10">
+                                            <i class="mdi mdi-book-open-page-variant"></i> <a href="{{route('diagramas/bitacora',$i_diagrama)}}" class="" style="color: #fff;"> Ver Bitacora
+                                            </a> </button>
+                                        @endif
+                                    </div>
                                     <div class="col-xs-6 col-sm-4"></div>
                                 </div>
                                 <!--<button id="print" class="btn btn-default btn-outline" type="button"> <span><i class="fa fa-print"></i> Print</span> </button>-->

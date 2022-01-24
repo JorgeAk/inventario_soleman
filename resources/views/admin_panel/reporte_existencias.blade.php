@@ -133,7 +133,6 @@
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-truck"></i><span class="hide-menu">Traslados <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="{{route('admin/traslados')}}">Generar Traslado</a></li>
-                                <li><a href="app-chat.html">Generar Reportes</a></li>
                             </ul>
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-map-alt"></i><span class="hide-menu">Sucursales <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
@@ -201,8 +200,8 @@
                 <div class="card-group">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Existencias</h4>
-                            <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
+                            <h4 class="card-title">{{$tipo_rep}}</h4>
+                            <h6 class="card-subtitle"></h6>
                             <div class="row show-grid">
                                 <div class="col-xs-6 col-sm-4"></div>
                                 <div class="col-xs-6 col-sm-4"></div>
@@ -232,12 +231,12 @@
                                         <tr>
                                             @foreach($sucursales as $suc)
                                             @if($exi->id_ubicacion == $suc->id)
-                                            <td>{{$suc->nombre}}</td>
+                                            <td style="white-space: pre-line;">{{$suc->nombre}}</td>
                                             @endif
                                             @endforeach
                                             <td>{{$prod->codigo}} </td>
-                                            <td>{{$prod->nombre}}</td>
-                                            <td>{{$prod->descripcion}}</td>
+                                            <td style="white-space: pre-line;">{{$prod->nombre}}</td>
+                                            <td style="white-space: pre-line;">{{$prod->descripcion}}</td>
                                             <td>{{$exi->cantidad}}</td>
                                             <td>
                                                 @if($prod->estatus == 1)

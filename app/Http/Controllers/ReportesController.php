@@ -28,6 +28,7 @@ class ReportesController extends Controller
 
         $mensaje = "";
         $id_sucursal = $request->input('sucursal');
+        $tipo_rep = "Reporte de existencias de productos";
         //dd($_POST);
         $sucursales  = DB::table('ubicaciones')->get();
         if ($id_sucursal  != "all") {
@@ -39,7 +40,7 @@ class ReportesController extends Controller
         }
 
         if (Auth::user()) {
-            return view('admin_panel/reporte_existencias', compact('mensaje', 'productos', 'existencias', 'sucursales'));
+            return view('admin_panel/reporte_existencias', compact('mensaje','tipo_rep' , 'productos', 'existencias', 'sucursales'));
         } else {
             return view('home');
         }
@@ -58,6 +59,7 @@ class ReportesController extends Controller
         $f_ini = date("Y-m-d", strtotime($fecha[0]));
         $f_fin = date("Y-m-d", strtotime($fecha[1]));
         $productos = DB::table('productos')->get();
+        $tipo_rep = "Reporte de entrada de productos";
         //$f_ini = Carbon::createFromFormat('Y-m-d', $fech);
         //dd($f_fin);
         $sucursales  = DB::table('ubicaciones')->get();
@@ -80,7 +82,49 @@ class ReportesController extends Controller
             }
         }
         if (Auth::user()) {
-            return view('admin_panel/reporte_existencias', compact('mensaje', 'productos', 'existencias', 'sucursales'));
+            return view('admin_panel/reporte_existencias', compact('mensaje','tipo_rep' ,'productos', 'existencias', 'sucursales'));
+        } else {
+            return view('home');
+        }
+    }
+
+    public function salidas(Request $request)
+    {
+
+        $mensaje = "";
+        $id_sucursal = $request->input('sucursal');
+        $xfecha = $request->input('xfecha');
+        $fecha = $request->input('fecha');
+        $fecha = explode("-", $fecha);
+        $f_ini = trim($fecha[0]);
+        $f_fin = trim($fecha[1]);
+        $f_ini = date("Y-m-d", strtotime($fecha[0]));
+        $f_fin = date("Y-m-d", strtotime($fecha[1]));
+        $productos = DB::table('productos')->get();
+        $tipo_rep = "Reporte de salidas de productos";
+        //$f_ini = Carbon::createFromFormat('Y-m-d', $fech);
+        //dd($f_fin);
+        $sucursales  = DB::table('ubicaciones')->get();
+        if ($id_sucursal  != "all") {
+            if ($xfecha == 1) {
+                $existencias = DB::table('baja_inventario')->where('id_ubicacion', $id_sucursal)
+                    ->where('created_at', '>=', date('Y-m-d', strtotime($f_ini)))
+                    ->where('created_at', '<=', date('Y-m-d', strtotime($f_fin)))->get();
+                //dd($productos);
+            } else {
+                $existencias = DB::table('baja_inventario')->where('id_ubicacion', $id_sucursal)->get();
+            }
+        } else {
+            if ($xfecha == 1) {
+                $existencias = DB::table('baja_inventario')
+                    ->where('created_at', '>=', date('Y-m-d', strtotime($f_ini)))
+                    ->where('created_at', '<=', date('Y-m-d', strtotime($f_fin)))->get();
+            } else {
+                $existencias = DB::table('baja_inventario')->get();
+            }
+        }
+        if (Auth::user()) {
+            return view('admin_panel/reporte_existencias', compact('mensaje','tipo_rep', 'productos', 'existencias', 'sucursales'));
         } else {
             return view('home');
         }

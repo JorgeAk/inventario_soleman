@@ -133,7 +133,6 @@
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-truck"></i><span class="hide-menu">Traslados <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="{{route('admin/traslados')}}">Generar Traslado</a></li>
-                                <li><a href="app-chat.html">Generar Reportes</a></li>
                             </ul>
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-map-alt"></i><span class="hide-menu">Sucursales <span class="badge badge-pill badge-cyan ml-auto">2</span></span></a>
@@ -209,7 +208,7 @@
                                             <p class="text-muted">NUEVOS PRODUCTOS</p>
                                         </div>
                                         <div class="ml-auto">
-                                            <h2 class="counter text-primary">23</h2>
+                                            <h2 class="counter text-primary">0</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -233,7 +232,7 @@
                                             <p class="text-muted">SUCURSALES</p>
                                         </div>
                                         <div class="ml-auto">
-                                            <h2 class="counter text-cyan">169</h2>
+                                            <h2 class="counter text-cyan">0</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -257,7 +256,7 @@
                                             <p class="text-muted">TRASLADOS</p>
                                         </div>
                                         <div class="ml-auto">
-                                            <h2 class="counter text-purple">157</h2>
+                                            <h2 class="counter text-purple">0</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -281,7 +280,7 @@
                                             <p class="text-muted">DIAGRAMAS</p>
                                         </div>
                                         <div class="ml-auto">
-                                            <h2 class="counter text-success">431</h2>
+                                            <h2 class="counter text-success">0</h2>
                                         </div>
                                     </div>
                                 </div>

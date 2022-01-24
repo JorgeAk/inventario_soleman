@@ -353,6 +353,14 @@
             'copy', 'csv', 'excel', 'pdf', 'print'
         ]
     });
+    $('#example45').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'excel'
+        ],
+        
+       
+    });
 
     $('#example30').DataTable({
         dom: 'Bfrtip',
@@ -445,6 +453,54 @@
                 {
                     alert('Ocurrio un error en el servidor ..');
                     productos.prop('disabled', false);
+                }
+            });
+        }
+        else
+        {
+            cursos.find('option').remove();
+            cursos.prop('disabled', true);
+        }
+    })
+})
+</script>
+
+<script type = "text/javascript">
+  $(document).ready(function(){
+    
+    $("#categoria-pr").change(function(){
+       
+        var sub_categorias = $("#sub_categorias");
+        var cat_op_origen = $(this);
+        if($(this).val() != '')
+        {
+            $.ajax({
+                data: { id : cat_op_origen.val() },
+                url:   '{{ route('admin/obtener/sub/cat') }}',
+                type:  'GET',
+                dataType: 'json',
+                beforeSend: function () 
+                {
+                    cat_op_origen.prop('disabled', true);
+                    sub_categorias .prop('disabled', true);
+                  //alert('Espera unos segundos...');
+                },
+                success:  function (r) 
+                {
+                    cat_op_origen.prop('disabled', false);
+                    // Limpiamos el select
+                    sub_categorias.find('option').remove();
+                    sub_categorias.append('<option class="hidden"  selected disabled>Selecciona una opcion </option>');
+                    $(r).each(function(i, v){ // indice, valor
+                        sub_categorias.append('<option value="' + v.id + '">' + v.nombre+ '</option>');
+                    })
+                    sub_categorias.prop('disabled', false);
+                   
+                },
+                error: function()
+                {
+                    alert('Ocurrio un error en el servidor ..');
+                    sub_categorias.prop('disabled', false);
                 }
             });
         }
