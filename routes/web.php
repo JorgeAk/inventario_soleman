@@ -179,11 +179,18 @@ Route::post('/admin/diagramas/mis/diagramas/eliminar',[App\Http\Controllers\Diag
 Route::get('/admin/diagramas/mis/diagramas/{id}',[App\Http\Controllers\DiagramaController::class,'diagrama'],function(){
 })->middleware('auth')->name('mis_diagramas/diagrama');
 
+Route::get('/admin/diagramas/mis/diagramas/pendientes/{id}',[App\Http\Controllers\DiagramaController::class,'diagrama_filtrado'],function(){
+})->middleware('auth')->name('mis_diagramas/diagrama/pendientes');
+
+
+
 Route::post('/admin/diagramas/mis/diagramas/tarea/nueva',[App\Http\Controllers\DiagramaController::class,'tarea_nueva'],function(){
 })->middleware('auth')->name('tarea/nueva');
 
 Route::post('/admin/diagramas/mis/diagramas/tarea/actualizar',[App\Http\Controllers\DiagramaController::class,'tarea_actualizar'],function(){
 })->middleware('auth')->name('tarea/actualizar');
+Route::post('/admin/diagramas/mis/diagramas/tarea/reprogramar',[App\Http\Controllers\DiagramaController::class,'reprogramar_tarea'],function(){
+})->middleware('auth')->name('tarea/reprogramar');
 
 Route::post('/admin/diagramas/mis/diagramas/tarea/eliminar',[App\Http\Controllers\DiagramaController::class,'tarea_eliminar'],function(){
 })->middleware('auth')->name('tarea/eliminar');

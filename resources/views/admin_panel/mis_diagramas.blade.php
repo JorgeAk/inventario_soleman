@@ -234,7 +234,8 @@
                                                 <td>{{$diag->created_at}}</td>
                                                 <td>{{$diag->updated_at}}</td>
                                                 <td>
-                                                    <button type="button" class="btn btn-success btn-circle waves-light"><a class="" href="{{route('mis_diagramas/diagrama',$diag->id)}}" style="color: #f9f9f9;"><i class="fa fa-eye" title="Ver" data-toggle="tooltip"></i></a></button>
+                                                    <button type="button" class="btn btn-success btn-circle waves-light"><a class="" href="{{route('mis_diagramas/diagrama',$diag->id)}}" style="color: #f9f9f9;"><i class="fa fa-eye" title="Ver Completo" data-toggle="tooltip"></i></a></button>
+                                                    <button type="button" class="btn btn-info btn-circle waves-light"><a class="" href="{{route('mis_diagramas/diagrama/pendientes',$diag->id)}}" style="color: #f9f9f9;"><i class="fa fa-thumb-tack" title="Ver actividades pendientes" data-toggle="tooltip"></i></a></button>
                                                     <button type="button" class="btn btn-warning btn-circle waves-light" data-toggle="modal" data-target="#exampleModal-{{$diag->id}}"><i class="fa fa-pencil-square-o" title="Modificar" data-toggle="tooltip"></i></button>
                                                     <button type="button" class="btn btn-danger btn-circle  waves-light" data-toggle="modal" data-target="#exampleModal-del{{$diag->id}}"><i class="fa fa-trash-o" title="Eliminar" data-toggle="tooltip"></i></button>
                                                 </td>

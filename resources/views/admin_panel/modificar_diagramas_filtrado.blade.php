@@ -309,6 +309,7 @@
                                                 <form action="{{route('tarea/nueva')}}" method="POST">
                                                     @csrf
                                                     <input hidden type="text" name="dg" value="{{$dg}}" class="form-control">
+                                                    <input hidden type="text" name="fill" value="si" class="form-control">
 
                                                     <div class="form-body">
                                                         <div class="row p-t-20">
@@ -399,6 +400,7 @@
                                                     @csrf
                                                     <input hidden type="text" name="tarea" value="{{$tarea->id}}" class="form-control">
                                                     <input hidden type="text" name="dg" value="{{$dg}}" class="form-control">
+                                                    <input hidden type="text" name="fill" value="si" class="form-control">
                                                     <div class="form-body">
                                                         <div class="row p-t-20">
                                                             <div class="col-md-6">
@@ -486,6 +488,7 @@
                                                     @csrf
                                                     <input hidden type="text" name="tarea" value="{{$tarea->id}}" class="form-control">
                                                     <input hidden type="text" name="dg" value="{{$dg}}" class="form-control">
+                                                    <input hidden type="text" name="fill" value="si" class="form-control">
                                                     <div class="form-body">
                                                         <div class="row p-t-20">
                                                             <div class="col-md-6">
@@ -535,6 +538,7 @@
                                                     @csrf
                                                     <input hidden type="text" name="tarea" value="{{$tarea->id}}" class="form-control">
                                                     <input hidden type="text" name="dg" value="{{$dg}}" class="form-control">
+                                                    <input hidden type="text" name="fill" value="si" class="form-control">
                                                     <div class="alert alert-warning">
                                                         <h3 class="text-warning"><i class="fa fa-exclamation-triangle"></i> Deseas eliminar la tarea:</h3>
                                                         Nombre:{{$tarea->nombre}} <br>

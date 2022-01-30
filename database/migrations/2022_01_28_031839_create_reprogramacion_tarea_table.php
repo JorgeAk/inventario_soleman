@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTareasTable extends Migration
+class CreateReprogramacionTareaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,14 @@ class CreateTareasTable extends Migration
      */
     public function up()
     {
-        Schema::create('tareas', function (Blueprint $table) {
+        Schema::create('reprogramacion_tarea', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('descripcion');
-            $table->string('lider_proyecto');
-            $table->string('materiales');
-            $table->string('estatus');
-            $table->string('avance');
-            $table->integer('id_diagrama');
+            $table->text('motivo');
             $table->integer('f_inicio');
             $table->integer('f_fin');
+            $table->integer('id_tarea');
+            $table->integer('id_diagrama');
             $table->string('color');
-            $table->integer('tipo');
             $table->timestamps();
         });
     }
@@ -37,6 +32,6 @@ class CreateTareasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tareas');
+        Schema::dropIfExists('reprogramacion_tarea');
     }
 }
